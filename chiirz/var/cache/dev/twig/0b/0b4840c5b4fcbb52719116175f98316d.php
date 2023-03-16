@@ -73,9 +73,9 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
         // line 18
         $this->displayBlock('body', $context, $blocks);
         // line 19
-        echo "        <nav>
-            <div>
-                <img src=\"../public/svg/logo.svg\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+        echo "        <nav class=\"nav\">
+            <div class=\"nav__contentNav\">
+                <img src=\"../public/img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
                 <ul>
                     <li> 
@@ -99,9 +99,9 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
                 </ul>   
             </div>
 
-            <div>
-                <a href=\"#\"> Se connecter </a>
-                <a href=\"#\"> S'inscrire </a>
+            <div class=\"nav__contentBtn\">
+                <a href=\"#\" > Se connecter </a>
+                <a href=\"#\" class=\"btn--secondary\"> S'inscrire </a>
             </div>
             
         </nav>
@@ -234,9 +234,9 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
     </head>
     <body>
         {% block body %}{% endblock %}
-        <nav>
-            <div>
-                <img src=\"../public/svg/logo.svg\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+        <nav class=\"nav\">
+            <div class=\"nav__contentNav\">
+                <img src=\"../public/img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
                 <ul>
                     <li> 
@@ -254,9 +254,9 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
                 </ul>   
             </div>
 
-            <div>
-                <a href=\"#\"> Se connecter </a>
-                <a href=\"#\"> S'inscrire </a>
+            <div class=\"nav__contentBtn\">
+                <a href=\"#\" > Se connecter </a>
+                <a href=\"#\" class=\"btn--secondary\"> S'inscrire </a>
             </div>
             
         </nav>

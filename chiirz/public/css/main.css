@@ -1,0 +1,40 @@
+/*
+    Utils
+*/
+@import "./utils/reset.css";
+/*
+    Fonts
+*/
+/*
+    Base
+*/
+/*
+    Variables
+*/
+/*
+    Elements
+*/
+.nav {
+  display: flex;
+  justify-content: space-between;
+  color: #555555;
+}
+.nav__navContent {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+.nav__navContent ul {
+  list-style-type: none;
+}
+.nav__navContent ul li {
+  margin: 0.3rem;
+  display: inline-block;
+}
+.nav__navBtn {
+  width: 20%;
+}
+
+/*  
+    Components
+*//*# sourceMappingURL=main.css.map */

@@ -65,9 +65,7 @@ class __TwigTemplate_c7498a3cc5fa300e5b000446085c8d09 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 3
-        echo "    <h1>";
-        echo twig_escape_filter($this->env, (isset($context["titre"]) || array_key_exists("titre", $context) ? $context["titre"] : (function () { throw new RuntimeError('Variable "titre" does not exist.', 3, $this->source); })()), "html", null, true);
-        echo "</h1>
+        echo "    
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -96,7 +94,7 @@ class __TwigTemplate_c7498a3cc5fa300e5b000446085c8d09 extends Template
     {
         return new Source("{% extends 'base.html.twig' %}
 {% block body %}
-    <h1>{{ titre }}</h1>
+    
 {% endblock %}", "home.html.twig", "C:\\chiirz\\chiirz\\templates\\home.html.twig");
     }
 }

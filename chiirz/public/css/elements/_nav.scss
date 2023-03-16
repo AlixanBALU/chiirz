@@ -1,39 +1,24 @@
-/*
-    Utils
-*/
-@import "./utils/reset.css";
+.nav {
+  display: flex;
+  justify-content: space-between;
+  color: $p-grey;
 
-/*
-    Fonts
-*/
+  &__navContent {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
 
-/*
-    Base
-*/
-@import "base/fonts";
+    & ul {
+      list-style-type: none;
 
-/*
-    Variables
-*/
+      & li {
+        margin: 0.3rem;
+        display: inline-block;
+      }
+    }
+  }
 
-$green: #b1ef42;
-$violet: #a77fee;
-$black: #000000;
-$white: #ffffff;
-$valid: #397e35;
-$error: #c82f2a;
-$p-grey: #555555;
-$white-gray: #f8f8f8;
-$white-grayer: #d9d9d9;
-$violet2: #c5a7fc;
-$violet3: #cebbf0;
-$violet4: #eee8fa;
-
-/*
-    Elements
-*/
-@import "elements/nav";
-
-/*  
-    Components
-*/
+  &__navBtn {
+    width: 20%;
+  }
+}
