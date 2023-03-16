@@ -15,7 +15,6 @@ class UserType extends AbstractType
             ->add('pseudo')
             ->add('email')
             ->add('password')
-            ->add('register_date')
             ->add('url_pp')
         ;
     }
