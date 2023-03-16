@@ -74,18 +74,36 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
         $this->displayBlock('body', $context, $blocks);
         // line 19
         echo "        <nav>
-            <a href=\"";
-        // line 20
+            <div>
+                <img src=\"../public/svg/logo.svg\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+
+                <ul>
+                    <li> 
+                        <a href=\"";
+        // line 25
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
         echo "\">Accueil</a>
-            <a href=\"";
-        // line 21
+                    </li>
+                    <li> 
+                        <a href=\"";
+        // line 28
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("itinerary_index");
         echo "\">Itinéraires</a>
-            <a href=\"";
-        // line 22
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_index");
-        echo "\">Utilisateur</a>
+                    </li>
+                    <li> 
+                        <a href=\"#\"> Mon compte </a>
+                    </li>
+                    <li> 
+                        <a href=\"#\"> Rechercher </a>
+                    </li>
+                </ul>   
+            </div>
+
+            <div>
+                <a href=\"#\"> Se connecter </a>
+                <a href=\"#\"> S'inscrire </a>
+            </div>
+            
         </nav>
     </body>
 </html>
@@ -193,7 +211,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
 
     public function getDebugInfo()
     {
-        return array (  167 => 18,  154 => 14,  144 => 13,  131 => 10,  121 => 9,  102 => 5,  87 => 22,  83 => 21,  79 => 20,  76 => 19,  74 => 18,  70 => 16,  68 => 13,  65 => 12,  62 => 9,  57 => 6,  53 => 5,  47 => 1,);
+        return array (  185 => 18,  172 => 14,  162 => 13,  149 => 10,  139 => 9,  120 => 5,  90 => 28,  84 => 25,  76 => 19,  74 => 18,  70 => 16,  68 => 13,  65 => 12,  62 => 9,  57 => 6,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -217,12 +235,33 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
     <body>
         {% block body %}{% endblock %}
         <nav>
-            <a href=\"{{ path('home') }}\">Accueil</a>
-            <a href=\"{{ path('itinerary_index') }}\">Itinéraires</a>
-            <a href=\"{{ path('user_index') }}\">Utilisateur</a>
+            <div>
+                <img src=\"../public/svg/logo.svg\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+
+                <ul>
+                    <li> 
+                        <a href=\"{{ path('home') }}\">Accueil</a>
+                    </li>
+                    <li> 
+                        <a href=\"{{ path('itinerary_index') }}\">Itinéraires</a>
+                    </li>
+                    <li> 
+                        <a href=\"#\"> Mon compte </a>
+                    </li>
+                    <li> 
+                        <a href=\"#\"> Rechercher </a>
+                    </li>
+                </ul>   
+            </div>
+
+            <div>
+                <a href=\"#\"> Se connecter </a>
+                <a href=\"#\"> S'inscrire </a>
+            </div>
+            
         </nav>
     </body>
 </html>
-", "base.html.twig", "C:\\Users\\User\\Desktop\\ETUDIANT\\chiirz\\chiirz\\templates\\base.html.twig");
+", "base.html.twig", "C:\\chiirz\\chiirz\\templates\\base.html.twig");
     }
 }

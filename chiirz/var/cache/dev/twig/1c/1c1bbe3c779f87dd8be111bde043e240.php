@@ -97,6 +97,6 @@ class __TwigTemplate_c7498a3cc5fa300e5b000446085c8d09 extends Template
         return new Source("{% extends 'base.html.twig' %}
 {% block body %}
     <h1>{{ titre }}</h1>
-{% endblock %}", "home.html.twig", "C:\\Users\\User\\Desktop\\ETUDIANT\\chiirz\\chiirz\\templates\\home.html.twig");
+{% endblock %}", "home.html.twig", "C:\\chiirz\\chiirz\\templates\\home.html.twig");
     }
 }
