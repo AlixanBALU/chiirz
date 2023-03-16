@@ -95,6 +95,7 @@ class User
 
     public function setRegisterDate(\DateTimeInterface $register_date): self
     {
+        
         $this->register_date = $register_date;
 
         return $this;

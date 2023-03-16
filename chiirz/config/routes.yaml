@@ -4,3 +4,7 @@
 itinerary_index:
     path: /itinerary
     controller: App\Controller\ItineraryController::index
+    
+user_index:
+  path: /user
+  controller: App\Controller\ItineraryController::index
