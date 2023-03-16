@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+itinerary_index:
+    path: /itinerary
+    controller: App\Controller\ItineraryController::index

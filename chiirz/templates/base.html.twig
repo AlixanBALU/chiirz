@@ -16,5 +16,9 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+        <nav>
+            <a href="{{ path('home') }}">Accueil</a>
+            <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+        </nav>
     </body>
 </html>
