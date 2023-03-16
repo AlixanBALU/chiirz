@@ -54,7 +54,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
         echo "</title>
         <link rel=\"stylesheet\" href=\"";
         // line 6
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/style.css"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/main.css"), "html", null, true);
         echo "\">
         <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
         ";
@@ -75,7 +75,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
         // line 19
         echo "        <nav class=\"nav\">
             <div class=\"nav__contentNav\">
-                <img src=\"../public/img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+                <img src=\"./img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
                 <ul>
                     <li> 
@@ -101,7 +101,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
 
             <div class=\"nav__contentBtn\">
                 <a href=\"#\" > Se connecter </a>
-                <a href=\"#\" class=\"btn--secondary\"> S'inscrire </a>
+                <a href=\"#\" class=\"btn btn--secondary\"> S'inscrire </a>
             </div>
             
         </nav>
@@ -221,7 +221,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
     <head>
         <meta charset=\"UTF-8\">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel=\"stylesheet\" href=\"{{ asset('css/style.css') }}\">
+        <link rel=\"stylesheet\" href=\"{{ asset('css/main.css') }}\">
         <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -236,7 +236,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
         {% block body %}{% endblock %}
         <nav class=\"nav\">
             <div class=\"nav__contentNav\">
-                <img src=\"../public/img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
+                <img src=\"./img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
                 <ul>
                     <li> 
@@ -256,7 +256,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
 
             <div class=\"nav__contentBtn\">
                 <a href=\"#\" > Se connecter </a>
-                <a href=\"#\" class=\"btn--secondary\"> S'inscrire </a>
+                <a href=\"#\" class=\"btn btn--secondary\"> S'inscrire </a>
             </div>
             
         </nav>
