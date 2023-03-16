@@ -17,9 +17,30 @@
     <body>
         {% block body %}{% endblock %}
         <nav>
-            <a href="{{ path('home') }}">Accueil</a>
-            <a href="{{ path('itinerary_index') }}">Itinéraires</a>
-            <p> test </p>
+            <div>
+                <img src="../public/svg/logo.svg" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+
+                <ul>
+                    <li> 
+                        <a href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li> 
+                        <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+                    </li>
+                    <li> 
+                        <a href="#"> Mon compte </a>
+                    </li>
+                    <li> 
+                        <a href="#"> Rechercher </a>
+                    </li>
+                </ul>   
+            </div>
+
+            <div>
+                <a href="#"> Se connecter </a>
+                <a href="#"> S'inscrire </a>
+            </div>
+            
         </nav>
     </body>
 </html>
