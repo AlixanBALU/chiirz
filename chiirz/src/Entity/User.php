@@ -95,7 +95,8 @@ class User
 
     public function setRegisterDate(\DateTimeInterface $register_date): self
     {
-        $this->register_date = date('Y-m-d', strtotime('now'));;
+        
+        $this->register_date = $register_date;
 
         return $this;
     }
