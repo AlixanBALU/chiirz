@@ -77,7 +77,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
             <div class=\"nav__contentNav\">
                 <img src=\"./img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
-                <ul>
+                <ul class=\"p p-20\">
                     <li> 
                         <a href=\"";
         // line 25
@@ -99,7 +99,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
                 </ul>   
             </div>
 
-            <div class=\"nav__contentBtn\">
+            <div class=\"nav__contentBtn p p--16\">
                 <a href=\"#\" > Se connecter </a>
                 <a href=\"#\" class=\"btn btn--secondary\"> S'inscrire </a>
             </div>
@@ -238,7 +238,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
             <div class=\"nav__contentNav\">
                 <img src=\"./img/logo.png\" alt=\"logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg\">
 
-                <ul>
+                <ul class=\"p p-20\">
                     <li> 
                         <a href=\"{{ path('home') }}\">Accueil</a>
                     </li>
@@ -254,7 +254,7 @@ class __TwigTemplate_d37d1c3621cb1b31c9f974580366ac09 extends Template
                 </ul>   
             </div>
 
-            <div class=\"nav__contentBtn\">
+            <div class=\"nav__contentBtn p p--16\">
                 <a href=\"#\" > Se connecter </a>
                 <a href=\"#\" class=\"btn btn--secondary\"> S'inscrire </a>
             </div>

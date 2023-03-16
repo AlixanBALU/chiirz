@@ -37,7 +37,7 @@ Titres
 .title--h3 {
   font-size: 2rem;
 }
-.title--footer {
+.title--footerTitle {
   font-size: 2rem;
   font-weight: 700;
 }
@@ -89,6 +89,7 @@ Paragraphes
 }
 .nav__contentNav ul {
   list-style-type: none;
+  font-weight: 600;
 }
 .nav__contentNav ul li {
   margin: 0 1rem;
@@ -103,12 +104,14 @@ Paragraphes
 .nav__contentBtn a {
   text-decoration: none;
   color: #000000;
+  font-weight: 700;
 }
 
 .btn {
   border-radius: 500px;
   padding: 10px 20px;
   text-decoration: none;
+  font-weight: 700;
 }
 .btn--secondary {
   background-color: transparent;
