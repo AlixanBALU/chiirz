@@ -14,10 +14,10 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+
+    <header>
         <nav class="nav">
-            <div class="nav__contentNav">
+            <div class="nav__content-nav">
                 <img src="./img/logo.png" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
 
                 <ul class="p p-20">
@@ -35,15 +35,21 @@
                     </li>
                 </ul>   
             </div>
-
-            <div class="nav__contentBtn p p--16">
+            
+        
+            <div class="nav__content-btn p p--16">
                 <a href="#" > Se connecter </a>
                 <a href="#" class="btn btn--secondary"> S'inscrire </a>
             </div>
+        </nav>
+    </header> 
+    <body>
+        <div class="container">
+        
             
 
-        </nav>
-
+        {% block body %}{% endblock %}
+        </div>
         <script src="{{ asset('js/main.js') }}" defer></script>
     </body>
 </html>
