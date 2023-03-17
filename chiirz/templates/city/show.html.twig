@@ -36,7 +36,7 @@
     </header>
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
-                <div class="itiner-container__card">
+                <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
                     <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <h3>{{ itinerary.name }}</h3>
                     <div class="itiner-container__card__desc">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
     </section>
     </main>
