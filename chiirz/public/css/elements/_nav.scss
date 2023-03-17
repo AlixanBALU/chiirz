@@ -1,0 +1,40 @@
+.nav {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  &__contentNav {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & a {
+      text-decoration: none;
+      color: $p-grey;
+      font-family: "Chillax", sans-serif;
+    }
+
+    & ul {
+      list-style-type: none;
+      font-weight: 600;
+
+      & li {
+        margin: 0 1rem;
+        display: inline-block;
+      }
+    }
+  }
+
+  &__contentBtn {
+    width: 20%;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    & a {
+      text-decoration: none;
+      color: $black;
+      font-weight: 700;
+    }
+  }
+}

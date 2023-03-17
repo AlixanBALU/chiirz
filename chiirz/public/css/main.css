@@ -1,0 +1,127 @@
+@charset "UTF-8";
+/*
+    Utils
+*/
+@import "./utils/reset.css";
+/*
+    Fonts
+*/
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet");
+@font-face {
+  font-family: "Chillax";
+  src: url("/chiirz/public/fonts/Chillax-Variable.woff2") format("woff2"), url("/chiirz/public/fonts/Chillax-Variable.woff") format("woff"), url("/chiirz/public/fonts/fonts/public/Chillax-Variable.ttf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+/*
+Général
+*/
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/*
+Titres
+*/
+.title {
+  font-family: "Chillax", sans serif;
+  font-weight: 600;
+}
+.title--h1 {
+  font-size: 3.75rem;
+}
+.title--h2 {
+  font-size: 3rem;
+}
+.title--h3 {
+  font-size: 2rem;
+}
+.title--footerTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/*
+Paragraphes
+*/
+.p {
+  font-weight: 500;
+}
+.p--20 {
+  line-height: 25px;
+  font-size: 1.25rem;
+}
+.p--16 {
+  line-height: 20px;
+  font-size: 1rem;
+}
+.p--24 {
+  line-height: 33px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/*
+    Base
+*/
+/*
+    Variables
+*/
+/*
+    Elements
+*/
+.nav {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+.nav__contentNav {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav__contentNav a {
+  text-decoration: none;
+  color: #555555;
+  font-family: "Chillax", sans-serif;
+}
+.nav__contentNav ul {
+  list-style-type: none;
+  font-weight: 600;
+}
+.nav__contentNav ul li {
+  margin: 0 1rem;
+  display: inline-block;
+}
+.nav__contentBtn {
+  width: 20%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.nav__contentBtn a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 700;
+}
+
+.btn {
+  border-radius: 500px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 700;
+}
+.btn--secondary {
+  background-color: transparent;
+  border: 2px #000000 solid;
+  transition: all ease-in-out 0.5s;
+}
+.btn--secondary:hover {
+  background-color: #a77fee;
+}
+
+/*  
+    Components
+*//*# sourceMappingURL=main.css.map */

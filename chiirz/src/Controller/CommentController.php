@@ -29,6 +29,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setDate(new \DateTime());
             $commentRepository->save($comment, true);
 
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);

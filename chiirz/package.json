@@ -1,0 +1,18 @@
+{
+  "name": "chiirz",
+  "version": "1.0.0",
+  "description": "Chiirz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.unistra.fr/balu/chiirz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.59.3"
+  }
+}

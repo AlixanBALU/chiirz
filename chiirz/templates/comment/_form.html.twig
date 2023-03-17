@@ -1,7 +1,10 @@
-{{ form(form, {'render_rest': false}) }}
-{{ form_start(form)}}
-     {# {{ form_label(form, 'Name:', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+{# {{ form(form, {'render_rest': false}) }} #}
+     {{ form_label(form, 'Name:', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
         {{ form_widget(form, {'attr': {'class': 'form-input mt-1 block w-full'}}) }}
-        {{ form_row(form.text) }} #}
+        {{ form_row(form.text) }}
+        {{ form_row(form.text) }}
+        {{ form_row(form.text) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form)}}
+{# {{ form_start(form)}} #}
+

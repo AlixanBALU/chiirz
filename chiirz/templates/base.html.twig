@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -16,11 +16,11 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        <nav>
-            <div>
-                <img src="../public/svg/logo.svg" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+        <nav class="nav">
+            <div class="nav__contentNav">
+                <img src="./img/logo.png" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
 
-                <ul>
+                <ul class="p p-20">
                     <li> 
                         <a href="{{ path('home') }}">Accueil</a>
                     </li>
@@ -36,9 +36,9 @@
                 </ul>   
             </div>
 
-            <div>
-                <a href="#"> Se connecter </a>
-                <a href="#"> S'inscrire </a>
+            <div class="nav__contentBtn p p--16">
+                <a href="#" > Se connecter </a>
+                <a href="#" class="btn btn--secondary"> S'inscrire </a>
             </div>
             
         </nav>
