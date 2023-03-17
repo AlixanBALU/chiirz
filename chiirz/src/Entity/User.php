@@ -47,6 +47,11 @@ class User
         $this->likes = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->pseudo;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,7 +100,8 @@ class User
 
     public function setRegisterDate(\DateTimeInterface $register_date): self
     {
-        $this->register_date = date('Y-m-d', strtotime('now'));;
+        // $this->register_date = date('Y-m-d', strtotime('now'));
+        $this->register_date = $register_date;
 
         return $this;
     }

@@ -33,9 +33,17 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Itinerary $fk_itinerary = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
     public function __construct()
     {
         $this->fk_comment = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->text;
     }
 
     public function getId(): ?int
@@ -117,6 +125,18 @@ class Comment
     public function setFkItinerary(?Itinerary $fk_itinerary): self
     {
         $this->fk_itinerary = $fk_itinerary;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
