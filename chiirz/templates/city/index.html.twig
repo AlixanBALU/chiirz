@@ -3,7 +3,32 @@
 {% block title %}City index{% endblock %}
 
 {% block body %}
-    <h1>City index</h1>
+    <div class="section-itiner">
+        <header class="section-itiner__header">
+            <h1>Les routes de la soif de </h1>
+            <form action="./">
+                <select id="fruit-select" name="fruit">
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% endfor %}
+                  </select>
+            </form>
+            <div class="section-itiner__header__button-wrapper">
+                <a href="#" class="section-itiner__header__button-wrapper__button">Créer une route</a>
+                <form action="./" class="section-itiner__header__button-wrapper__select">
+                    <label for="fruit-select">Trier par</label>
+                    <select id="fruit-select" name="fruit">
+                        {% for city in cities %}
+                            <option value="{{ city.id }}">{{ city.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {# A changer l'asset : #}
+                    <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
+                </form>
+            </div>
+        </header>
+
+    </div>
 
     <table class="table">
         <thead>
@@ -17,7 +42,9 @@
         {% for city in cities %}
             <tr>
                 <td>{{ city.id }}</td>
-                <td>{{ city.name }}</td>
+                {% for itinerary in city.itineraries %}
+                    <td>{{ itinerary.name }}</td>
+                {% endfor %}
                 <td>
                     <a href="{{ path('app_city_show', {'id': city.id}) }}">show</a>
                     <a href="{{ path('app_city_edit', {'id': city.id}) }}">edit</a>
