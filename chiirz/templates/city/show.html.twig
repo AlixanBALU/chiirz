@@ -2,13 +2,21 @@
 
 {% block title %}City{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/city.js') }}" defer></script>
+{% endblock %}
+
 {% block body %}
     <header class="header">
         <h1>Les routes de la soif de </h1>
-        <form action="./">
+        <form id="redirectCity">
             <select id="fruit-select" name="fruit">
-                {% for city in cities %}
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+                <option value="{{ city.id }}">{{ city.name }}</option>
+                {% for c in cities %}
+                    {% if c.id != city.id %}
+                        <option value="{{ c.id }}">{{ c.name }}</    ption>
+                    {% endif %}
                 {% endfor %}
             </select>
         </form>
@@ -17,8 +25,8 @@
             <form action="./" class="header__button-wrapper__select">
                 <label for="fruit-select">Trier par</label>
                 <select id="fruit-select" name="fruit">
-                    {% for city in cities %}
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% for c in cities %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
                     {% endfor %}
                 </select>
                 {# A changer l'asset : #}
