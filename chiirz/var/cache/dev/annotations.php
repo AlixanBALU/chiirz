@@ -130,6 +130,8 @@ return [[
 '[C]App%5CEntity%5CComment' => 1,
 'App%5CEntity%5CComment%23__construct' => 0,
 '[C]App%5CEntity%5CComment%23__construct' => 1,
+'App%5CEntity%5CComment%23__toString' => 0,
+'[C]App%5CEntity%5CComment%23__toString' => 1,
 'App%5CEntity%5CComment%23getId' => 0,
 '[C]App%5CEntity%5CComment%23getId' => 1,
 'App%5CEntity%5CComment%23getText' => 0,
@@ -154,6 +156,10 @@ return [[
 '[C]App%5CEntity%5CComment%23getFkItinerary' => 1,
 'App%5CEntity%5CComment%23setFkItinerary' => 0,
 '[C]App%5CEntity%5CComment%23setFkItinerary' => 1,
+'App%5CEntity%5CComment%23getDate' => 0,
+'[C]App%5CEntity%5CComment%23getDate' => 1,
+'App%5CEntity%5CComment%23setDate' => 0,
+'[C]App%5CEntity%5CComment%23setDate' => 1,
 'App%5CEntity%5CComment%24id' => 0,
 '[C]App%5CEntity%5CComment%24id' => 1,
 'App%5CEntity%5CComment%24text' => 0,
@@ -166,10 +172,14 @@ return [[
 '[C]App%5CEntity%5CComment%24fk_user' => 1,
 'App%5CEntity%5CComment%24fk_itinerary' => 0,
 '[C]App%5CEntity%5CComment%24fk_itinerary' => 1,
+'App%5CEntity%5CComment%24date' => 0,
+'[C]App%5CEntity%5CComment%24date' => 1,
 'App%5CEntity%5CItinerary' => 0,
 '[C]App%5CEntity%5CItinerary' => 1,
 'App%5CEntity%5CItinerary%23__construct' => 0,
 '[C]App%5CEntity%5CItinerary%23__construct' => 1,
+'App%5CEntity%5CItinerary%23__toString' => 0,
+'[C]App%5CEntity%5CItinerary%23__toString' => 1,
 'App%5CEntity%5CItinerary%23getId' => 0,
 '[C]App%5CEntity%5CItinerary%23getId' => 1,
 'App%5CEntity%5CItinerary%23getName' => 0,
@@ -254,6 +264,8 @@ return [[
 '[C]App%5CEntity%5CUser' => 1,
 'App%5CEntity%5CUser%23__construct' => 0,
 '[C]App%5CEntity%5CUser%23__construct' => 1,
+'App%5CEntity%5CUser%23__toString' => 0,
+'[C]App%5CEntity%5CUser%23__toString' => 1,
 'App%5CEntity%5CUser%23getId' => 0,
 '[C]App%5CEntity%5CUser%23getId' => 1,
 'App%5CEntity%5CUser%23getPseudo' => 0,
@@ -858,7 +870,7 @@ return [[
 ], [
 
 0 => [],
-1 => 1678973680,
+1 => 1678982231,
 2 => static function () {
     return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
         $o = [

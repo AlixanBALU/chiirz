@@ -22,7 +22,7 @@ class UserType extends AbstractType
         ->add('password', TextType::class, [
             'label' => 'Mot de passe',
         ])
-        ->add('url_pp', UserProfileType::class, [
+        ->add('url_pp', TextType::class, [
             'required' => false,
         ])
         ;

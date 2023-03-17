@@ -42,7 +42,7 @@ class __TwigTemplate_8bc654c3de071df4d6765284f8e118d3 extends Template
         // line 1
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 1, $this->source); })()), 'form_start');
         echo "
-    ";
+";
         // line 2
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 2, $this->source); })()), 'widget');
         echo "
@@ -81,7 +81,7 @@ class __TwigTemplate_8bc654c3de071df4d6765284f8e118d3 extends Template
     public function getSourceContext()
     {
         return new Source("{{ form_start(form) }}
-    {{ form_widget(form) }}
+{{form_widget(form)}}
     <button class=\"btn\">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
 ", "user/_form.html.twig", "C:\\Users\\User\\Desktop\\ETUDIANT\\chiirz\\chiirz\\templates\\user\\_form.html.twig");
