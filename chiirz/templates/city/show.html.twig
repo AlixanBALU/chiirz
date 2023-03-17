@@ -28,7 +28,6 @@
     </header>
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
-            {{dump(itinerary)}}
                 <div class="itiner-container__card">
                     <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <h3>{{ itinerary.name }}</h3>
@@ -38,13 +37,17 @@
                             <div class="itiner-container__card__row1__rate">
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                                 <div>
-                                    {# {{dump(itinerary)}}
-                                    {% set rating %}
-                                    {% for comment in itinerary.comments %}
-                                        {{ comment.rating }}
-                                    {% endfor %}
-                                    {% endset %}
-                                    {{ rating|length }} #}
+                                    {% if itinerary.comments is empty %}
+                                        {{ N/A }}
+                                    {% else %}
+                                        {% set rating = 0 %}
+                                        {% set ratingIndex = 0 %}
+                                        {% for comment in itinerary.comments %}
+                                            {% set rating = rating + comment.rate %}
+                                            {% set ratingIndex = ratingIndex + 1 %}
+                                        {% endfor %}
+                                        {{ rating / ratingIndex }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -61,10 +64,5 @@
             {% endfor %}
     </section>
     </main>
-
-    <a href="{{ path('app_city_index') }}">back to list</a>
-
-    <a href="{{ path('app_city_edit', {'id': city.id}) }}">edit</a>
-
     {{ include('city/_delete_form.html.twig') }}
 {% endblock %}
