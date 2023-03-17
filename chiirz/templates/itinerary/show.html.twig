@@ -2,8 +2,87 @@
 
 {% block title %}Itinerary{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body %}
-    <h1>Itinerary</h1>
+    <a href="" id="backButton" class="back-itinerary">
+        <img src="{{ asset('img/svg/back.svg') }}" alt="<">
+        "Retour en arrière"
+    </a>
+    <section class="section-itinerary">
+        <div class="section-itinerary__maps">
+            {# Intégration Google Maps #}
+        </div>
+        <div class="section-itinerary__content">
+            <div class="section-itinerary__content__creator">
+                <img src="{{ asset('img/glowing_star.png') }}" alt="☆">
+                <p>Route de la soif imaginé par <a href="{{ path('user_index', { 'id': itinerary.fkuser }) }}" class="section-itinerary__content__creator__link">{{ itinerary.fkuser }}</a></p>
+            </div>
+            <h1>{{ itinerary.name }}</h1>
+            <div class="section-itinerary__content__rate">
+                <div class="section-itinerary__content__rate__rating">
+                    <img src="{{ asset('img/svg/star/svg') }}" alt="☆">
+                    <div>
+                    {% if itinerary.likes is empty %}
+                        N/A
+                    {% else %}
+                        {% set rating = 0 %}
+                        {% set ratingIndex = 0 %}
+                        {% for l in itinerary.likes %}
+                            {% set rating = rating + comment.rate %}
+                            {% set ratingIndex = ratingIndex + 1 %}
+                        {% endfor %}
+                        {{ rating / ratingIndex }}
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="section-itinerary__content__rate__price">
+                    {% for i in 1..itinerary.price %}
+                        <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                    {% endfor %}
+                </div>
+            </div>
+            {% if itinerary.text is not empty %}
+                <p class="section-itinerary__content__paragraph">{{ itinerary.text }}</p>
+            {% endif %}
+            <div class="section-itinerary__content__buttons">
+                <a href="#parcours" class="section-itinerary__content__buttons section-itinerary__content__buttons--go">
+                    <div>C'est parti !</div>
+                    <img src="{{ asset('img/smiling_face.png') }}" alt="😝">
+                </a>
+                <a href="" id="openOnGoogleMaps" class="section-itinerary__content__buttons section-itinerary__content__buttons--ggmaps">
+                    <div>Ouvrir sur Google Maps</div>
+                    <img src="{{ asset('img/svg/external_links.svg') }}" alt="↗">
+                </a>
+            </div>
+            <div class="section-itinerary__content__like">
+                <img src="{{ asset('img/svg/heart_color.svg') }}" alt="♡" id="likeHeartImg">
+                <div id="likeText">Ajouter aux favoris</div>
+            </div>
+            <div class="section-itinerary__content__steps">
+                <h3>{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
+                <ul>
+                    {# {% for s in itinerary.bar.step %}
+                        <li>{{ s.name }}</li>
+                    {% endfor %} #}
+                </ul>
+            </div>
+            <p class="section-itinerary__content__distance">Longeur du parcours : <span class="section-itinerary__content__distance__number">{{ itinerary.distance }}</p>
+        </div>
+    </section>
+    <section class="section-parcours" id="parcours">
+
+    </section>
+
+    <script>
+        import * as it from "{{ asset('js/itinerary.js') }}";
+        var itineraryJson = {{ itinerary.bar | raw }};
+        console.log(itineraryJson);
+        // On lance la fonction de tout le js en fonction du itineraryJson
+        it.getItinerary(itineraryJson);
+    </script>
 
     <table class="table">
         <tbody>
@@ -25,10 +104,6 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_itinerary_index') }}">back to list</a>
-
-    <a href="{{ path('app_itinerary_edit', {'id': itinerary.id}) }}">edit</a>
 
     {{ include('itinerary/_delete_form.html.twig') }}
 {% endblock %}

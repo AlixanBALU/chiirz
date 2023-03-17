@@ -2,34 +2,41 @@
 
 {% block title %}City{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/city.js') }}" defer></script>
+{% endblock %}
+
 {% block body %}
     <header class="header">
         <h1>Les routes de la soif de </h1>
-        <form action="./">
-            <select id="fruit-select" name="fruit">
-                {% for city in cities %}
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+        <form id="redirectCity">
+            <select id="city-select" name="city">
+                <option value="{{ city.id }}">{{ city.name }}</option>
+                {% for c in cities %}
+                    {% if c.id != city.id %}
+                        <option value="{{ c.id }}">{{ c.name }}</    ption>
+                    {% endif %}
                 {% endfor %}
             </select>
         </form>
         <div class="header__button-wrapper">
             <a href="#" class="header__button-wrapper__button">Créer une route</a>
-            <form action="./" class="header__button-wrapper__select">
-                <label for="fruit-select">Trier par</label>
-                <select id="fruit-select" name="fruit">
-                    {% for city in cities %}
-                    <option value="{{ city.id }}">{{ city.name }}</option>
+            {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
+                <label for="order-select">Trier par</label>
+                <select id="order-select" name="order">
+                    {% for c in cities %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
                     {% endfor %}
                 </select>
-                {# A changer l'asset : #}
+                <button type="submit">Submit</button>
                 <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
-            </form>
+            </form> #}
         </div>
     </header>
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
-            {{dump(itinerary)}}
-                <div class="itiner-container__card">
+                <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
                     <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <h3>{{ itinerary.name }}</h3>
                     <div class="itiner-container__card__desc">
@@ -38,13 +45,17 @@
                             <div class="itiner-container__card__row1__rate">
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                                 <div>
-                                    {{dump(itinerary)}}
-                                    {% set rating %}
-                                    {% for comment in itinerary.comments %}
-                                        {{ comment.rating }}
-                                    {% endfor %}
-                                    {% endset %}
-                                    {{ rating|length }}
+                                    {% if itinerary.comments is empty %}
+                                        N/A
+                                    {% else %}
+                                        {% set rating = 0 %}
+                                        {% set ratingIndex = 0 %}
+                                        {% for comment in itinerary.comments %}
+                                            {% set rating = rating + comment.rate %}
+                                            {% set ratingIndex = ratingIndex + 1 %}
+                                        {% endfor %}
+                                        {{ rating / ratingIndex }}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -57,14 +68,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
     </section>
     </main>
-
-    <a href="{{ path('app_city_index') }}">back to list</a>
-
-    <a href="{{ path('app_city_edit', {'id': city.id}) }}">edit</a>
-
     {{ include('city/_delete_form.html.twig') }}
 {% endblock %}
