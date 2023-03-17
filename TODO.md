@@ -1,2 +1,3 @@
 JAVASCRIPT (PAS AJAX) :
-reload la page itinerary on change du select city
+
+Retransformer le json en array au lieu de string

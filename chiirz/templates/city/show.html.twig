@@ -11,7 +11,7 @@
     <header class="header">
         <h1>Les routes de la soif de </h1>
         <form id="redirectCity">
-            <select id="fruit-select" name="fruit">
+            <select id="city-select" name="city">
                 <option value="{{ city.id }}">{{ city.name }}</option>
                 {% for c in cities %}
                     {% if c.id != city.id %}
@@ -22,16 +22,16 @@
         </form>
         <div class="header__button-wrapper">
             <a href="#" class="header__button-wrapper__button">Créer une route</a>
-            <form action="./" class="header__button-wrapper__select">
-                <label for="fruit-select">Trier par</label>
-                <select id="fruit-select" name="fruit">
+            {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
+                <label for="order-select">Trier par</label>
+                <select id="order-select" name="order">
                     {% for c in cities %}
                     <option value="{{ c.id }}">{{ c.name }}</option>
                     {% endfor %}
                 </select>
-                {# A changer l'asset : #}
+                <button type="submit">Submit</button>
                 <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
-            </form>
+            </form> #}
         </div>
     </header>
     <section class="itiner-container">
@@ -46,7 +46,7 @@
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                                 <div>
                                     {% if itinerary.comments is empty %}
-                                        {{ N/A }}
+                                        N/A
                                     {% else %}
                                         {% set rating = 0 %}
                                         {% set ratingIndex = 0 %}

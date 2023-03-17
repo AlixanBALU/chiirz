@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ItineraryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ItineraryRepository::class)]
@@ -38,10 +39,13 @@ class Itinerary
     private Collection $likes;
 
     #[ORM\Column(nullable: true)]
-    private ?array $bar = null;
+    private ?string $bar = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $text = null;
 
     public function __construct()
     {
@@ -179,12 +183,12 @@ class Itinerary
         return $this;
     }
 
-    public function getBar(): array
+    public function getBar(): string
     {
         return $this->bar;
     }
 
-    public function setBar(?array $bar): self
+    public function setBar(?string $bar): self
     {
         $this->bar = $bar;
 
@@ -199,6 +203,18 @@ class Itinerary
     public function setImg(?string $img): self
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(?string $text): self
+    {
+        $this->text = $text;
 
         return $this;
     }
