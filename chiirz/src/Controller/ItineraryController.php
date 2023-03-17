@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Itinerary;
+use App\Entity\City;
 use App\Form\ItineraryType;
 use App\Repository\ItineraryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/itinerary')]
 class ItineraryController extends AbstractController
@@ -75,4 +77,31 @@ class ItineraryController extends AbstractController
 
         return $this->redirectToRoute('app_itinerary_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // #[Route('/{id}/show', name: 'app_itinerary_showbyid', methods: ['POST'])]
+    // public function showByCity(Request $request, Itinerary $itinerary, ItineraryRepository $itineraryRepository): Response
+    // {
+    //     return $this->render('itinerary/show.html.twig', [
+    //         'itinerary' => $itinerary,
+    //     ]);
+    // }
+
+    // #[Route('/showbycity/{id}', name: 'app_itinerary_showbyid', methods: ['GET'])]
+    // public function showByCity(Itinerary $itinerary, EntityManagerInterface $entityManager): Response
+    // {
+    //     $id = $itinerary->getId();
+        
+    //     $itineraryRepository = $entityManager->getRepository(Itinerary::class);
+    //     dump($itinerary->getFkCity()->getId());
+    //     // Recupere les itineraires de la ville
+    //     $itineraries = $itineraryRepository->createQueryBuilder('i')
+    //         ->where('i.fk_city  = :id')
+    //         ->setParameter('id', $id)
+    //         ->getQuery()
+    //         ->getResult();
+
+    //     return $this->render('itinerary/index.html.twig', [
+    //         'itineraries' => $itineraries,
+    //     ]);
+    // }
 }
