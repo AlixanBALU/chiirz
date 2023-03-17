@@ -41,9 +41,33 @@ function initMap() {
     
         // boucle sur le tableau de lieux
         results.forEach(function (place) {
+            console.log("Near by Search");
             console.log(place);
             
-            div.innerHTML += '<p>'+place.name+' ('+place.photos[0].getUrl()+')</p>';
+            // Récupère le nom du restaurant
+            div.innerHTML += '<p>'+place.name+'</p>';
+
+            // Price level 
+            div.innerHTML += '<p>Price level : '+place.price_level+'</p>';
+
+            // Note du restaurant.
+            div.innerHTML += '<p>Note du restaurant :'+ place.rating +'</p>';
+            
+            let ouverture;
+            if (place.opening_hours.open_now) {
+              ouverture = "Ouvert";
+            } else {
+              ouverture = "Fermée";
+            }
+
+            // Ouverture du restaurant :
+            div.innerHTML += '<p>' + ouverture +'</p>';
+
+            // Place id 
+            div.innerHTML += '<p>' + place.place_id +'</p>';
+
+            // récupère la première photo du restaurant
+            div.innerHTML += '<img height ="200" width="200" src="'+place.photos[0].getUrl()+'" alt="'+place.name+'">';
     
             // création d'un marqueur sur la carte
             var marker = new google.maps.Marker({
@@ -56,7 +80,7 @@ function initMap() {
 
     const request_id = {
         // Stocker dans la base de donnée le placeId. 
-        placeId: 'ChIJexFvnNnqlkcRzRaRygzL6Lc'
+        placeId: 'ChIJ6VN-xNjqlkcRQM9OJ4zsbFI'
       };
        
     service.getDetails(request_id, function (place, status) {
@@ -70,7 +94,33 @@ function initMap() {
        
           // génération de l'affichage
           div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
-            '<p>Adresse :' + place.formatted_address + '</p>';
+            '<p>Adresse : ' + place.formatted_address + '</p>';
+          div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
+
+          // Numéro de téléphone internationnal
+          div.innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
+          div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
+
+          // Commentaires
+          place.reviews.forEach(function(review){
+            div.innerHTML += '<h1>'+review.author_name+'</h1>';
+            div.innerHTML += '<img src="'+review.profile_photo_url+'" alt="Photo de profil de '+review.author_name+'" height="100" width="100">';
+            div.innerHTML += '<p>Commentaire : '+review.text+'</p>';
+            div.innerHTML += '<p>Rating : '+review.rating+'</p>';
+          });
+          div.innerHTML += "fin de place détail";
+          // Gestion de l'heure : 
+          const today = new Date().getDay();
+          const openingHours = place.opening_hours;
+          div.innerHTML += openingHours;
+          const todayHours = openingHours.weekday_text[today];
+          const closingTime = todayHours.split(': ')[1];
+
+          const currentDate = new Date().toLocaleDateString();
+          const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+          const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+          div.innerHTML += '<h1>Heure d\'ouverture : '+ dateTimeString +'</h1>';
+
         }
     });
 }
