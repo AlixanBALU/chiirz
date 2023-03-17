@@ -3,20 +3,64 @@
 {% block title %}City{% endblock %}
 
 {% block body %}
-    <h1>City</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ city.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ city.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <header class="header">
+        <h1>Les routes de la soif de </h1>
+        <form action="./">
+            <select id="fruit-select" name="fruit">
+                {% for city in cities %}
+                    <option value="{{ city.id }}">{{ city.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+        <div class="header__button-wrapper">
+            <a href="#" class="header__button-wrapper__button">Créer une route</a>
+            <form action="./" class="header__button-wrapper__select">
+                <label for="fruit-select">Trier par</label>
+                <select id="fruit-select" name="fruit">
+                    {% for city in cities %}
+                    <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% endfor %}
+                </select>
+                {# A changer l'asset : #}
+                <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
+            </form>
+        </div>
+    </header>
+    <section class="itiner-container">
+            {% for itinerary in city.itineraries %}
+            {{dump(itinerary)}}
+                <div class="itiner-container__card">
+                    <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
+                    <h3>{{ itinerary.name }}</h3>
+                    <div class="itiner-container__card__desc">
+                        <div class="itiner-container__card__row">
+                            <div>8 Étapes</div>
+                            <div class="itiner-container__card__row1__rate">
+                                <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
+                                <div>
+                                    {{dump(itinerary)}}
+                                    {% set rating %}
+                                    {% for comment in itinerary.comments %}
+                                        {{ comment.rating }}
+                                    {% endfor %}
+                                    {% endset %}
+                                    {{ rating|length }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itiner-container__card__row">
+                            <div>{{ itinerary.distance }}</div>
+                            <div class="itiner-container__card__row__price">
+                                {% for i in 1..itinerary.price %}
+                                    <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </section>
+    </main>
 
     <a href="{{ path('app_city_index') }}">back to list</a>
 

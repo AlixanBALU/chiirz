@@ -36,6 +36,9 @@ class Comment
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $rate = null;
+
     public function __construct()
     {
         $this->fk_comment = new ArrayCollection();
@@ -137,6 +140,18 @@ class Comment
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getRate(): ?int
+    {
+        return $this->rate;
+    }
+
+    public function setRate(?int $rate): self
+    {
+        $this->rate = $rate;
 
         return $this;
     }

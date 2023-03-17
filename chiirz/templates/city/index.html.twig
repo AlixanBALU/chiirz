@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}City index{% endblock %}
+{% block title %}Chiirz - Strasbourg{% endblock %}
 
 {% block body %}
-    <div class="section-itiner">
-        <header class="section-itiner__header">
+    <main>
+        <header class="header">
             <h1>Les routes de la soif de </h1>
             <form action="./">
                 <select id="fruit-select" name="fruit">
                     {% for city in cities %}
                         <option value="{{ city.id }}">{{ city.name }}</option>
                     {% endfor %}
-                  </select>
+                </select>
             </form>
-            <div class="section-itiner__header__button-wrapper">
-                <a href="#" class="section-itiner__header__button-wrapper__button">Créer une route</a>
-                <form action="./" class="section-itiner__header__button-wrapper__select">
+            <div class="header__button-wrapper">
+                <a href="#" class="header__button-wrapper__button">Créer une route</a>
+                <form action="./" class="header__button-wrapper__select">
                     <label for="fruit-select">Trier par</label>
                     <select id="fruit-select" name="fruit">
                         {% for city in cities %}
-                            <option value="{{ city.id }}">{{ city.name }}</option>
+                        <option value="{{ city.id }}">{{ city.name }}</option>
                         {% endfor %}
                     </select>
                     {# A changer l'asset : #}
@@ -27,11 +27,38 @@
                 </form>
             </div>
         </header>
-
-    </div>
-
-    <table class="table">
-        <thead>
+        <section class="itiner-container">
+            {% for city in cities %}
+            {{dump(city)}}
+                {% for initerary in city.itineraries %}
+                    <div class="itiner-container__card">
+                        <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
+                        {# <h3>{{ itinerary.name }}</h3> #}
+                        <div class="itiner-container__card__desc">
+                            <div class="itiner-container__card__row">
+                                <div>8 Étapes</div>
+                                <div class="itiner-container__card__row1__rate">
+                                    <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
+                                    {# <div>{{ itinerary.rate }}</div> #}
+                                </div>
+                            </div>
+                            <div class="itiner-container__card__row">
+                                {# <div>{{ itinerary.distance }}</div> #}
+                                <div class="itiner-container__card__row__price">
+                                    {# {% for i in 1..itinerary.price %} #}
+                                        <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                                    {# {% endfor %} #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </section>
+    </main>
+        
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
@@ -42,15 +69,15 @@
         {% for city in cities %}
             <tr>
                 <td>{{ city.id }}</td>
-                {% for itinerary in city.itineraries %}
+                {# {% for itinerary in city.itineraries %}
                     <td>{{ itinerary.name }}</td>
-                {% endfor %}
+                {% endfor %} #}
                 <td>
                     <a href="{{ path('app_city_show', {'id': city.id}) }}">show</a>
                     <a href="{{ path('app_city_edit', {'id': city.id}) }}">edit</a>
                 </td>
             </tr>
-        {% else %}
+        {# {% else %} #}
             <tr>
                 <td colspan="3">no records found</td>
             </tr>
