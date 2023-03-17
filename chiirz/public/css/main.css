@@ -37,7 +37,7 @@ Titres
 .title--h3 {
   font-size: 2rem;
 }
-.title--footerTitle {
+.title--footer {
   font-size: 2rem;
   font-weight: 700;
 }
@@ -71,6 +71,10 @@ Paragraphes
   padding-top: 1.6rem;
 }
 
+body, html {
+  height: 100%;
+}
+
 /*
     Variables
 */
@@ -81,6 +85,8 @@ Paragraphes
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 85%;
+  margin: 2rem auto;
 }
 .nav__content-nav {
   width: 60%;
@@ -131,4 +137,72 @@ Paragraphes
 
 /*  
     Components
-*//*# sourceMappingURL=main.css.map */
+*/
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #f8f8f8;
+  padding: 3rem 2rem;
+  width: 100vw;
+}
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 3rem;
+  width: 100%;
+}
+.footer__content__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  align-self: center;
+}
+.footer__content__logo img[alt=smiley] {
+  width: 60%;
+}
+.footer__content__div {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: space-between;
+}
+.footer__content__div__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+.footer__content__div__nav article {
+  width: 27%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer__content__div__nav article div {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.footer__content__div__nav article ul {
+  display: flex;
+  flex-direction: column;
+  color: #555555;
+}
+.footer__content__div__btn {
+  align-self: flex-end;
+}
+.footer__content__mentions-legales {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: 600;
+  display: flex;
+  gap: 1rem;
+}
+.footer__content__mentions-legales a {
+  color: #555555;
+}/*# sourceMappingURL=main.css.map */

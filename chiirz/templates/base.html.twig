@@ -17,45 +17,120 @@
 
     
     <body>
-        <div class="container">
-            <header>
-                <nav class="nav">
-                    <div class="nav__content-nav">
-                        <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+        <header>
+            <nav class="nav">
+                <div class="nav__content-nav">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+    
+                    <ul class="p p-20">
+                        <li> 
+                            <a href="{{ path('home') }}">Accueil</a>
+                        </li>
+                        <li> 
+                            <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+                        </li>
+                        <li> 
+                            <a href="#"> Mon compte </a>
+                        </li>
+                        <li> 
+                            <a href="#"> Rechercher </a>
+                        </li>
+                    </ul>   
+                </div>
+                
+            
+                <div class="nav__content-btn p p--16">
+                    <a href="#" > Se connecter </a>
+                    <a href="#" class="btn btn--secondary"> S'inscrire </a>
+                </div>
+            </nav>
+        </header> 
+
+        <main> 
+            <div class="container"></div>
+            {% block body %}{% endblock %}
+            </div>
+        </main>
         
-                        <ul class="p p-20">
-                            <li> 
-                                <a href="{{ path('home') }}">Accueil</a>
-                            </li>
-                            <li> 
-                                <a href="{{ path('itinerary_index') }}">Itinéraires</a>
-                            </li>
-                            <li> 
-                                <a href="#"> Mon compte </a>
-                            </li>
-                            <li> 
-                                <a href="#"> Rechercher </a>
-                            </li>
-                        </ul>   
+        <footer class="footer">
+            <div class="footer__content">
+                <!-- logo et smiley-->
+                <div class="footer__content__logo">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+                    <img src="{{ asset('img/smart-smiley.png') }}" alt="smiley">
+                </div>
+
+                
+                <!-- nav + btn-->
+                <div class="footer__content__div ">
+                    <!-- nav -->
+                    
+                    <div class="footer__content__div__nav">
+                        <article>
+                            <div> 
+                                <img src="{{ asset('img/house.png') }}" alt="accueil">
+                                <h4 class="title title--footer"> Accueil </h4>
+                            </div>
+                            <ul class="p-20">
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article>
+                            <div> 
+                                <img src="{{ asset('img/house.png') }}" alt="accueil">
+                                <h4 class="title title--footer"> Accueil </h4>
+                            </div>
+                            <ul class="p-20">
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                            </ul>
+                        </article>
+
+                        <article>
+                            <div> 
+                                <img src="{{ asset('img/house.png') }}" alt="accueil">
+                                <h4 class="title title--footer"> Accueil </h4>
+                            </div>
+                            <ul class="p-20">
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                                <li> 
+                                    <a href="#"> Je choisis ma ville </a>
+                                </li>
+                            </ul>
+                        </article>
                     </div>
                     
-                
-                    <div class="nav__content-btn p p--16">
+
+                    <!-- btn -->
+                    
+                    <div class="footer__content__div__btn nav__content-btn p p--16">
                         <a href="#" > Se connecter </a>
                         <a href="#" class="btn btn--secondary"> S'inscrire </a>
                     </div>
-                </nav>
-            </header> 
+                    
+                    
+                </div> 
 
-            <main> 
-                {% block body %}{% endblock %}
-
-            </main>
+                <!-- Mentions légales-->
+                <div class="footer__content__mentions-legales p-20">
+                    <a href="#" > Mentions légales </a>
+                    <a href="#" > Contact </a>
+                </div>  
+            </div>              
+        </footer>
         
-            <footer class="footer">
-
-            </footer>
-        </div>
         <script src="{{ asset('js/main.js') }}" defer></script>
     </body>
 </html>
