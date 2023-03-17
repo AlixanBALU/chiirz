@@ -11,6 +11,7 @@
 /*
     Base
 */
+@import "base/container";
 
 /*
     Variables
@@ -37,3 +38,5 @@ $violet4: #eee8fa;
 /*  
     Components
 */
+
+@import "components/footer";

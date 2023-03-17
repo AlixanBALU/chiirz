@@ -1,16 +1,15 @@
 // Plus jakarta
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"rel="stylesheet");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 // Chillax
 @font-face {
-  font-family: "Chillax";
-  src: url("/chiirz/public/fonts/Chillax-Variable.woff2") format("woff2"),
-    url("/chiirz/public/fonts/Chillax-Variable.woff") format("woff"),
-    url("/chiirz/public/fonts/fonts/public/Chillax-Variable.ttf")
-      format("truetype");
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: normal;
+  font-family: 'Chillax';
+  src: url('../fonts/Chillax-Variable.woff2') format('woff2'),
+       url('../fonts/Chillax-Variable.woff') format('woff'),
+       url('../fonts/Chillax-Variable.ttf') format('truetype');
+       font-weight: 200 700;
+       font-display: swap;
+       font-style: normal;
 }
 
 /*
@@ -25,23 +24,28 @@ body {
 Titres
 */
 .title {
-  font-family: "Chillax", sans serif;
+  font-family: "Chillax", sans-serif;
   font-weight: 600;
 
   &--h1 {
+    //110 px
     font-size: 3.75rem;
   }
 
   &--h2 {
+    //80
     font-size: 3rem;
   }
 
   &--h3 {
+    //40px
     font-size: 2rem;
   }
-  &--footerTitle {
+  &--footer {
+    //32px
     font-size: 2rem;
     font-weight: 700;
+    
   }
 }
 
