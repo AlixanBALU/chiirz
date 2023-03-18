@@ -84,11 +84,11 @@
         <div class="section-parcours__progress-bar">
 
         </div>
-        <div id="carouselSteps">
+        <div id="carouselSteps" class="splide">
             <div class="splide__track">
                 <ul class="splide__list">
-                    <li class="splide__slide">
-                        {% for s in itinerary.bar['steps'] %}
+                    {% for s in itinerary.bar['steps'] %}
+                        <li class="splide__slide">
                             <div class="section-parcours__content">
                                 <div class="section-parcours__content__splide splide" aria-label="Images de : {{ s['name'] }}" id="splidePics">
                                     <div class="splide__track">
@@ -113,11 +113,10 @@
                                         </h3>
                                         <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
                                     </a>
-                
                                 </div>
                             </div>
-                        {% endfor %}
-                    </li>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

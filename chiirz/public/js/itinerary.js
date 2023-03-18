@@ -13,8 +13,15 @@ backButton.addEventListener('click', () => {
 });
 
 // Splide js
+// new Splide( '#carouselSteps', {} ).on( 'mounted', function() {
+//     document.querySelectorAll('#splidePics').forEach(splidePics => {
+//         new Splide(splidePics).mount();
+//     });
+// } ).mount();
+
+
 const splidesPics = document.querySelectorAll('#splidePics');
-splidesPics.forEach(splidePics => {
+    splidesPics.forEach(splidePics => {
     new Splide(splidePics).mount();
 });
 
