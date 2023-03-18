@@ -71,11 +71,11 @@
                 <div id="likeText">Ajouter aux favoris</div>
             </div>
             <div class="section-itinerary__content__steps">
-                <h3>{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
+                <h3>{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
                 <ul>
-                    {# {% for s in itinerary.bar.step %}
+                    {% for s in itinerary.bar['steps'] %}
                         <li>{{ s.name }}</li>
-                    {% endfor %} #}
+                    {% endfor %}
                 </ul>
             </div>
             <p class="section-itinerary__content__distance">Longeur du parcours : <span class="section-itinerary__content__distance__number">{{ itinerary.distance }}</p>
@@ -98,7 +98,7 @@
 
     <script>
         import * as it from "{{ asset('js/itinerary.js') }}";
-        var itineraryJson = {{ itinerary.bar | raw }};
+        var itineraryJson = {{ itinerary.bar | json_encode | raw }};
         console.log(itineraryJson);
         // On lance la fonction de tout le js en fonction du itineraryJson
         it.getItinerary(itineraryJson);

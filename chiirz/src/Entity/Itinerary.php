@@ -38,14 +38,14 @@ class Itinerary
     #[ORM\OneToMany(mappedBy: 'fk_itinerary', targetEntity: Like::class)]
     private Collection $likes;
 
-    #[ORM\Column(nullable: true)]
-    private ?string $bar = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $text = null;
+
+    #[ORM\Column(nullable: true)]
+    private array $bar = [];
 
     public function __construct()
     {
@@ -183,18 +183,6 @@ class Itinerary
         return $this;
     }
 
-    public function getBar(): string
-    {
-        return $this->bar;
-    }
-
-    public function setBar(?string $bar): self
-    {
-        $this->bar = $bar;
-
-        return $this;
-    }
-
     public function getImg(): ?string
     {
         return $this->img;
@@ -215,6 +203,18 @@ class Itinerary
     public function setText(?string $text): self
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function getBar(): array
+    {
+        return $this->bar;
+    }
+
+    public function setBar(?array $bar): self
+    {
+        $this->bar = $bar;
 
         return $this;
     }
