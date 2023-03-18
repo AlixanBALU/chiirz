@@ -13,8 +13,6 @@ backButton.addEventListener('click', () => {
 });
 
 // Splide js
-import Splide from 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js';
-
 new Splide( '.splide' ).mount();
 
 const jsonModel = {

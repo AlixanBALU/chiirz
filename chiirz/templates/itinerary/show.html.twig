@@ -87,6 +87,7 @@
         </div>
         {% for s in itinerary.bar['steps'] %}
             <div class="section-parcours__content">
+
                 <div class="section-parcours__content__splide splide" aria-label="Splide Basic HTML Example">
                     <div class="splide__track">
                             <ul class="splide__list">
@@ -104,12 +105,12 @@
                     <div class="parcours-info__step-index">
                         Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
                     </div>
-                    <div class="parcours-info__name" id="stepName">
+                    <a href="#" class="parcours-info__name" id="stepName">
                         <h3>
                             {{ s['name'] }}
                         </h3>
                         <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
-                    </div>
+                    </a>
 
                 </div>
             </div>
