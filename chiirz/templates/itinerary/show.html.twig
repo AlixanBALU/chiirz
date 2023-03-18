@@ -2,14 +2,23 @@
 
 {% block title %}Itinerary{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/splide.min.js') }}" defer></script>
+    <script src="{{ asset('js/itinerary.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 {% endblock %}
 
 {% block body %}
+
     <a href="" id="backButton" class="back-itinerary">
         <img src="{{ asset('img/svg/back.svg') }}" alt="<">
-        "Retour en arrière"
+        Retour en arrière
     </a>
     <section class="section-itinerary">
         <div class="section-itinerary__maps">
@@ -76,9 +85,15 @@
         <div class="section-parcours__progress-bar">
 
         </div>
-        <div class="section-parcours__content">
-            
-        </div>
+        <section class="splide" aria-label="Splide Basic HTML Example">
+            <div class="splide__track">
+                  <ul class="splide__list">
+                      <li class="splide__slide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" alt=""></li>
+                      <li class="splide__slide"><img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80" alt=""></li>
+                      <li class="splide__slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRkWUw-AxIel_s80qW25IJ3CfguVz0eNPnYmfHaRYW&s" alt=""></li>
+                  </ul>
+            </div>
+        </section>
     </section>
 
     <script>
