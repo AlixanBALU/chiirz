@@ -85,15 +85,35 @@
         <div class="section-parcours__progress-bar">
 
         </div>
-        <section class="splide" aria-label="Splide Basic HTML Example">
-            <div class="splide__track">
-                  <ul class="splide__list">
-                      <li class="splide__slide"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png" alt=""></li>
-                      <li class="splide__slide"><img src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80" alt=""></li>
-                      <li class="splide__slide"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRkWUw-AxIel_s80qW25IJ3CfguVz0eNPnYmfHaRYW&s" alt=""></li>
-                  </ul>
+        {% for s in itinerary.bar['steps'] %}
+            <div class="section-parcours__content">
+                <div class="section-parcours__content__splide splide" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                            <ul class="splide__list">
+                                {% for img in s['img'] %}
+                                    <li class="splide__slide"><img src="{{ img }}" alt="{{ s.name }}"></li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+                {# Repart à 0 sur la notation bem sinon trop long #}
+                <div class="parcours-info">
+                    <div class="parcours-info__length">
+                        
+                    </div>
+                    <div class="parcours-info__step-index">
+                        Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
+                    </div>
+                    <div class="parcours-info__name" id="stepName">
+                        <h3>
+                            {{ s['name'] }}
+                        </h3>
+                        <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
+                    </div>
+
+                </div>
             </div>
-        </section>
+        {% endfor %}
     </section>
 
     <script>
