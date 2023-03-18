@@ -11,7 +11,6 @@
     {{ parent() }}
     <script src="{{ asset('js/splide.min.js') }}" defer></script>
     <script src="{{ asset('js/itinerary.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -85,36 +84,43 @@
         <div class="section-parcours__progress-bar">
 
         </div>
-        {% for s in itinerary.bar['steps'] %}
-            <div class="section-parcours__content">
-
-                <div class="section-parcours__content__splide splide" aria-label="Splide Basic HTML Example">
-                    <div class="splide__track">
-                            <ul class="splide__list">
-                                {% for img in s['img'] %}
-                                    <li class="splide__slide"><img src="{{ img }}" alt="{{ s.name }}"></li>
-                                {% endfor %}
-                            </ul>
-                    </div>
-                </div>
-                {# Repart à 0 sur la notation bem sinon trop long #}
-                <div class="parcours-info">
-                    <div class="parcours-info__length">
-                        
-                    </div>
-                    <div class="parcours-info__step-index">
-                        Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
-                    </div>
-                    <a href="#" class="parcours-info__name" id="stepName">
-                        <h3>
-                            {{ s['name'] }}
-                        </h3>
-                        <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
-                    </a>
-
-                </div>
+        <div id="carouselSteps">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <li class="splide__slide">
+                        {% for s in itinerary.bar['steps'] %}
+                            <div class="section-parcours__content">
+                                <div class="section-parcours__content__splide splide" aria-label="Images de : {{ s['name'] }}" id="splidePics">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                            {% for img in s['img'] %}
+                                                <li class="splide__slide"><img src="{{ img }}" alt="{{ s['name'] }}"></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {# Repart à 0 sur la notation bem sinon trop long #}
+                                <div class="parcours-info">
+                                    <div class="parcours-info__length">
+                                        
+                                    </div>
+                                    <div class="parcours-info__step-index">
+                                        Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
+                                    </div>
+                                    <a href="#" class="parcours-info__name" id="stepName">
+                                        <h3>
+                                            {{ s['name'] }}
+                                        </h3>
+                                        <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
+                                    </a>
+                
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </li>
+                </ul>
             </div>
-        {% endfor %}
+        </div>
     </section>
 
     <script>

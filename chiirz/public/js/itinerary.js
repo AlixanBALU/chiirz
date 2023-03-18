@@ -13,7 +13,13 @@ backButton.addEventListener('click', () => {
 });
 
 // Splide js
-new Splide( '.splide' ).mount();
+const splidesPics = document.querySelectorAll('#splidePics');
+splidesPics.forEach(splidePics => {
+    new Splide(splidePics).mount();
+});
+
+new Splide('#carouselSteps').mount();
+
 
 const jsonModel = {
     "numberOfSteps" : 8,
