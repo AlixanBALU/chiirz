@@ -25,7 +25,9 @@ const splidesPics = document.querySelectorAll('#splidePics');
     new Splide(splidePics).mount();
 });
 
-new Splide('#carouselSteps').mount();
+new Splide('#carouselSteps', {
+    drag: false,
+}).mount();
 
 
 const jsonModel = {
