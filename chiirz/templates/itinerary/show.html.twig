@@ -2,14 +2,22 @@
 
 {% block title %}Itinerary{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/splide.min.js') }}" defer></script>
+    <script src="{{ asset('js/itinerary.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
+
     <a href="" id="backButton" class="back-itinerary">
         <img src="{{ asset('img/svg/back.svg') }}" alt="<">
-        "Retour en arrière"
+        Retour en arrière
     </a>
     <section class="section-itinerary">
         <div class="section-itinerary__maps">
@@ -62,48 +70,93 @@
                 <div id="likeText">Ajouter aux favoris</div>
             </div>
             <div class="section-itinerary__content__steps">
-                <h3>{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
+                <h3>{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
                 <ul>
-                    {# {% for s in itinerary.bar.step %}
+                    {% for s in itinerary.bar['steps'] %}
                         <li>{{ s.name }}</li>
-                    {% endfor %} #}
+                    {% endfor %}
                 </ul>
             </div>
             <p class="section-itinerary__content__distance">Longeur du parcours : <span class="section-itinerary__content__distance__number">{{ itinerary.distance }}</p>
         </div>
     </section>
     <section class="section-parcours" id="parcours">
+        <div class="section-parcours__progress-bar">
 
+        </div>
+        <div id="carouselSteps" class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    {% for s in itinerary.bar['steps'] %}
+                        <li class="splide__slide">
+                            <div class="section-parcours__content">
+                                <div class="section-parcours__content__splide splide" aria-label="Images de : {{ s['name'] }}" id="splidePics">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                            {% for img in s['img'] %}
+                                                <li class="splide__slide"><img src="{{ img }}" alt="{{ s['name'] }}"></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                {# Repart à 0 sur la notation bem sinon trop long #}
+                                <div class="parcours-info">
+                                    <div class="parcours-info__length">
+                                        
+                                    </div>
+                                    <div class="parcours-info__step-index">
+                                        Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
+                                    </div>
+                                    <a href="#" class="parcours-info__name" id="stepName">
+                                        <h3>
+                                            {{ s['name'] }}
+                                        </h3>
+                                        <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
+                                    </a>
+                                    <a href="tel:" class="parcours-info__phone" id="stepPhone"></a>
+                                     <div class="parcours-info__rate" id="stepRate">
+                                        <div class="parcours-info__rate__star">
+                                            <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆">
+                                            <div id="stepRateNumber"></div>
+                                        </div>
+                                        <div class="parcours-info__rate__opinion" id="stepOpinion"></div>
+                                    </div>
+                                    <div class="parcours-info__price" id="stepPrice"></div>
+                                    <div class="parcours-info__opening">
+                                        <div class="parcours-info__rate__opening__tag" id="stepIsOpen"></div>
+                                        <p id="stepOpeningTag"></p>
+                                    </div>
+                                    {# <div class="parcours-info__container-com">
+                                        <div class="parcours-info__container-com__item">
+                                            <div class="parcours-info__container-com__item__head">
+                                                <div class="parcours-info__container-com__item__head__name" id="commentName"></div>
+                                                <div class="parcours-info__container-com__item__head__rate" id="commentDate">
+                                                    <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆" data-index="{{ loop.index }}">
+                                                    <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆" data-index="{{ loop.index }}">
+                                                    <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆" data-index="{{ loop.index }}">
+                                                    <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆" data-index="{{ loop.index }}">
+                                                    <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆" data-index="{{ loop.index }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> #}
+                                    <div class="parcours-info__container-button">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </section>
 
     <script>
         import * as it from "{{ asset('js/itinerary.js') }}";
-        var itineraryJson = {{ itinerary.bar | raw }};
+        var itineraryJson = {{ itinerary.bar | json_encode | raw }};
         console.log(itineraryJson);
         // On lance la fonction de tout le js en fonction du itineraryJson
         it.getItinerary(itineraryJson);
     </script>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ itinerary.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ itinerary.name }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ itinerary.price }}</td>
-            </tr>
-            <tr>
-                <th>Distance</th>
-                <td>{{ itinerary.distance }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    {{ include('itinerary/_delete_form.html.twig') }}
 {% endblock %}

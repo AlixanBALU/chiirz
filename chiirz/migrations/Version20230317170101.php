@@ -17,15 +17,14 @@ final class Version20230317170101 extends AbstractMigration
         return '';
     }
 
-    public function up(Schema $schema): void
+    public function up(Schema $schema) : void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE itinerary ADD text LONGTEXT DEFAULT NULL, CHANGE bar bar VARCHAR(255) DEFAULT NULL');
+        $table = $schema->getTable('itinerary');
+        $table->dropColumn('bar');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE itinerary DROP text, CHANGE bar bar LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json)\'');
     }
 }
