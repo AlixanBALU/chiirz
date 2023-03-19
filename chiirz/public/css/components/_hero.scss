@@ -1,0 +1,48 @@
+.hero {
+    background : url(../../img/svg/hero-background.svg);
+    background-size : cover;
+    background-repeat : no-repeat;
+    display : flex;
+    justify-content : space-between;
+    height : 60vh;
+    width : 100%;
+    align-items : center;
+
+    &__text {
+        display : flex;
+        flex-direction : column;
+        gap : 1.5rem;
+        width : 50%;
+
+        & strong {
+            background-color : $green;
+            padding : 0.3rem;
+        }
+
+        & p {
+            color : $p-grey;
+        }
+
+        &__btn {
+            display : flex;
+            gap : 1.5rem;
+        }
+
+    }
+
+    &__img {
+        width : 50%;
+        height: 100%;
+        display : flex;
+        justify-content : flex-end;
+        position : relative;
+
+        &__beer {
+            display : block;
+            max-width : 100%;
+        }
+        
+    }
+    
+
+}
