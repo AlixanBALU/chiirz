@@ -1,8 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+<section class="hero">
+    <div class="hero__text">
+        <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
+        <p class="p p--16"> Prêt à explorer les meilleures adresses de Lyon, Paris ou Strasbourg 
+            pour une soirée (un peu trop) arrosée ? 
+            Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
+        <div class="hero__text__btn">
+            <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
+            <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
+        </div>
+    </div>
+
+    <div class="hero_img"></div>
+</section>
+
 <section class="what-section">
-    <h2 class="title title--h2"> <strong> Chiirz </strong> c'est quoi ? <img src="{{ asset('img/what-smiley.png') }}" </h2>
+    <h2 class="title title--h2"> <strong> Chiirz </strong> c'est quoi ? </h2>
     <p class="p p--16"> Permettez-moi de vous présenter Skoll, une entreprise qui propose de vous aider à trouver les meilleurs bars dans les villes de Paris, Lyon et Strasbourg. En utilisant notre plateforme, vous pouvez planifier votre itinéraire de soirée, découvrir les dernières tendances de la vie nocturne et trouver des endroits sympas pour sortir avec vos amis. En outre, notre site répertorie également les paris dans ces villes, pour les amateurs de jeux de hasard. Avec Skoll, vous êtes sûr de passer une soirée inoubliable !</p>
     <h3 class="title title--h3"> Autrement dit c'est </h3>
     <div class="what-section__articles-content">

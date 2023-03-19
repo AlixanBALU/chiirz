@@ -53,7 +53,7 @@ Paragraphes
   font-size: 1.25rem;
 }
 .p--16 {
-  line-height: 20px;
+  line-height: 24px;
   font-size: 1rem;
 }
 .p--24 {
@@ -190,10 +190,54 @@ body, html {
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: flex-end;
 }
 .nav__content-btn a {
   text-decoration: none;
   color: #000000;
+}
+
+.what-section {
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.what-section strong {
+  text-decoration: underline;
+}
+.what-section h2:after {
+  content: "";
+  background: url(../../img/what-smiley.png);
+  background-size: contain;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 10px;
+}
+.what-section h2 + p {
+  color: #555555;
+}
+.what-section__articles-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.what-section__articles-content article {
+  background-color: #f8f8f8;
+  border: 2px #d9d9d9 solid;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 40px;
+  gap: 1rem;
+}
+.what-section__articles-content article p {
+  font-family: "Chillax", sans-serif;
 }
 
 /*
@@ -204,6 +248,14 @@ body, html {
   padding: 10px 20px;
   text-decoration: none;
   font-weight: 700;
+}
+.btn--primary {
+  background-color: #000000;
+  color: #ffffff;
+  transition: all ease-in-out 0.5s;
+}
+.btn--primary:hover {
+  background-color: #a77fee;
 }
 .btn--secondary {
   background-color: transparent;

@@ -4,6 +4,16 @@
   text-decoration: none;
   font-weight: 700;
 
+  &--primary {
+    background-color: $black;
+    color : $white;
+    transition: all ease-in-out 0.5s;
+
+    &:hover {
+      background-color : $violet;
+    }
+  }
+
   &--secondary {
     background-color: transparent;
     border: 2px $black solid;
