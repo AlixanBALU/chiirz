@@ -30,13 +30,16 @@ $violet2: #c5a7fc;
 $violet3: #cebbf0;
 $violet4: #eee8fa;
 
-/*
-    Elements
-*/
-@import "elements/nav";
-@import "elements/btn";
 /*  
-    Components
+    Base components
 */
 
 @import "components/footer";
+@import "components/nav";
+
+
+/*
+    Elements
+*/
+
+@import "elements/btn";

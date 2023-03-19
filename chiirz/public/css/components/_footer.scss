@@ -54,12 +54,20 @@
                     & ul {
                         display : flex;
                         flex-direction : column;
-                        color : $p-grey;
+                        gap : 0.7rem;
+                        
+                        & a {
+                            color : $p-grey;
+                            text-decoration : none;
+                        }
                     }
                 }
             }
             &__btn {
                 align-self: flex-end;
+                width : 100%;
+                display : flex;
+                justify-content:flex-end;
             }
         }
 

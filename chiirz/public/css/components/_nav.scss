@@ -1,0 +1,46 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items : center;
+    width : 85%;
+    margin :  2rem auto;
+  
+    &__content-nav {
+      width: 60%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      & a {
+        text-decoration: none;
+        color: $p-grey;
+        font-family: "Chillax", sans-serif;
+        font-weight : 600;
+      }
+  
+      & ul {
+        list-style-type: none;
+        font-weight: 600;
+        display : flex;
+        gap : 1.5rem;
+      }
+  
+      & img {
+        width : 20%;
+      }
+    }
+  
+    &__content-btn {
+      width: 25%;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+  
+      & a {
+        text-decoration: none;
+        color: $black;
+        
+      }
+    }
+  }
+  

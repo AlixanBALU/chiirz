@@ -78,65 +78,8 @@ body, html {
 /*
     Variables
 */
-/*
-    Elements
-*/
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 85%;
-  margin: 2rem auto;
-}
-.nav__content-nav {
-  width: 60%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.nav__content-nav a {
-  text-decoration: none;
-  color: #555555;
-  font-family: "Chillax", sans-serif;
-  font-weight: 600;
-}
-.nav__content-nav ul {
-  list-style-type: none;
-  font-weight: 600;
-  display: flex;
-  gap: 1.5rem;
-}
-.nav__content-nav img {
-  width: 20%;
-}
-.nav__content-btn {
-  width: 25%;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-.nav__content-btn a {
-  text-decoration: none;
-  color: #000000;
-}
-
-.btn {
-  border-radius: 500px;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-weight: 700;
-}
-.btn--secondary {
-  background-color: transparent;
-  border: 2px #000000 solid;
-  transition: all ease-in-out 0.5s;
-}
-.btn--secondary:hover {
-  background-color: #a77fee;
-}
-
 /*  
-    Components
+    Base components
 */
 .footer {
   position: absolute;
@@ -190,10 +133,17 @@ body, html {
 .footer__content__div__nav article ul {
   display: flex;
   flex-direction: column;
+  gap: 0.7rem;
+}
+.footer__content__div__nav article ul a {
   color: #555555;
+  text-decoration: none;
 }
 .footer__content__div__btn {
   align-self: flex-end;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .footer__content__mentions-legales {
   position: absolute;
@@ -205,4 +155,61 @@ body, html {
 }
 .footer__content__mentions-legales a {
   color: #555555;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  margin: 2rem auto;
+}
+.nav__content-nav {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav__content-nav a {
+  text-decoration: none;
+  color: #555555;
+  font-family: "Chillax", sans-serif;
+  font-weight: 600;
+}
+.nav__content-nav ul {
+  list-style-type: none;
+  font-weight: 600;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav__content-nav img {
+  width: 20%;
+}
+.nav__content-btn {
+  width: 25%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.nav__content-btn a {
+  text-decoration: none;
+  color: #000000;
+}
+
+/*
+    Elements
+*/
+.btn {
+  border-radius: 500px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 700;
+}
+.btn--secondary {
+  background-color: transparent;
+  border: 2px #000000 solid;
+  transition: all ease-in-out 0.5s;
+}
+.btn--secondary:hover {
+  background-color: #a77fee;
 }/*# sourceMappingURL=main.css.map */
