@@ -21,8 +21,10 @@
         <header>
             <nav class="nav">
                 <div class="nav__content-nav">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
-    
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
+                    
+                    <img src="{{ asset('img/svg/responsive-menu-btn.svg') }}" alt="burger-menu">
+
                     <ul class="p p-20">
                         <li> 
                             <a href="{{ path('home') }}">Accueil</a>
@@ -55,18 +57,13 @@
             </div>
         </main>
         
-        {# <footer class="footer">
+        <footer class="footer">
             <div class="footer__content">
                 <!-- logo et smiley-->
                 <div class="footer__content__logo">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
                     <img src="{{ asset('img/smart-smiley.png') }}" alt="smiley">
-   
-                    <!-- Mentions légales-->
-                    <div class="footer__content__logo__mentions-legales p-20">
-                        <a href="#" > Mentions légales </a>
-                        <a href="#" > Contact </a>
-                    </div>  
+
                 </div>
 
                 
@@ -121,15 +118,21 @@
                         </article>
                     </div>
                     
-
                     <!-- btn -->      
                     <div class="footer__content__div__btn nav__content-btn p p--16">
                         <a href="#" > Se connecter </a>
                         <a href="#" class="btn btn--secondary"> S'inscrire </a>
                     </div>      
-                </div> 
+                </div>
+                
+                <!-- Mentions légales-->
+                <div class="footer__content__mentions-legales p-20">
+                    <a href="#" > Mentions légales </a>
+                    <a href="#" > Contact </a>
+                </div>  
+
             </div>              
-        </footer> #}
+        </footer>
 
         <div id="carte" height="200" width="200">Carte</div>
         <div id="info"></div>

@@ -29,17 +29,39 @@ Titres
   font-weight: 600;
 }
 .title--h1 {
-  font-size: 3.75rem;
+  font-size: 5rem;
+  line-height: 5.5rem;
+}
+@media (max-width: 768px) {
+  .title--h1 {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
 }
 .title--h2 {
-  font-size: 3rem;
+  font-size: 4rem;
+}
+@media (max-width: 768px) {
+  .title--h2 {
+    font-size: 2.5rem;
+  }
 }
 .title--h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
+}
+@media (max-width: 768px) {
+  .title--h3 {
+    font-size: 2rem;
+  }
 }
 .title--footer {
   font-size: 2rem;
   font-weight: 700;
+}
+@media (max-width: 768px) {
+  .title--footer {
+    font-size: 1.5rem;
+  }
 }
 
 /*
@@ -70,9 +92,23 @@ Paragraphes
   margin: auto;
   padding-top: 1.6rem;
 }
+@media (min-width: 1440px) {
+  .container {
+    width: 70%;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    width: 60%;
+  }
+}
 
 body, html {
-  height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  position: relative;
 }
 
 /*
@@ -86,36 +122,57 @@ body, html {
   bottom: 0;
   left: 0;
   background-color: #f8f8f8;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
   width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 .footer__content {
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 3rem;
-  width: 100%;
+  padding: 3rem 0;
+  width: 85%;
+}
+@media (max-width: 768px) {
+  .footer__content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+@media (min-width: 1920px) {
+  .footer__content {
+    width: 70%;
+  }
 }
 .footer__content__logo {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 30%;
   align-self: center;
+  gap: 0.3rem;
+}
+@media (max-width: 768px) {
+  .footer__content__logo {
+    width: 100%;
+  }
+}
+.footer__content__logo img[alt="logo de Chiirz"] {
+  width: 60%;
+}
+@media (max-width: 768px) {
+  .footer__content__logo img[alt="logo de Chiirz"] {
+    width: 50%;
+    align-self: flex-start;
+  }
 }
 .footer__content__logo img[alt=smiley] {
   width: 60%;
 }
-.footer__content__logo__mentions-legales {
-  position: relative;
-  bottom: -40px;
-  left: 0;
-  font-weight: 600;
-  display: flex;
-  gap: 1rem;
-}
-.footer__content__logo__mentions-legales a {
-  color: #555555;
+@media (max-width: 768px) {
+  .footer__content__logo img[alt=smiley] {
+    display: none;
+  }
 }
 .footer__content__div {
   width: 60%;
@@ -123,6 +180,11 @@ body, html {
   flex-direction: column;
   gap: 3rem;
   justify-content: space-between;
+}
+@media (max-width: 768px) {
+  .footer__content__div {
+    width: 100%;
+  }
 }
 .footer__content__div__nav {
   display: flex;
@@ -135,6 +197,11 @@ body, html {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .footer__content__div__nav article {
+    width: 100%;
+  }
 }
 .footer__content__div__nav article div {
   display: flex;
@@ -156,6 +223,23 @@ body, html {
   display: flex;
   justify-content: flex-end;
 }
+@media (max-width: 768px) {
+  .footer__content__div__btn {
+    display: flex !important;
+    justify-content: flex-start !important;
+  }
+}
+.footer__content__mentions-legales {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  font-weight: 600;
+  display: flex;
+  gap: 1rem;
+}
+.footer__content__mentions-legales a {
+  color: #555555;
+}
 
 .nav {
   display: flex;
@@ -164,11 +248,24 @@ body, html {
   width: 85%;
   margin: 3rem auto 0 auto;
 }
+@media (min-width: 1920px) {
+  .nav {
+    width: 70%;
+  }
+}
 .nav__content-nav {
   width: 60%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .nav__content-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 }
 .nav__content-nav a {
   text-decoration: none;
@@ -182,8 +279,26 @@ body, html {
   display: flex;
   gap: 1.5rem;
 }
-.nav__content-nav img {
+@media (max-width: 768px) {
+  .nav__content-nav ul {
+    display: none;
+  }
+}
+.nav__content-nav img[alt="logo de Chiirz"] {
   width: 20%;
+}
+@media (max-width: 768px) {
+  .nav__content-nav img[alt="logo de Chiirz"] {
+    width: 30%;
+  }
+}
+.nav__content-nav img[alt=burger-menu] {
+  display: none;
+}
+@media (max-width: 768px) {
+  .nav__content-nav img[alt=burger-menu] {
+    display: inline-block;
+  }
 }
 .nav__content-btn {
   width: 25%;
@@ -191,6 +306,11 @@ body, html {
   gap: 1rem;
   align-items: center;
   justify-content: flex-end;
+}
+@media (max-width: 768px) {
+  .nav__content-btn {
+    display: none;
+  }
 }
 .nav__content-btn a {
   text-decoration: none;
@@ -205,6 +325,12 @@ body, html {
 .what-section strong {
   text-decoration: underline;
 }
+@media (max-width: 768px) {
+  .what-section h2 {
+    width: 80%;
+    position: relative;
+  }
+}
 .what-section h2:after {
   content: "";
   background: url(../../img/what-smiley.png);
@@ -215,6 +341,15 @@ body, html {
   background-repeat: no-repeat;
   position: relative;
   top: 10px;
+}
+@media (max-width: 768px) {
+  .what-section h2:after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80px;
+    height: 80px;
+  }
 }
 .what-section h2 + p {
   color: #555555;
@@ -235,6 +370,12 @@ body, html {
   border-radius: 40px;
   gap: 1rem;
 }
+@media (max-width: 768px) {
+  .what-section__articles-content article {
+    width: 100%;
+    gap: 1.3rem;
+  }
+}
 .what-section__articles-content article p {
   font-family: "Chillax", sans-serif;
 }
@@ -245,9 +386,14 @@ body, html {
   background-repeat: no-repeat;
   display: flex;
   justify-content: space-between;
-  height: 60vh;
+  height: 70vh;
   width: 100%;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+  }
 }
 .hero__text {
   display: flex;
@@ -255,9 +401,15 @@ body, html {
   gap: 1.5rem;
   width: 50%;
 }
-.hero__text strong {
+@media (max-width: 768px) {
+  .hero__text {
+    width: 100%;
+  }
+}
+.hero__text span {
   background-color: #b1ef42;
-  padding: 0.3rem;
+  padding: 0 0.2rem 0 0.8rem;
+  border-radius: 40px;
 }
 .hero__text p {
   color: #555555;
@@ -266,12 +418,32 @@ body, html {
   display: flex;
   gap: 1.5rem;
 }
+@media (max-width: 768px) {
+  .hero__text__btn {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+.hero__text img {
+  display: none;
+}
+@media (max-width: 768px) {
+  .hero__text img {
+    display: inline-block;
+    align-self: flex-end;
+  }
+}
 .hero__img {
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: flex-end;
   position: relative;
+}
+@media (max-width: 768px) {
+  .hero__img {
+    display: none;
+  }
 }
 .hero__img__beer {
   display: block;
@@ -283,9 +455,15 @@ body, html {
 */
 .btn {
   border-radius: 500px;
-  padding: 10px 20px;
+  padding: 1rem 1.5rem;
   text-decoration: none;
   font-weight: 700;
+}
+@media (max-width: 768px) {
+  .btn {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
 }
 .btn--primary {
   background-color: #000000;
