@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <section class="user">
+        <header class="user__header">
+            <div class="user__header__heading">
+                <img src="{{ asset('img/confetti.png') }}" alt="">
+                <div>Profil du fêtard</div>
+            </div>
+            <div class="user__header__profil">
+                <img src="{{ asset('img/face.png') }}" alt="{{ user.pseudo }}" class="user__header__user">
+                <h3>{{ user.pseudo }}</h3>
+                {% if app.user.id == user.id %}
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="user__header__alter">Modifier mon profil</a>
+                {% endif %}
+            </div>
+            <div class="user__header__register-date">
+                Membre depuis le {{ user.registered | date('d/m/20y', 'Europe/Paris',  'fr_FR')}}
+            </div>
+            <div class="user__header__city">
+                <img src="{{ asset('img/city_night.png') }}" alt="">
+                <div class="user__header__city__text">
+                    <div class="user__header__city__text user__header__city__text__item--comrad">Camarade de</div>
+                    <div class="user__header__city__text user__header__city__text__item--city">{{ user.fkCity.name }}</div>
+                </div>
+            </div>
+            <div class="user__header__btn-cntr">
+                <a href="{{ path('app_itinerary_new') }}" class="btn btn--black">Créer une route de la soif</a>
+                <a href="{{ path('city_from_user', {'id': user.fkCity.id}) }}" class="btn btn--stroke">Trouver un route</a>
+            </div>
+            {% if app.user.id == user.id or is_granted('ROLE_ADMIN') %}
+                {{ include('user/_delete_form.html.twig') }}
+                {% if app.user.id == user.id %}
+                    <a href="{{ path('logout') }}" class="user__header__alter">Deconnexion</a>
+                {% endif %}
+            {% endif %}
+        </header>
+        <div class="user__favorite">
+            <h2>Mes routes de la soif favorites :</h2>
+            {% for i in user.likes %}
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

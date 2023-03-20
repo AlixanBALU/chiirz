@@ -32,10 +32,10 @@
     
     <body>
         {% block header %}
-        
+            <header>
+                {% include 'partials/_nav.html.twig' %}
+            </header>
         {% endblock %}
-        
-
         <main> 
             <div class="container">
                 {% block body %}{% endblock %}
@@ -126,6 +126,6 @@
         <div id="places"></div>
 
         
-        
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
     </body>
 </html>
