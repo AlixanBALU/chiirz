@@ -54,11 +54,14 @@
                     {% endblock %}
                 </div>
                 
-            
+            {% if app.user %}
+                Connecté en tant que <strong>{{ app.user.pseudo }}</strong>
+            {% else %}
                 <div class="nav__content-btn p p--16">
-                    <a href="#" > Se connecter </a>
-                    <a href="#" class="btn btn--secondary"> S'inscrire </a>
+                    <a href="#" >Se connecter </a>
+                    <a href="#" class="btn btn--secondary">S'inscrire </a>
                 </div>
+            {% endif %}
             </nav>
         </header> 
 
@@ -153,9 +156,5 @@
 
         
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
-        <script src="{{ asset('js/main.js') }}" defer></script>
-        
-        <script src="{{ asset('js/main.js') }}" defer></script>
-        
     </body>
 </html>

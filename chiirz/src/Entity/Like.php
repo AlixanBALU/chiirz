@@ -24,6 +24,9 @@ class Like
     #[ORM\Column(nullable: true)]
     private ?bool $favorite = null;
 
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    private ?User $fk_user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Like
     public function setFavorite(?bool $favorite): self
     {
         $this->favorite = $favorite;
+
+        return $this;
+    }
+
+    public function getFkUser(): ?User
+    {
+        return $this->fk_user;
+    }
+
+    public function setFkUser(?User $fk_user): self
+    {
+        $this->fk_user = $fk_user;
 
         return $this;
     }
