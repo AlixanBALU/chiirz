@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
-{% block body %}
 
+{% block header %}
 <section class="hero">
     <div class="hero__text">
         <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
@@ -19,6 +19,12 @@
         <img class="hero__img__beer "src="{{ asset('img/hero-beer.png') }}">
     </div>
 </section>
+{% endblock %}
+
+
+{% block body %}
+
+
 
 <section class="splide-section"> 
     <h2 class="title title--h2"> Choisis ta ville </h2>
