@@ -7,13 +7,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fk_city', ChoiceType::class, ['label' => 'Ma ville'])
+            ->add('pseudo', null, ['label' => 'Pseudo'])
+            ->add('fk_city', null, ['label' => 'Ma ville'])
             // ->add('img', FileType::class, [
             //     'label' => 'Image (fichier image)',
             //     'required' => false,
@@ -28,9 +31,8 @@ class UserType extends AbstractType
             //     ],
             //     'data_class' => null,
             // ])
-            ->add('email')
-            ->add('pseudo')
-            ->add('password')
+            ->add('email', EmailType::class, ['label' => 'E-mail'])
+            ->add('password', null, ['label' => 'Mot de passe'])
         ;
     }
 
