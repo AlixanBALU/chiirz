@@ -40,31 +40,41 @@
 
 {% block body %}
     <header class="header">
-        <h1 class="title title--h2"> Les routes de la soif de </h1>
-        <form id="redirectCity">
-            <select id="city-select" name="city">
-                <option value="{{ city.id }}">{{ city.name }}</option>
-                {% for c in cities %}
-                    {% if c.id != city.id %}
+        <div class="header__div">
+            <div>
+                <h1 class="title title--h1"> Les routes de la soif de </h1>
+                <form id="redirectCity">
+                    <select class="title title--h1" id="city-select" name="city">
+                        <option value="{{ city.id }}">{{ city.name }}</option>
+                        {% for c in cities %}
+                            {% if c.id != city.id %}
+                                <option value="{{ c.id }}">{{ c.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            
+            <div class="header__button-wrapper">
+                <a href="#" class="header__button-wrapper__button btn btn--primary-bis">Créer une route</a>
+                {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
+                    <label for="order-select">Trier par</label>
+                    <select id="order-select" name="order">
+                        {% for c in cities %}
                         <option value="{{ c.id }}">{{ c.name }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-        </form>
-        <div class="header__button-wrapper">
-            <a href="#" class="header__button-wrapper__button">Créer une route</a>
-            <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
-                <label for="order-select">Trier par</label>
-                <select id="order-select" name="order">
-                    {% for c in cities %}
-                    <option value="{{ c.id }}">{{ c.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit">Submit</button>
-                <img src="{{ asset('img/svg/drop-down.svg') }}" alt=""/>
-            </form>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Submit</button>
+                    <img src="{{ asset('img/svg/drop-down.svg') }}" alt=""/>
+                </form> #}
+            </div>
+        </div>
+
+        <div class="header__img-container">
+            <img src="{{ asset('img/rocket.png') }}" alt="">
         </div>
     </header>
+
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">

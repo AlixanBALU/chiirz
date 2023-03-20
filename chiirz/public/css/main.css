@@ -494,29 +494,41 @@ body {
   background-repeat: no-repeat;
 }
 
-.header-2 {
+.header {
   background-size: 40%;
   display: flex;
   gap: 5rem;
   justify-content: space-between;
   margin: 4rem 0;
 }
-.header-2__div {
+.header__div {
   display: flex;
   flex-direction: column;
   gap: 5rem;
   width: 55%;
 }
-.header-2 form select {
+.header__div form select {
   background-color: #b1ef42;
   padding: 0 1.3rem;
   border-radius: 40px;
 }
-.header-2__img-container {
-  width: 35%;
+.header__img-container {
+  display: none;
 }
-.header-2__img-container img {
-  width: 100%;
+@media (min-width: 768px) {
+  .header__img-container {
+    display: block;
+    width: 35%;
+  }
+}
+.header__img-container img {
+  display: none;
+}
+@media (min-width: 768px) {
+  .header__img-container img {
+    display: inline-block;
+    width: 100%;
+  }
 }
 
 /*
