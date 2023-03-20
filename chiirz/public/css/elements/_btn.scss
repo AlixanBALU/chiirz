@@ -27,4 +27,18 @@
       background-color: $violet;
     }
   }
+
+  &--primary-bis {
+    background-color: $violet;
+    border: none;
+    transition: all ease-in-out 0.5s;
+    color : $black;
+
+
+    &:hover {
+      background-color: $black;
+      border: 2px $violet solid;
+      color : $violet;
+    }
+  }
 }

@@ -7,9 +7,40 @@
     <script src="{{ asset('js/city.js') }}" defer></script>
 {% endblock %}
 
+{% block header %}
+<nav class="nav">
+    <div class="nav__content-nav">
+        <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
+        
+        <img src="{{ asset('img/svg/responsive-menu-btn.svg') }}" alt="burger-menu">
+
+        <ul class="p p-20">
+            <li> 
+                <a href="{{ path('home') }}">Accueil</a>
+            </li>
+            <li> 
+                <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+            </li>
+            <li> 
+                <a href="#"> Mon compte </a>
+            </li>
+            <li> 
+                <a href="#"> Rechercher </a>
+            </li>
+        </ul>   
+    </div>
+    
+
+    <div class="nav__content-btn p p--16">
+        <a href="#" > Se connecter </a>
+        <a href="#" class="btn btn--secondary"> S'inscrire </a>
+    </div>
+</nav>
+{% endblock %}
+
 {% block body %}
     <header class="header">
-        <h1>Les routes de la soif de </h1>
+        <h1 class="title title--h2"> Les routes de la soif de </h1>
         <form id="redirectCity">
             <select id="city-select" name="city">
                 <option value="{{ city.id }}">{{ city.name }}</option>
@@ -21,7 +52,7 @@
             </select>
         </form>
         <div class="header__button-wrapper">
-            <a href="#" class="header__button-wrapper__button">Créer une route</a>
+            <a href="#" class="header__button-wrapper__button btn btn--primary-bis"> + Créer une route</a>
             {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
                 <label for="order-select">Trier par</label>
                 <select id="order-select" name="order">
@@ -38,12 +69,12 @@
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
-                    <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
-                    <h3>{{ itinerary.name }}</h3>
+                    <img class="itiner-container__card__img-bar" href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <div class="itiner-container__card__desc">
-                        <div class="itiner-container__card__row">
+                        <h3 class="title title--h4">{{ itinerary.name }}</h3>
+                        <div class="itiner-container__card__row p p--16">
                             <div>{# {itinerary.bar.numberOfSteps} #} Étapes</div>
-                            <div class="itiner-container__card__row1__rate">
+                            <div class="itiner-container__card__row__rate">
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                                 <div>
                                     {% if itinerary.comments is empty %}
@@ -64,7 +95,7 @@
                             <div>{{ itinerary.distance }}</div>
                             <div class="itiner-container__card__row__price">
                                 {% for i in 1..itinerary.price %}
-                                    <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                                    <span>€</span>
                                 {% endfor %}
                             </div>
                         </div>
