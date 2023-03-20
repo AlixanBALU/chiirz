@@ -15,14 +15,14 @@
                 <option value="{{ city.id }}">{{ city.name }}</option>
                 {% for c in cities %}
                     {% if c.id != city.id %}
-                        <option value="{{ c.id }}">{{ c.name }}</    ption>
+                        <option value="{{ c.id }}">{{ c.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
         </form>
         <div class="header__button-wrapper">
             <a href="#" class="header__button-wrapper__button">Créer une route</a>
-            {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
+            <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
                 <label for="order-select">Trier par</label>
                 <select id="order-select" name="order">
                     {% for c in cities %}
@@ -31,46 +31,45 @@
                 </select>
                 <button type="submit">Submit</button>
                 <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
-            </form> #}
+            </form>
         </div>
     </header>
-    
     <section class="itiner-container">
-            {% for itinerary in city.itineraries %}
-                <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
-                    <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
-                    <h3>{{ itinerary.name }}</h3>
-                    <div class="itiner-container__card__desc">
-                        <div class="itiner-container__card__row">
-                            <div>{# {itinerary.bar.numberOfSteps} #} Étapes</div>
-                            <div class="itiner-container__card__row1__rate">
-                                <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
-                                <div>
-                                    {% if itinerary.comments is empty %}
-                                        N/A
-                                    {% else %}
-                                        {% set rating = 0 %}
-                                        {% set ratingIndex = 0 %}
-                                        {% for comment in itinerary.comments %}
-                                            {% set rating = rating + comment.rate %}
-                                            {% set ratingIndex = ratingIndex + 1 %}
-                                        {% endfor %}
-                                        {{ rating / ratingIndex }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="itiner-container__card__row">
-                            <div>{{ itinerary.distance }}</div>
-                            <div class="itiner-container__card__row__price">
-                                {% for i in 1..itinerary.price %}
-                                    <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
-                                {% endfor %}
+        {% for itinerary in city.itineraries %}
+            <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
+                <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
+                <h3>{{ itinerary.name }}</h3>
+                <div class="itiner-container__card__desc">
+                    <div class="itiner-container__card__row">
+                        <div>{# {itinerary.bar.numberOfSteps} #} Étapes</div>
+                        <div class="itiner-container__card__row1__rate">
+                            <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
+                            <div>
+                                {% if itinerary.comments is empty %}
+                                    N/A
+                                {% else %}
+                                    {% set rating = 0 %}
+                                    {% set ratingIndex = 0 %}
+                                    {% for comment in itinerary.comments %}
+                                        {% set rating = rating + comment.rate %}
+                                        {% set ratingIndex = ratingIndex + 1 %}
+                                    {% endfor %}
+                                    {{ rating / ratingIndex }}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                </a>
-            {% endfor %}
+                    <div class="itiner-container__card__row">
+                        <div>{{ itinerary.distance }}</div>
+                        <div class="itiner-container__card__row__price">
+                            {% for i in 1..itinerary.price %}
+                                <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
     </section>
     </main>
     {{ include('city/_delete_form.html.twig') }}
