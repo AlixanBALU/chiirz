@@ -37,6 +37,11 @@
                 {% endif %}
             {% endif %}
         </header>
+        <div class="user__favorite">
+            <h2>Mes routes de la soif favorites :</h2>
+            {% for i in user.likes %}
+            {% endfor %}
+        </div>
     </section>
 
 {% endblock %}
