@@ -1,6 +1,9 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+homepage:
+    path: /
+    controller: App\Controller\StaticPages::index
 itinerary_index:
     path: /itinerary
     controller: App\Controller\ItineraryController::index
