@@ -6,6 +6,16 @@
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+      
+        <script src="
+        https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+        "></script>
+        
+        <link href="
+        https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+        " rel="stylesheet">
+        
+        <link rel="stylesheet" href="url-to-cdn/splide.min.css">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -21,8 +31,10 @@
         <header>
             <nav class="nav">
                 <div class="nav__content-nav">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
-    
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
+                    
+                    <img src="{{ asset('img/svg/responsive-menu-btn.svg') }}" alt="burger-menu">
+
                     <ul class="p p-20">
                         <li> 
                             <a href="{{ path('home') }}">Accueil</a>
@@ -62,14 +74,9 @@
             <div class="footer__content">
                 <!-- logo et smiley-->
                 <div class="footer__content__logo">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz, un site qui te permet de créer tes tournées de bar à Paris, Lyon ou Strasbourg">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
                     <img src="{{ asset('img/smart-smiley.png') }}" alt="smiley">
-   
-                    <!-- Mentions légales-->
-                    <div class="footer__content__logo__mentions-legales p-20">
-                        <a href="#" > Mentions légales </a>
-                        <a href="#" > Contact </a>
-                    </div>  
+
                 </div>
 
                 
@@ -124,13 +131,19 @@
                         </article>
                     </div>
                     
-
                     <!-- btn -->      
                     <div class="footer__content__div__btn nav__content-btn p p--16">
                         <a href="#" > Se connecter </a>
                         <a href="#" class="btn btn--secondary"> S'inscrire </a>
                     </div>      
-                </div> 
+                </div>
+                
+                <!-- Mentions légales-->
+                <div class="footer__content__mentions-legales p-20">
+                    <a href="#" > Mentions légales </a>
+                    <a href="#" > Contact </a>
+                </div>  
+
             </div>              
         </footer> #}
 
@@ -138,9 +151,11 @@
         <div id="info"></div>
         <div id="places"></div>
 
+        
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
         <script src="{{ asset('js/main.js') }}" defer></script>
         
         <script src="{{ asset('js/main.js') }}" defer></script>
+        
     </body>
 </html>

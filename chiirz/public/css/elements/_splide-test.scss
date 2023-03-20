@@ -1,0 +1,41 @@
+.full-width {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .splide-section {
+    margin : 5rem 0;
+    display : flex;
+    flex-direction : column;
+    gap : 2rem;
+
+      & h2 {
+
+        @media (max-width: 768px) {
+          width : 60%;
+          position : relative;
+        }
+
+        &:after {
+          content : "";
+            background : url(../../img/hmhm-smiley.png);
+            background-size : contain;
+            display : inline-block;
+            width : 50px;
+            height : 50px;
+            background-repeat : no-repeat;
+            position : relative;
+            top : 10px;
+
+            @media (max-width: 768px) {
+              position : absolute;
+              right : -70px;
+              top : -10px;
+              width : 80px;
+              height : 80px;
+          }
+        }
+      }
+  }
+

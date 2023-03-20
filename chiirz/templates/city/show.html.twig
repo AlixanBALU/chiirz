@@ -34,6 +34,7 @@
             </form> #}
         </div>
     </header>
+    
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">

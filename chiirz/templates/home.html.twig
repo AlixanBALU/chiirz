@@ -1,27 +1,37 @@
 {% extends 'base.html.twig' %}
-
-{% block header %}
-    <section class="hero">
-        <div class="hero__text">
-            <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
-            <p class="p p--16"> Prêt à explorer les meilleures adresses de Lyon, Paris ou Strasbourg 
-                pour une soirée (un peu trop) arrosée ? 
-                Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
-            <div class="hero__text__btn">
-                <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
-                <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
-            </div>
-        </div>
-
-        <div class="hero__img">
-            <img class="hero__img__beer "src="{{ asset('img/hero-beer.png') }}">
-        </div>
-    </section>
-{% endblock %}
-
 {% block body %}
 
+<section class="hero">
+    <div class="hero__text">
+        <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
+        <p class="p p--16"> Prêt à explorer les meilleures adresses de Lyon, Paris ou Strasbourg 
+            pour une soirée (un peu trop) arrosée ? 
+            Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
+        <div class="hero__text__btn">
+            <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
+            <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
+        </div>
 
+        <img src="{{ asset('img/happy-smiley.png') }}">
+    </div>
+
+    <div class="hero__img">
+        <img class="hero__img__beer "src="{{ asset('img/hero-beer.png') }}">
+    </div>
+</section>
+
+<section class="splide-section"> 
+    <h2 class="title title--h2"> Choisis ta ville </h2>
+    <div class="splide full-width" aria-labelledby="carousel-heading">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+            </ul>
+        </div>
+    </div>
+</section>
 
 <section class="what-section">
     <h2 class="title title--h2"> <strong> Chiirz </strong> c'est quoi ? </h2>
@@ -49,5 +59,26 @@
         </article>
     </div>
 </section>
-    
+
+<script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
+<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script>
+
+<script> 
+const splide = new Splide( '.splide', {
+  type   : 'loop',
+  drag   : 'free',
+  focus  : 'center',
+  arrows : false,
+  pagination : false,
+  autoStart: boolean = true,
+  perPage: 3,
+  gap : '1.3rem',
+  autoScroll: {
+    speed: 2,
+  },
+} );
+
+splide.mount();
+</script>
+
 {% endblock %}
