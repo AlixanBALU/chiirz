@@ -3,54 +3,29 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $pseudo = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[ORM\Column]
+    private array $roles = [];
 
-    #[ORM\Column(length: 255)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     private ?string $password = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $register_date = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url_pp = null;
-
-    #[ORM\OneToMany(mappedBy: 'fk_user', targetEntity: Itinerary::class)]
-    private Collection $itineraries;
-
-    #[ORM\OneToMany(mappedBy: 'fk_user', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comments;
-
-    #[ORM\OneToMany(mappedBy: 'fk_user', targetEntity: Like::class)]
-    private Collection $likes;
-
-    public function __construct()
-    {
-        $this->itineraries = new ArrayCollection();
-        $this->comments = new ArrayCollection();
-        $this->likes = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->pseudo;
-    }
 
     public function getId(): ?int
     {
@@ -69,19 +44,47 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->email;
+        return (string) $this->pseudo;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
     {
-        $this->email = $email;
+        return (string) $this->pseudo;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -93,118 +96,23 @@ class User
         return $this;
     }
 
-    public function getRegisterDate(): ?\DateTimeInterface
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
     {
-        return $this->register_date;
-    }
-
-    public function setRegisterDate(\DateTimeInterface $register_date): self
-    {
-        // $this->register_date = date('Y-m-d', strtotime('now'));
-        $this->register_date = $register_date;
-
-        return $this;
-    }
-
-    public function getUrlPp(): ?string
-    {
-        return $this->url_pp;
-    }
-
-    public function setUrlPp(?string $url_pp): self
-    {
-        $this->url_pp = $url_pp;
-
-        return $this;
+        return null;
     }
 
     /**
-     * @return Collection<int, Itinerary>
+     * @see UserInterface
      */
-    public function getItineraries(): Collection
+    public function eraseCredentials()
     {
-        return $this->itineraries;
-    }
-
-    public function addItinerary(Itinerary $itinerary): self
-    {
-        if (!$this->itineraries->contains($itinerary)) {
-            $this->itineraries->add($itinerary);
-            $itinerary->setFkUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeItinerary(Itinerary $itinerary): self
-    {
-        if ($this->itineraries->removeElement($itinerary)) {
-            // set the owning side to null (unless already changed)
-            if ($itinerary->getFkUser() === $this) {
-                $itinerary->setFkUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setFkUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getFkUser() === $this) {
-                $comment->setFkUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes->add($like);
-            $like->setFkUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
-            if ($like->getFkUser() === $this) {
-                $like->setFkUser(null);
-            }
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
