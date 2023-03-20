@@ -1,0 +1,29 @@
+.login {
+    display : flex;
+    justify-content : space-between;
+
+    &__content {
+        width : 40%;      
+    }
+
+    & img {
+        width : 50%;
+    }
+
+    &__login-form {
+        display : flex;
+        flex-direction : column;
+        gap : 2rem;
+
+        & div {
+            display : flex;
+            flex-direction : column;
+            gap : 0.6rem;
+            & input {
+                background-color : $white-grayer;
+                border-radius : 40px;
+                padding : 1rem 0;
+            }
+        }
+    }
+}
