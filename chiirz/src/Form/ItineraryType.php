@@ -16,7 +16,6 @@ class ItineraryType extends AbstractType
             ->add('price')
             ->add('distance')
             ->add('img')
-            ->add('fk_user')
             ->add('fk_city')
         ;
     }

@@ -26,9 +26,6 @@ class Itinerary
     private ?string $distance = null;
 
     #[ORM\ManyToOne(inversedBy: 'itineraries')]
-    private ?User $fk_user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'itineraries')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $fk_city = null;
 
@@ -45,7 +42,7 @@ class Itinerary
     private ?string $text = null;
 
     #[ORM\Column(nullable: true)]
-    private array $bar = [];
+    private ?array $bar = [];
 
     public function __construct()
     {
@@ -95,18 +92,6 @@ class Itinerary
     public function setDistance(?string $distance): self
     {
         $this->distance = $distance;
-
-        return $this;
-    }
-
-    public function getFkUser(): ?User
-    {
-        return $this->fk_user;
-    }
-
-    public function setFkUser(?User $fk_user): self
-    {
-        $this->fk_user = $fk_user;
 
         return $this;
     }

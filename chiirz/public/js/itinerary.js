@@ -19,7 +19,6 @@ backButton.addEventListener('click', () => {
 //     });
 // } ).mount();
 
-
 const splidesPics = document.querySelectorAll('#splidePics');
     splidesPics.forEach(splidePics => {
     new Splide(splidePics).mount();

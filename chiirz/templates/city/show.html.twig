@@ -46,14 +46,14 @@
                 <option value="{{ city.id }}">{{ city.name }}</option>
                 {% for c in cities %}
                     {% if c.id != city.id %}
-                        <option value="{{ c.id }}">{{ c.name }}</    ption>
+                        <option value="{{ c.id }}">{{ c.name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
         </form>
         <div class="header__button-wrapper">
-            <a href="#" class="header__button-wrapper__button btn btn--primary-bis"> + Créer une route</a>
-            {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
+            <a href="#" class="header__button-wrapper__button">Créer une route</a>
+            <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
                 <label for="order-select">Trier par</label>
                 <select id="order-select" name="order">
                     {% for c in cities %}
@@ -62,10 +62,9 @@
                 </select>
                 <button type="submit">Submit</button>
                 <img src="{{ asset('img/svg/drop-down.svg') }}"" alt="">
-            </form> #}
+            </form>
         </div>
     </header>
-    
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">

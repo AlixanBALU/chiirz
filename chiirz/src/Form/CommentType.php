@@ -14,7 +14,6 @@ class CommentType extends AbstractType
         $builder
             ->add('text')
             ->add('comment')
-            ->add('fk_user')
             ->add('fk_itinerary')
         ;
     }

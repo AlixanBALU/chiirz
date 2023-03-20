@@ -123,7 +123,38 @@ function initMap() {
 
         }
     });
+
+    // Gestion des distances avec ou sans des étapes | waypoint
+    // Doc sur l'api direction
+    // https://developers.google.com/maps/documentation/javascript/directions?hl=fr
+
+    function calculerDistance() {
+      const service = new google.maps.DirectionsService();
+      const origine = 'Paris, France';
+      const destination = 'Marseille, France';
+      const waypoint1 = {location: 'Toulouse, France', stopover: true};
+      const waypoint2 = {location: 'Strasbourg, France', stopover: true};
+      const div = document.getElementById('info');
+    
+      const request = {
+        origin: origine,
+        destination: destination,
+        waypoints: [waypoint1, waypoint2],
+        travelMode: 'WALKING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      };
+    
+      service.route(request, function(result, status) {
+        if (status == "OK") {
+          const distance = result.routes[0].legs[0].distance.text;
+          const duration = result.routes[0].legs[0].duration.text;
+          div.innerHTML+= "Distance: " + distance + ", Durée: " + duration + "<hr>";
+        }
+      });
+    }
+    
+    calculerDistance();
+    
 }
-
-
-

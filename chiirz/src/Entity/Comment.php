@@ -27,10 +27,6 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $fk_user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Itinerary $fk_itinerary = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -104,18 +100,6 @@ class Comment
                 $fkComment->setComment(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getFkUser(): ?User
-    {
-        return $this->fk_user;
-    }
-
-    public function setFkUser(?User $fk_user): self
-    {
-        $this->fk_user = $fk_user;
 
         return $this;
     }
