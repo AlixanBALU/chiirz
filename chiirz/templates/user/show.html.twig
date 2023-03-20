@@ -39,7 +39,42 @@
         </header>
         <div class="user__favorite">
             <h2>Mes routes de la soif favorites :</h2>
-            {% for i in user.likes %}
+            {% for l in user.likes %}
+                {% if l.favorite %}
+                    <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': l.fkItinerary.id}) }}">
+                        <img class="itiner-container__card__img-bar" href="" alt="{{ l.fkItinerary.name }}">
+                        <div class="itiner-container__card__desc">
+                            <h3 class="title title--h4">{{ l.fkItinerary.name }}</h3>
+                            <div class="itiner-container__card__row p p--16">
+                                <div>{{ l.fkItinerary.bar.numberOfSteps }} Étapes</div>
+                                <div class="itiner-container__card__row__rate">
+                                    <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
+                                    <div>
+                                        {% if l.fkItinerary.comments is empty %}
+                                            N/A
+                                        {% else %}
+                                            {% set rating = 0 %}
+                                            {% set ratingIndex = 0 %}
+                                            {% for comment in l.fkItinerary.comments %}
+                                                {% set rating = rating + comment.rate %}
+                                                {% set ratingIndex = ratingIndex + 1 %}
+                                            {% endfor %}
+                                            {{ rating / ratingIndex }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="itiner-container__card__row">
+                                <div>{{ l.fkItinerary.distance }}</div>
+                                <div class="itiner-container__card__row__price">
+                                    {% for i in 1..l.fkItinerary.price %}
+                                        <span>€</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
             {% endfor %}
         </div>
     </section>
