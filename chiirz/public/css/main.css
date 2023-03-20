@@ -494,12 +494,37 @@ body {
   background-repeat: no-repeat;
 }
 
+.header-2 {
+  background-size: 40%;
+  display: flex;
+  gap: 5rem;
+  justify-content: space-between;
+  margin: 4rem 0;
+}
+.header-2__div {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  width: 55%;
+}
+.header-2 form select {
+  background-color: #b1ef42;
+  padding: 0 1.3rem;
+  border-radius: 40px;
+}
+.header-2__img-container {
+  width: 35%;
+}
+.header-2__img-container img {
+  width: 100%;
+}
+
 /*
     Elements
 */
 .btn {
   border-radius: 500px;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2rem;
   text-decoration: none;
   font-weight: 700;
   width: -moz-fit-content;
@@ -528,11 +553,11 @@ body {
   border: none;
   transition: all ease-in-out 0.5s;
   color: #000000;
+  align-items: center;
 }
 .btn--primary-bis:hover {
   background-color: #000000;
-  border: 2px #a77fee solid;
-  color: #a77fee;
+  color: #ffffff;
 }
 
 .full-width {
