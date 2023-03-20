@@ -42,7 +42,7 @@ class Itinerary
     private ?string $text = null;
 
     #[ORM\Column(nullable: true)]
-    private array $bar = [];
+    private ?array $bar = [];
 
     public function __construct()
     {
