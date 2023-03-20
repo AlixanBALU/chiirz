@@ -29,41 +29,49 @@ Titres
   font-weight: 600;
 
   &--h1 {
-    //110 px
-    font-size: 5rem;
-    line-height: 5.5rem;
+    font-size : 3rem;
+    line-height: 3.5rem;
     
-    @media (max-width: 768px) {
-      font-size : 3rem;
-      line-height: 3.5rem;
+    @media (min-width: 1080px) {
+    //110 px
+    font-size: 4rem;
+    line-height: 4.5rem;
+    }
+    @media (min-width: 1280px) {
+      //110 px
+      font-size: 5rem;
+      line-height: 5.5rem;
     }
   }
 
   &--h2 {
-    //80
-    font-size: 4rem;
-    @media (max-width: 768px) {
-      font-size : 2.5rem;
+    font-size : 2.5rem;
+    @media (min-width: 1080px) {  
+      //80
+      font-size: 4rem;
     }
   }
 
   &--h3 {
-    //40px
-    font-size: 2.5rem;
-    @media (max-width: 768px) {
-      font-size : 2rem;
+    font-size : 2rem;
+    @media (min-width: 1080px) {
+      //40px
+      font-size: 2.5rem;
     }
   }
+
   &--footer {
-    //32px
-    font-size: 2rem;
+    font-size : 1.5rem;
     font-weight: 700;
-    @media (max-width: 768px) {
-      font-size : 1.5rem;
+    @media (min-width: 1080px) {
+      
+      //32px
+      font-size: 2rem;
     }
     
   }
 }
+
 
 /*
 Paragraphes

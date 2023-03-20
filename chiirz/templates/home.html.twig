@@ -20,6 +20,19 @@
     </div>
 </section>
 
+<section class="splide-section"> 
+    <h2 class="title title--h2"> Choisis ta ville </h2>
+    <div class="splide full-width" aria-labelledby="carousel-heading">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
 <section class="what-section">
     <h2 class="title title--h2"> <strong> Chiirz </strong> c'est quoi ? </h2>
     <p class="p p--16"> Permettez-moi de vous présenter Skoll, une entreprise qui propose de vous aider à trouver les meilleurs bars dans les villes de Paris, Lyon et Strasbourg. En utilisant notre plateforme, vous pouvez planifier votre itinéraire de soirée, découvrir les dernières tendances de la vie nocturne et trouver des endroits sympas pour sortir avec vos amis. En outre, notre site répertorie également les paris dans ces villes, pour les amateurs de jeux de hasard. Avec Skoll, vous êtes sûr de passer une soirée inoubliable !</p>
@@ -46,5 +59,26 @@
         </article>
     </div>
 </section>
-    
+
+<script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
+<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script>
+
+<script> 
+const splide = new Splide( '.splide', {
+  type   : 'loop',
+  drag   : 'free',
+  focus  : 'center',
+  arrows : false,
+  pagination : false,
+  autoStart: boolean = true,
+  perPage: 3,
+  gap : '1.3rem',
+  autoScroll: {
+    speed: 2,
+  },
+} );
+
+splide.mount();
+</script>
+
 {% endblock %}

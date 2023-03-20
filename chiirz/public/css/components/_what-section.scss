@@ -26,8 +26,8 @@
 
             @media (max-width: 768px) {
                 position : absolute;
-                right : 0;
-                top : 0;
+                right : -80px;
+                top : -10px;
                 width : 80px;
                 height : 80px;
             }
@@ -45,6 +45,14 @@
         flex-wrap : wrap;
         gap : 1rem;
 
+        @media (min-width: 768px) {
+            justify-content : center;
+        }
+
+        @media (min-width: 1080px) {
+            justify-content : space-between;
+        }
+
         & article {
             background-color : $white-gray;
             border : 2px $white-grayer solid;
@@ -54,11 +62,16 @@
             align-items : center;
             text-align : center; 
             border-radius : 40px;
-            gap : 1rem;
-
+            width : 100%;
+            gap : 1.3rem;
         
-            @media (max-width: 768px) {
-                width : 100%;
+            @media (min-width: 768px) {
+                width : 47%;
+                gap : 1.3rem;
+            }
+
+            @media (min-width: 1280px) {
+                width : 23%;
                 gap : 1.3rem;
             }
 

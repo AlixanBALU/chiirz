@@ -3,10 +3,8 @@
   padding: 1rem 1.5rem;
   text-decoration: none;
   font-weight: 700;
-
-  @media (max-width: 768px) {
-    width : fit-content;
-  }
+  width : fit-content;
+  text-align : center;
 
   &--primary {
     background-color: $black;
@@ -22,6 +20,8 @@
     background-color: transparent;
     border: 2px $black solid;
     transition: all ease-in-out 0.5s;
+    color : $black;
+
 
     &:hover {
       background-color: $violet;

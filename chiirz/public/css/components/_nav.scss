@@ -5,23 +5,30 @@
     width : 85%;
     margin: 3rem auto 0 auto;
 
+    @media (min-width: 1080px) {
+        width : 90%;
+    }
+
+    @media (min-width: 1280px) {
+        width : 85%;
+    }
+
     @media (min-width: 1920px) {
         width : 70%;
     }
   
     &__content-nav {
-      width: 60%;
       display: flex;
+      width: 100%;
       justify-content: space-between;
+      flex-direction : row-reverse;
       align-items: center;
 
-      @media (max-width: 768px) {
-        width : 100%;
-        display : flex;
-        flex-direction : row-reverse;
-        justify-content : space-between;
-    }
-      
+      @media (min-width: 1080px) {
+        width : 70%;
+        flex-direction : row;
+      }
+
       & a {
         text-decoration: none;
         color: $p-grey;
@@ -30,46 +37,55 @@
       }
   
       & ul {
-        list-style-type: none;
-        font-weight: 600;
-        display : flex;
-        gap : 1.5rem;
-        @media (max-width: 768px) {
-            display : none;
+        display : none;
+
+        @media (min-width: 1080px) {
+            list-style-type: none;
+            font-weight: 600;
+            display : flex;
+            gap : 1.2rem;
+        }
+
+        @media (min-width: 1280px) {
+            gap : 1.5rem;
         }
       }
   
       & img[alt="logo de Chiirz"]{
-        width : 20%;
-        @media (max-width: 768px) {
+        width : 30%;
+
+        @media (min-width: 768px) {
+            width : 25%;
+        }
+
+        @media (min-width: 1080px) {
             width : 30%;
         }
       }
 
       & img[alt="burger-menu"] {
-        display : none;
-        @media (max-width: 768px) {
-            display : inline-block;
+        display : inline-block;
+        @media (min-width: 1080px) {
+            display : none ;
         }
-
     }  
-    }
+}
   
     &__content-btn {
-      width: 25%;
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-      justify-content: flex-end;
+      display : none;
   
-      @media (max-width: 768px) {
-        display : none;
+      //deskop 1080 à 1280
+      @media (min-width: 1080px) {
+        width: 30%;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: flex-end;
         }
 
       & a {
         text-decoration: none;
-        color: $black;
-        
+        color: $black;    
       }
     }
   }
