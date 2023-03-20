@@ -3,14 +3,17 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <section class="register">
-        <div class="register__content">
-            <h1>Rejoins-nous !</h1>
-            {{ include('user/_form.html.twig') }}
-            </div>
-        <img src="{{ asset('img/smile.png')}}" alt="">
-    </section>
-
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    {% if app.user %}
+        <script defer>
+            window.open('/user/{{ app.user.id }}', '_self');
+        </script>
+    {% else %}
+        <section class="register">
+            <div class="register__content">
+                <h1>Rejoins-nous !</h1>
+                {{ include('user/_form.html.twig') }}
+                </div>
+            <img src="{{ asset('img/smile.png')}}" alt="">
+        </section>
+    {% endif %}
 {% endblock %}
