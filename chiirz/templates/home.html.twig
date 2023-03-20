@@ -1,30 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-<section class="hero">
-    <div class="hero__text">
-        <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
-        <p class="p p--16"> Prêt à explorer les meilleures adresses de Lyon, Paris ou Strasbourg 
-            pour une soirée (un peu trop) arrosée ? 
-            Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
-        <div class="hero__text__btn">
-            <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
-            <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
-        </div>
+    <header class="header header--home header--all">
+        <nav class="nav">
+            <div class="nav__content-nav">
+                <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
+                
+                <img src="{{ asset('img/svg/responsive-menu-btn.svg') }}" alt="burger-menu">
 
-        <img src="{{ asset('img/happy-smiley.png') }}">
-    </div>
+                <ul class="p p-20">
+                    <li> 
+                        <a href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li> 
+                        <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+                    </li>
+                    <li> 
+                        <a href="#"> Mon compte </a>
+                    </li>
+                    <li> 
+                        <a href="#"> Rechercher </a>
+                    </li>
+                </ul>   
+            </div>
+            
+        
+            <div class="nav__content-btn p p--16">
+                <a href="#" > Se connecter </a>
+                <a href="#" class="btn btn--secondary"> S'inscrire </a>
+            </div>
+        </nav>
 
-    <div class="hero__img">
-        <img class="hero__img__beer "src="{{ asset('img/hero-beer.png') }}">
-    </div>
-</section>
+        <section class="hero">
+            <div class="hero__text">
+                <h1 class="title title--h1"> Prêt à te <br> mettre une <br> <span> mine </span> ? </h1>
+                <p class="p p--16"> Prêt à explorer les meilleures adresses de Lyon, Paris ou Strasbourg 
+                    pour une soirée (un peu trop) arrosée ? 
+                    Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
+                <div class="hero__text__btn">
+                    <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
+                    <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
+                </div>
+        
+                <img src="{{ asset('img/happy-smiley.png') }}">
+            </div>
+        
+            <div class="hero__img">
+                <img class="hero__img__beer "src="{{ asset('img/hero-beer.png') }}">
+            </div>
+        </section>
+    </header> 
 {% endblock %}
 
-
 {% block body %}
-
-
 
 <section class="splide-section"> 
     <h2 class="title title--h2"> Choisis ta ville </h2>
@@ -65,6 +93,7 @@
         </article>
     </div>
 </section>
+
 
 <script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
 <script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script>

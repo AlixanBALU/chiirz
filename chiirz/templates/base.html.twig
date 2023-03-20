@@ -22,7 +22,10 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            {# <script src="{{ asset('js/main.js') }}"></script> #}
+            
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+
         {% endblock %}
     </head>
 

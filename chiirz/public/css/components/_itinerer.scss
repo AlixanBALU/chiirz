@@ -1,0 +1,38 @@
+.header {
+    background-size: 40%;
+    display : flex;
+    gap : 5rem;
+    justify-content : space-between;
+    margin : 4rem 0;
+
+    &__div {
+        display : flex;
+        flex-direction : column;
+        gap : 5rem;
+        width : 55%;
+
+        & form select {
+            background-color : $green;
+            padding : 0 1.3rem;
+            border-radius : 40px;
+        }
+    }
+
+    &__img-container {
+        display : none;
+
+        @media (min-width: 768px) {
+            display : block;
+            width : 35%;
+        }
+
+        & img {
+            display : none;
+            @media (min-width: 768px) {
+                display : inline-block;
+                width : 100%;
+            }    
+        }
+    }
+    
+}
