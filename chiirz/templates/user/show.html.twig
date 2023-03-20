@@ -3,13 +3,22 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <header class="header-user">
+        <div class="header-user__heading">
+            <img src="{{ asset('img/confetti.png') }}" alt="">
+            <div>Profil du fêtard</div>
+        </div>
+    </header>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Registered</th>
+                <td>{{ user.registered | date('y-m-d', 'Europe/Paris',  'fr_FR')}}</td>
             </tr>
             <tr>
                 <th>Pseudo</th>

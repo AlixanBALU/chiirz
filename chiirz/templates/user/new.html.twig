@@ -3,9 +3,14 @@
 {% block title %}New User{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+    <section class="register">
+        <div class="register__content">
+            <h1>Rejoins-nous !</h1>
+            {{ include('user/_form.html.twig') }}
+            </div>
+        <img src="{{ asset('img/smile.png')}}" alt="">
+    </section>
 
-    {{ include('user/_form.html.twig') }}
 
     <a href="{{ path('app_user_index') }}">back to list</a>
 {% endblock %}

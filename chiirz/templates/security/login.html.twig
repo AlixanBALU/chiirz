@@ -3,6 +3,14 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<section class="login">
+    <div class="login__content">
+        <h1>Connexion</h1>
+        <button class="btn">{{ button_label|default('Connexion') }}</button>
+
+    </div>
+    <img src="{{ asset('img/smile.png')}}" alt="">
+</section>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

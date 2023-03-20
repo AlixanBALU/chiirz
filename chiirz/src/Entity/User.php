@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?City $fk_city = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $registered = null;
 
     public function __construct()
     {
@@ -167,6 +174,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFkCity(?City $fk_city): self
     {
         $this->fk_city = $fk_city;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getRegistered(): ?\DateTimeInterface
+    {
+        return $this->registered;
+    }
+
+    public function setRegistered(\DateTimeInterface $registered): self
+    {
+        $this->registered = $registered;
 
         return $this;
     }

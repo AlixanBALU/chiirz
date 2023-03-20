@@ -43,23 +43,23 @@
                             <a href="{{ path('itinerary_index') }}">Itinéraires</a>
                         </li>
                         <li> 
-                            <a href="#"> Mon compte </a>
+                            <a href=""> Mon compte </a>
                         </li>
                         <li> 
                             <a href="#"> Rechercher </a>
                         </li>
                     </ul>   
-                    {% block header %}
-                        // ta section hero
-                    {% endblock %}
+                    {% block header %}{% endblock %}
                 </div>
                 
             {% if app.user %}
-                Connecté en tant que <strong>{{ app.user.pseudo }}</strong>
+                <a href="{{ path('user', {'id': app.user.id }) }}">
+                    {{ app.user.pseudo }}
+                </a>
             {% else %}
                 <div class="nav__content-btn p p--16">
-                    <a href="#" >Se connecter </a>
-                    <a href="#" class="btn btn--secondary">S'inscrire </a>
+                    <a href="{{ path('login') }}" >Se connecter </a>
+                    <a href="{{ path('register') }}" class="btn btn--secondary">S'inscrire </a>
                 </div>
             {% endif %}
             </nav>
