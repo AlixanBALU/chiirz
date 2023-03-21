@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="{{ asset('css/splide.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -104,7 +104,7 @@
                                 </div>
                                 {# Repart à 0 sur la notation bem sinon trop long #}
                                 <div class="parcours-info">
-                                    <div class="parcours-info__length" id="parcoursLength" data-city="{{itinerary.fkCity.name}}">
+                                    <div class="parcours-info__length" id="parcoursLength">
                                         
                                     </div>
                                     <div class="parcours-info__step-index">

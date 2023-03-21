@@ -29,6 +29,31 @@ new Splide('#carouselSteps', {
 }).mount();
 
 function initMap() {
+    /*
+    *
+    *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
+    * 
+    */ 
+    function getJsonBar() {
+        const url = window.location.href;
+        const urlSegments = url.split("/");
+        // ItineraryID -> Id de l'itinéraire. 
+        const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
+        
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            console.log(this.readyState);
+            if (this.readyState == 4 && this.status == 200) {
+                const json = this.responseText;
+                console.log("Json :" + json);
+            }
+        };
+        xhr.open("GET", "./get_bar/" + itineraryId, true);
+        xhr.send();
+    }
+
+        
     // position pour centrer la carte
     const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
    
@@ -158,22 +183,23 @@ function initMap() {
     // Doc sur l'api direction
     // https://developers.google.com/maps/documentation/javascript/directions?hl=fr
 
-    function calculerDistance(array, inputID) {
+    function WriteItineraryArguments(barJson) {
         
+        // On initialise les fields qui vont contenir nos données
+        let lenghtField = document.querySelectorAll('#parcoursLength')
+        let phoneField = document.querySelectorAll('#stepPhone')
 
-        input = document.querySelectorAll('#' + inputID)
-        
-        // const dataCity = input.dataset.city;
+        let rateField = document.querySelectorAll('#stepRate')
+        let opinionField = document.querySelectorAll('#stepOpinion')
 
-        let distanceArray = [];
-        
-        const service = new google.maps.DirectionsService();
-        let routeWaypoints = [];
+        let priceField = document.querySelectorAll('#stepPrice')
+        let openField = document.querySelectorAll('#stepIsOpen')
 
-        for (let i = 0; i < array['steps'].length - 1; i++) {
+        for (let i = 0; i < barJson['steps'].length - 1; i++) {
 
-            let routeOrigin = {placeId: array['steps'][i]['place_id']};
-            let routeDestination = {placeId: array['steps'][i + 1]['place_id']};
+            // Longueur du parcours
+            let routeOrigin = {placeId: barJson['steps'][i]['place_id']};
+            let routeDestination = {placeId: barJson['steps'][i + 1]['place_id']};
         
             const request = {
                 origin: routeOrigin,
@@ -186,12 +212,23 @@ function initMap() {
         
             service.route(request, function(result, status) {
                 if (status == "OK") {
-                    distanceArray.push(result.routes[0].legs[0].distance.text)
+                    console.log(result)
+                    lengthField[i].innerHTML = result.routes[0].legs[0].distance.text;
                 }
                 else {
                     distanceArray.push('ERROR');
                 }
-            });
+            }); 
+        }
+        
+        // const dataCity = input.dataset.city;
+
+        let distanceArray = [];
+        
+        const service = new google.maps.DirectionsService();
+        let routeWaypoints = [];
+
+        
 
             let distance
             // dataCity.push(distance)
@@ -215,11 +252,11 @@ function initMap() {
             // });
             // }
             
-        }
+        // }
 
-        input.forEach(function (elem, i) {
-            elem.innerHTML+= 'Input' + i;
-        });
+        // input.forEach(function (elem, i) {
+        //     elem.innerHTML+= 'Input' + i;
+        // });
     }
 
     function calculerDistanceTotal(array) {
@@ -325,7 +362,7 @@ function initMap() {
         
     } 
     
-    calculerDistance(jsonModel, 'parcoursLength');
+    // WriteItineraryArguments(jsonModel, 'parcoursLength');
 
 
     // calculerDistance(jsonModel, 'le');
@@ -356,30 +393,8 @@ function initMap() {
 
 
 
-    /*
-    *
-    *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
-    * 
-    */ 
-    function insertJsonIntoBar() {
-        const url = window.location.href;
-        const urlSegments = url.split("/");
-        // ItineraryID -> Id de l'itinéraire. 
-        const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
-        
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const json = JSON.parse(this.responseText);
-            console.log("Json :" + json);
-        }
-        };
-        xhr.open("GET", "../returnJson?id="+itineraryId, true);
-        xhr.send();
-        console.log(itineraryId); // affiche l' dans la console
-    }
 
-    insertJsonIntoBar();
+    getJsonBar();
     
 }
 

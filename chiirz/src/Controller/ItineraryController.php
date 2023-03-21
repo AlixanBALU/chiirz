@@ -45,6 +45,26 @@ class ItineraryController extends AbstractController
     #[Route('/{id}', name: 'app_itinerary_show', methods: ['GET'])]
     public function show(Itinerary $itinerary): Response
     {
+
+        // $students = $this->getDoctrine() 
+        // ->getRepository('AppBundle:Student') 
+        // ->findAll();  
+        
+        // if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {  
+        // $jsonData = array();  
+        // $idx = 0;  
+        // foreach($students as $student) {  
+        //     $temp = array(
+        //         'name' => $student->getName(),  
+        //         'address' => $student->getAddress(),  
+        //     );   
+        //     $jsonData[$idx++] = $temp;  
+        // } 
+        // return new JsonResponse($jsonData); 
+        // } else { 
+        // return $this->render('student/ajax.html.twig'); 
+        // } 
+        
         return $this->render('itinerary/show.html.twig', [
             'itinerary' => $itinerary,
         ]);
