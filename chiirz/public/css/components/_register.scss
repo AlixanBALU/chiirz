@@ -1,12 +1,13 @@
 .register {
     display : flex;
-    height : 100vh;
     align-items : center;
     flex-direction : column; 
     gap : 3rem; 
     justify-content:center; 
+    min-height : 100vh;
 
     @media (min-width: 768px) {
+        height : 100vh;
         justify-content : space-between;
         flex-direction: row;
         gap : 0;
