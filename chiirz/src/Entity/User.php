@@ -42,9 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $registered = null;
 
+    #[ORM\OneToMany(mappedBy: 'fk_user', targetEntity: Itinerary::class)]
+    private Collection $itineraries;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->itineraries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,6 +202,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRegistered(\DateTimeInterface $registered): self
     {
         $this->registered = $registered;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Itinerary>
+     */
+    public function getItineraries(): Collection
+    {
+        return $this->itineraries;
+    }
+
+    public function addItinerary(Itinerary $itinerary): self
+    {
+        if (!$this->itineraries->contains($itinerary)) {
+            $this->itineraries->add($itinerary);
+            $itinerary->setFkUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItinerary(Itinerary $itinerary): self
+    {
+        if ($this->itineraries->removeElement($itinerary)) {
+            // set the owning side to null (unless already changed)
+            if ($itinerary->getFkUser() === $this) {
+                $itinerary->setFkUser(null);
+            }
+        }
 
         return $this;
     }

@@ -11,10 +11,10 @@
     {{ parent() }}
     <script src="{{ asset('js/splide.min.js') }}" defer></script>
     <script src="{{ asset('js/itinerary.js') }}" defer></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
 {% endblock %}
 
 {% block body %}
-
     <a href="" id="backButton" class="back-itinerary">
         <img src="{{ asset('img/svg/back.svg') }}" alt="<">
         Retour en arrière
@@ -26,7 +26,7 @@
         <div class="section-itinerary__content">
             <div class="section-itinerary__content__creator">
                 <img src="{{ asset('img/glowing_star.png') }}" alt="☆">
-                <p>Route de la soif imaginé par <a href="{{ path('user_index', { 'id': itinerary.fkuser }) }}" class="section-itinerary__content__creator__link">{{ itinerary.fkuser }}</a></p>
+                <p>Route de la soif imaginé par <a href="{{ path('user', { 'id': itinerary.fkuser.id }) }}" class="section-itinerary__content__creator__link">{{ itinerary.fkuser.pseudo }}</a></p>
             </div>
             <h1>{{ itinerary.name }}</h1>
             {% if is_granted('ROLE_ADMIN') %}
@@ -36,7 +36,7 @@
                 <div class="section-itinerary__content__rate__rating">
                     <img src="{{ asset('img/svg/star/svg') }}" alt="☆">
                     <div>
-                    {% if itinerary.likes is empty %}
+                    {# {% if itinerary.likes is empty %}
                         N/A
                     {% else %}
                         {% set rating = 0 %}
@@ -46,7 +46,7 @@
                             {% set ratingIndex = ratingIndex + 1 %}
                         {% endfor %}
                         {{ rating / ratingIndex }}
-                    {% endif %}
+                    {% endif %} #}
                     </div>
                 </div>
                 <div class="section-itinerary__content__rate__price">
@@ -104,7 +104,7 @@
                                 </div>
                                 {# Repart à 0 sur la notation bem sinon trop long #}
                                 <div class="parcours-info">
-                                    <div class="parcours-info__length">
+                                    <div class="parcours-info__length" id="parcoursLength" data-city="{{itinerary.fkCity.name}}">
                                         
                                     </div>
                                     <div class="parcours-info__step-index">
@@ -155,11 +155,8 @@
         </div>
     </section>
 
-    <script>
-        import * as it from "{{ asset('js/itinerary.js') }}";
-        var itineraryJson = {{ itinerary.bar | json_encode | raw }};
-        console.log(itineraryJson);
-        // On lance la fonction de tout le js en fonction du itineraryJson
-        it.getItinerary(itineraryJson);
-    </script>
+    {# Test google API #}
+    <div id="carte" height="200" width="200">Carte</div>
+    <div id="info"></div>
+    <div id="places"></div>
 {% endblock %}
