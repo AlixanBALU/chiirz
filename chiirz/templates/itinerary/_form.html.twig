@@ -9,9 +9,30 @@
     </div>
 </header>
 {# Cacher cette div #}
-<span data-link="{{asset('img/svg/image_location.svg')}}" id="linkToPosImg" aria-hidden="true"></span>
+<span data-link="{{asset('img/svg/location.svg')}}" data-pin="{{ asset('img/svg/beer.svg') }}" id="linkToPosImg" aria-hidden="true" style="display: none;"></span>
+{# Supprimer ce css #}
+<style>
+    .new__map {
+        height: 400px;
+        width: 400px;
+        background-color: #ccc;
+        border-radius: 5px;
+    }
+</style>
+<li class='new__bar-input__prop__list__item'>
+    <div class='new__bar-input__prop__list__item__name'>
+        " + name + "
+    </div>
+    <div class='new__bar-input__prop__list__item__address'>
+        <img src='" + linkToPosImg + "' alt=''>
+        <div>
+            " + locationArray[i] + "
+        </div>
+        <div class='new__bar-input__prop__list__item__address__add'>+</div>
+    </div>
+</li>
 <section class="new">
-    <div class="new__map" id="newMap"></div>
+    <div class="new__map" id="newMap" height="200" width="200"></div>
     <div class="new__content">
         <div class="new__bar-input">
             <label class="h3" for="barNameInput">Nom de la route de la soif</label>
@@ -41,3 +62,6 @@
 </section>
 
 <button class="btn">{{ button_label|default('Terminer') }}</button>
+
+{# <div id="info"></div>
+<div id="places"></div> #}
