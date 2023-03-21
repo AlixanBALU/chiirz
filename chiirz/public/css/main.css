@@ -531,6 +531,32 @@ body {
   }
 }
 
+.login {
+  display: flex;
+  justify-content: space-between;
+}
+.login__content {
+  width: 40%;
+}
+.login img {
+  width: 50%;
+}
+.login__login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.login__login-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.login__login-form div input {
+  background-color: #d9d9d9;
+  border-radius: 40px;
+  padding: 1rem 0;
+}
+
 /*
     Elements
 */

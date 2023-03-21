@@ -7,6 +7,39 @@
     <script src="{{ asset('js/city.js') }}" defer></script>
 {% endblock %}
 
+<<<<<<< HEAD
+=======
+{% block header %}
+<nav class="nav">
+    <div class="nav__content-nav">
+        <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
+        
+        <img src="{{ asset('img/svg/responsive-menu-btn.svg') }}" alt="burger-menu">
+
+        <ul class="p p-20">
+            <li> 
+                <a href="{{ path('home') }}">Accueil</a>
+            </li>
+            <li> 
+                <a href="{{ path('itinerary_index') }}">Itinéraires</a>
+            </li>
+            <li> 
+                <a href="#"> Mon compte </a>
+            </li>
+            <li> 
+                <a href="#"> Rechercher </a>
+            </li>
+        </ul>   
+    </div>
+    
+    <div class="nav__content-btn p p--16">
+        <a href="#" > Se connecter </a>
+        <a href="#" class="btn btn--secondary"> S'inscrire </a>
+    </div>
+</nav>
+{% endblock %}
+
+>>>>>>> 9fd6312860760c65d544fb0ae2e11cc0298c4d33
 {% block body %}
     <header class="header">
         <div class="header__div">
