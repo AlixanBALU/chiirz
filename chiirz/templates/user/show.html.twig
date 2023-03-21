@@ -41,7 +41,7 @@
             <h2>Mes routes de la soif favorites :</h2>
             {% for l in user.likes %}
                 {% if l.favorite %}
-                    <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': l.fkItinerary.id}) }}">
+                    <a class="itiner-container__card" href="{{ path('app_itinerary_show', {'id': l.fkItinerary.id}) }}">
                         <img class="itiner-container__card__img-bar" href="" alt="{{ l.fkItinerary.name }}">
                         <div class="itiner-container__card__desc">
                             <h3 class="title title--h4">{{ l.fkItinerary.name }}</h3>

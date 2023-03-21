@@ -44,6 +44,9 @@ class Itinerary
     #[ORM\Column(nullable: true)]
     private ?array $bar = [];
 
+    #[ORM\ManyToOne(inversedBy: 'itineraries')]
+    private ?User $fk_user = null;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -200,6 +203,18 @@ class Itinerary
     public function setBar(?array $bar): self
     {
         $this->bar = $bar;
+
+        return $this;
+    }
+
+    public function getFkUser(): ?User
+    {
+        return $this->fk_user;
+    }
+
+    public function setFkUser(?User $fk_user): self
+    {
+        $this->fk_user = $fk_user;
 
         return $this;
     }

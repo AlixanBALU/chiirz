@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}City{% endblock %}
+{% block title %}Les routes{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/city.js') }}" defer></script>
 {% endblock %}
 
-<<<<<<< HEAD
-=======
 {% block header %}
 <nav class="nav">
     <div class="nav__content-nav">
@@ -39,7 +37,6 @@
 </nav>
 {% endblock %}
 
->>>>>>> 9fd6312860760c65d544fb0ae2e11cc0298c4d33
 {% block body %}
     <header class="header-itinerer">
         <div class="header-itinerer__div">
@@ -79,7 +76,7 @@
 
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
-                <a class="itiner-container__card" href="{{ path('itinerary_index', {'id': itinerary.id}) }}">
+                <a class="itiner-container__card" href="{{ path('itinerary_show', {'id': itinerary.id}) }}">
                     <img class="itiner-container__card__img-bar" href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <div class="itiner-container__card__desc">
                         <h3 class="title title--h4">{{ itinerary.name }}</h3>
