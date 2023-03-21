@@ -1,7 +1,10 @@
 .header {
+    display : flex;
+    flex-direction : column;
+    margin-top : 2rem;
     &--home {
         height : 100vh;
-        background : url(../../img/svg/hero-background.svg);
+        background : url(../../img/svg/header-background.svg);
         background-size : cover;
         background-repeat : no-repeat;
     }
