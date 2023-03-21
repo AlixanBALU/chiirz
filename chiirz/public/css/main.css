@@ -533,13 +533,45 @@ body {
 
 .login {
   display: flex;
-  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .login {
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
+  }
 }
 .login__content {
-  width: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+@media (min-width: 768px) {
+  .login__content {
+    width: 40%;
+  }
+}
+.login__content h1 {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .login__content h1 {
+    text-align: left;
+  }
 }
 .login img {
-  width: 50%;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .login img {
+    width: 50%;
+  }
 }
 .login__login-form {
   display: flex;
@@ -555,6 +587,22 @@ body {
   background-color: #d9d9d9;
   border-radius: 40px;
   padding: 1rem 0;
+}
+@media (min-width: 768px) {
+  .login__login-form div input {
+    padding: 1.3rem 0;
+  }
+}
+.login__login-form div input[type=checkbox] {
+  margin-right: 1rem;
+}
+.login__login-form .btn {
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .login__login-form .btn {
+    margin: 0;
+  }
 }
 
 /*
