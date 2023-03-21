@@ -15,6 +15,7 @@
                     <a href="{{ path('app_city_index') }}">Tous les itinéraires </a>
                 {% endif %}
             </li>
+            {# Version connectée, ajout li deconnexion #}
             <li> 
                 {% if app.user %}
                     <a href="#"> Se déconnecter </a>
@@ -22,13 +23,23 @@
                     
                 {% endif %}
             </li>
-        </ul>
+        </ul>  
     </div>
+
+    
     {% if app.user %}
-        <a href="{{ path('user', {'id': app.user.id }) }}">
-            {{ app.user.pseudo }}
-        </a>
+        {# Version connectée #}
+        <div class="nav__content-online">
+            <a href="{{ path('user', {'id': app.user.id }) }}">
+                <img src="{{ asset('img/happy-smiley.png') }}">
+                <div>
+                    <p> Bonjour à toi !</p>
+                    <p> {{ app.user.pseudo }} </p>
+                </div>
+            </a>
+        </div>
     {% else %}
+        {# Version déconnecté #}
         <div class="nav__content-btn p p--16">
             <a href="{{ path('login') }}" >Se connecter </a>
             <a href="{{ path('register') }}" class="btn btn--secondary">S'inscrire </a>

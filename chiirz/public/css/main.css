@@ -281,15 +281,10 @@ body {
 }
 @media (min-width: 1080px) {
   .nav__content-nav {
-    width: 60%;
+    width: 70%;
     flex-direction: row;
     justify-content: flex-start;
     gap: 3rem;
-  }
-}
-@media (min-width: 1280px) {
-  .nav__content-nav {
-    width: 50%;
   }
 }
 .nav__content-nav a {
@@ -306,7 +301,7 @@ body {
     list-style-type: none;
     font-weight: 600;
     display: flex;
-    gap: 1.2rem;
+    gap: 1.8rem;
   }
 }
 @media (min-width: 1280px) {
@@ -324,7 +319,7 @@ body {
 }
 @media (min-width: 1080px) {
   .nav__content-nav img[alt="logo de Chiirz"] {
-    width: 35%;
+    width: 23%;
   }
 }
 .nav__content-nav img[alt=burger-menu] {
@@ -356,6 +351,39 @@ body {
 .nav__content-btn a {
   text-decoration: none;
   color: #000000;
+}
+.nav__content-online {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .nav__content-online {
+    display: block;
+  }
+}
+.nav__content-online a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  gap: 1rem;
+}
+.nav__content-online a div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.nav__content-online a div p {
+  color: #555555;
+  font-size: 0.8rem;
+}
+.nav__content-online a div p + p {
+  font-family: "Chillax Variable", sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #000000;
+}
+.nav__content-online a img {
+  width: 25%;
 }
 
 .what-section {
