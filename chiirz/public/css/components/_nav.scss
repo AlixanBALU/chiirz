@@ -27,7 +27,12 @@
       @media (min-width: 1080px) {
         width : 70%;
         flex-direction : row;
+        justify-content : flex-start;
+        gap : 3rem;
       }
+      // @media (min-width: 1280px) {
+      //   width : 70%;
+      // }
 
       & a {
         text-decoration: none;
@@ -43,7 +48,7 @@
             list-style-type: none;
             font-weight: 600;
             display : flex;
-            gap : 1.2rem;
+            gap : 1.8rem;
         }
 
         @media (min-width: 1280px) {
@@ -52,19 +57,23 @@
       }
   
       & img[alt="logo de Chiirz"]{
-        width : 30%;
+        width : 40%;
 
         @media (min-width: 768px) {
-            width : 25%;
+            width : 30%;
         }
 
         @media (min-width: 1080px) {
-            width : 30%;
+            width : 23%;
         }
       }
 
       & img[alt="burger-menu"] {
         display : inline-block;
+        width : 23%;
+        @media (min-width: 768px) {
+          width : 15%;
+      }
         @media (min-width: 1080px) {
             display : none ;
         }
@@ -74,9 +83,8 @@
     &__content-btn {
       display : none;
   
-      //deskop 1080 à 1280
       @media (min-width: 1080px) {
-        width: 30%;
+        width: 35%;
         display: flex;
         gap: 1rem;
         align-items: center;
@@ -86,6 +94,42 @@
       & a {
         text-decoration: none;
         color: $black;    
+      }
+    }
+
+    &__content-online {
+      display : none;
+      @media (min-width: 1080px) {
+        display : block;
+        }
+
+      & a {
+        display : flex;
+        align-items : center;
+        justify-content: flex-end;
+        text-decoration : none;
+        gap : 1rem;
+
+        & div {
+          display : flex;
+          flex-direction: column;
+          gap : 0.2rem;
+
+          & p {
+            color : $p-grey;
+            font-size : 0.8rem;
+          }
+          & p+p {
+            font-family: 'Chillax Variable', sans-serif;
+          font-weight: 600;
+          font-size: 1.25rem;
+          color : $black;
+          }
+        }
+        
+        & img {
+          width : 25%;
+        }
       }
     }
   }

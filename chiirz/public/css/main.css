@@ -283,6 +283,8 @@ body {
   .nav__content-nav {
     width: 70%;
     flex-direction: row;
+    justify-content: flex-start;
+    gap: 3rem;
   }
 }
 .nav__content-nav a {
@@ -299,7 +301,7 @@ body {
     list-style-type: none;
     font-weight: 600;
     display: flex;
-    gap: 1.2rem;
+    gap: 1.8rem;
   }
 }
 @media (min-width: 1280px) {
@@ -308,20 +310,26 @@ body {
   }
 }
 .nav__content-nav img[alt="logo de Chiirz"] {
-  width: 30%;
+  width: 40%;
 }
 @media (min-width: 768px) {
-  .nav__content-nav img[alt="logo de Chiirz"] {
-    width: 25%;
-  }
-}
-@media (min-width: 1080px) {
   .nav__content-nav img[alt="logo de Chiirz"] {
     width: 30%;
   }
 }
+@media (min-width: 1080px) {
+  .nav__content-nav img[alt="logo de Chiirz"] {
+    width: 23%;
+  }
+}
 .nav__content-nav img[alt=burger-menu] {
   display: inline-block;
+  width: 23%;
+}
+@media (min-width: 768px) {
+  .nav__content-nav img[alt=burger-menu] {
+    width: 15%;
+  }
 }
 @media (min-width: 1080px) {
   .nav__content-nav img[alt=burger-menu] {
@@ -333,7 +341,7 @@ body {
 }
 @media (min-width: 1080px) {
   .nav__content-btn {
-    width: 30%;
+    width: 35%;
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -343,6 +351,39 @@ body {
 .nav__content-btn a {
   text-decoration: none;
   color: #000000;
+}
+.nav__content-online {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .nav__content-online {
+    display: block;
+  }
+}
+.nav__content-online a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  gap: 1rem;
+}
+.nav__content-online a div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.nav__content-online a div p {
+  color: #555555;
+  font-size: 0.8rem;
+}
+.nav__content-online a div p + p {
+  font-family: "Chillax Variable", sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #000000;
+}
+.nav__content-online a img {
+  width: 25%;
 }
 
 .what-section {
@@ -533,13 +574,46 @@ body {
 
 .login {
   display: flex;
-  justify-content: space-between;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .login {
+    height: 100vh;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
+  }
 }
 .login__content {
-  width: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+@media (min-width: 768px) {
+  .login__content {
+    width: 40%;
+  }
+}
+.login__content h1 {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .login__content h1 {
+    text-align: left;
+  }
 }
 .login img {
-  width: 50%;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .login img {
+    width: 50%;
+  }
 }
 .login__login-form {
   display: flex;
@@ -555,6 +629,22 @@ body {
   background-color: #d9d9d9;
   border-radius: 40px;
   padding: 1rem 0;
+}
+@media (min-width: 768px) {
+  .login__login-form div input {
+    padding: 1.3rem 0;
+  }
+}
+.login__login-form div input[type=checkbox] {
+  margin-right: 1rem;
+}
+.login__login-form .btn {
+  margin: auto;
+}
+@media (min-width: 768px) {
+  .login__login-form .btn {
+    margin: 0;
+  }
 }
 
 /*
