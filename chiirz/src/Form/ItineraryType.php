@@ -13,9 +13,6 @@ class ItineraryType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('price')
-            ->add('distance')
-            ->add('img')
             ->add('fk_city')
         ;
     }

@@ -1,4 +1,47 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<header class="header-new">
+            <h1 class="title title--h1"> Créer une route de la soif sur </h1>
+            {{ form_widget(form.fk_city) }}
+    
+
+    <div class="header__img-container">
+        <img src="{{ asset('img/rocket.png') }}" alt="">
+    </div>
+</header>
+<section class="new">
+    <div class="new__map" id="newMap"></div>
+    <div class="new__content">
+        <div class="new__bar-input">
+            <label class="h3" for="barNameInput">Nom de la route de la soif</label>
+            <div class="new__bar-input__prop">
+                <input type="text" name="bar-input" id="barNameInput">
+                {# <ul class="new__bar-input__prop__list" id="barList">
+                    <div class="new__bar-input__prop__list__item">
+                        <div class="new__bar-input__prop__list__item__name"></div>
+                        <div class="new__bar-input__prop__list__item__address">
+                            <img src="{{ asset('img/svg/location.svg') }}" alt="">
+                            <div></div>
+                        </div>
+                    </div>
+                </ul> #}
+            </div>
+        </div>
+        <div class="new__step">
+            <h3 class="h3"> Étapes de l'itineraire </h3>
+            <ul class="new__step__list">
+                {# <li class="new__step__list__item">
+                    <div class="new__step__list__item__bar">
+                        <div class="new__step__list__item__bar__step"></div>
+                        <div class="new__step__list__item__bar__name"></div>
+                    </div>
+                    <div class="new__step__list__item__btn">
+                        <button class="btn btn--secondary">Supprimer</button>
+                    </div>
+                </li> #}
+            </ul>
+        </div>
+        <h3 class="new__distance">Distance totale : <span class="new__distance__number" id="newDistance">0.00km</span></h3>
+    </div>
+</section>
+
+<button class="btn">{{ button_label|default('Terminer') }}</button>
