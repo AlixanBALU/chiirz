@@ -51,6 +51,61 @@ function initMap() {
     }
 
     const jsonBar = getJsonBar();
+
+    let i = 0;
+    function afficheEtape(json){
+        const request_id = {
+            // Stocker dans la base de donnée le placeId. 
+            placeId: json.steps.i.place_id
+        };
+
+        // Récupère PlaceId. 
+        // placeId: barJson['steps'][i + 1]['place_id']
+
+    }
+
+    
+       
+    service.getDetails(request_id, function (place, status) {
+        // pour comprendre ce qui est obtenu
+        // console.log("place : ");
+        // console.log(place);
+       
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          // récupération d'un élément pour l'affichage
+          const div = document.getElementById('info');
+       
+          // génération de l'affichage
+          div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
+            '<p>Adresse : ' + place.formatted_address + '</p>';
+          div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
+
+          // Numéro de téléphone internationnal
+          div.innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
+          div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
+
+          // Commentaires
+          place.reviews.forEach(function(review){
+            div.innerHTML += '<h1>'+review.author_name+'</h1>';
+            div.innerHTML += '<img src="'+review.profile_photo_url+'" alt="Photo de profil de '+review.author_name+'" height="100" width="100">';
+            div.innerHTML += '<p>Commentaire : '+review.text+'</p>';
+            div.innerHTML += '<p>Rating : '+review.rating+'</p>';
+          });
+          div.innerHTML += "fin de place détail";
+          // Gestion de l'heure : 
+          const today = new Date().getDay();
+          const openingHours = place.opening_hours;
+          div.innerHTML += openingHours;
+          const todayHours = openingHours.weekday_text[today];
+          const closingTime = todayHours.split(': ')[1];
+
+          const currentDate = new Date().toLocaleDateString();
+          const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+          const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+          div.innerHTML += '<h1>Heure d\'ouverture : '+ dateTimeString +'</h1>';
+
+        }
+    });
         
     // position pour centrer la carte
     const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
@@ -131,51 +186,7 @@ function initMap() {
         }
     });
 
-    const request_id = {
-        // Stocker dans la base de donnée le placeId. 
-        placeId: 'ChIJ6VN-xNjqlkcRQM9OJ4zsbFI'
-      };
-       
-    service.getDetails(request_id, function (place, status) {
-        // pour comprendre ce qui est obtenu
-        // console.log("place : ");
-        // console.log(place);
-       
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          // récupération d'un élément pour l'affichage
-          const div = document.getElementById('info');
-       
-          // génération de l'affichage
-          div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
-            '<p>Adresse : ' + place.formatted_address + '</p>';
-          div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
 
-          // Numéro de téléphone internationnal
-          div.innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
-          div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
-
-          // Commentaires
-          place.reviews.forEach(function(review){
-            div.innerHTML += '<h1>'+review.author_name+'</h1>';
-            div.innerHTML += '<img src="'+review.profile_photo_url+'" alt="Photo de profil de '+review.author_name+'" height="100" width="100">';
-            div.innerHTML += '<p>Commentaire : '+review.text+'</p>';
-            div.innerHTML += '<p>Rating : '+review.rating+'</p>';
-          });
-          div.innerHTML += "fin de place détail";
-          // Gestion de l'heure : 
-          const today = new Date().getDay();
-          const openingHours = place.opening_hours;
-          div.innerHTML += openingHours;
-          const todayHours = openingHours.weekday_text[today];
-          const closingTime = todayHours.split(': ')[1];
-
-          const currentDate = new Date().toLocaleDateString();
-          const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-          const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-          div.innerHTML += '<h1>Heure d\'ouverture : '+ dateTimeString +'</h1>';
-
-        }
-    });
 
     // Gestion des distances avec ou sans des étapes | waypoint
     // Doc sur l'api direction
@@ -279,11 +290,10 @@ function initMap() {
                             location: latlng,
                             placeId: placeId,
                             stopover: true
+                        });
+                    }
                 });
-                }
-            });
             }
-            
         }
 
         console.log('waypoints', routeWaypoints);
