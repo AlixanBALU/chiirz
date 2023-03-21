@@ -19,7 +19,7 @@
         border-radius: 5px;
     }
 </style>
-<li class='new__bar-input__prop__list__item'>
+{# <li class='new__bar-input__prop__list__item'>
     <div class='new__bar-input__prop__list__item__name'>
         " + name + "
     </div>
@@ -30,7 +30,7 @@
         </div>
         <div class='new__bar-input__prop__list__item__address__add'>+</div>
     </div>
-</li>
+</li> #}
 <section class="new">
     <div class="new__map" id="newMap" height="200" width="200"></div>
     <div class="new__content">
@@ -45,14 +45,14 @@
         </div>
         <div class="new__step">
             <h3 class="h3"> Étapes de l'itineraire </h3>
-            <ul class="new__step__list">
+            <ul class="new__step__list" id="barStepList">
                 {# <li class="new__step__list__item">
                     <div class="new__step__list__item__bar">
                         <div class="new__step__list__item__bar__step"></div>
                         <div class="new__step__list__item__bar__name"></div>
                     </div>
                     <div class="new__step__list__item__btn">
-                        <button class="btn btn--secondary">Supprimer</button>
+                        <button class="btn btn--secondary" id="deleteBarBtn">Supprimer</button>
                     </div>
                 </li> #}
             </ul>
