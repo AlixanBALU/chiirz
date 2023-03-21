@@ -13,11 +13,6 @@ backButton.addEventListener('click', () => {
 });
 
 // Splide js
-// new Splide( '#carouselSteps', {} ).on( 'mounted', function() {
-//     document.querySelectorAll('#splidePics').forEach(splidePics => {
-//         new Splide(splidePics).mount();
-//     });
-// } ).mount();
 
 const splidesPics = document.querySelectorAll('#splidePics');
     splidesPics.forEach(splidePics => {
@@ -46,13 +41,16 @@ function initMap() {
             console.log(this.readyState);
             if (this.readyState == 4 && this.status == 200) {
                 const json = this.responseText;
-                console.log("Json :" + json);
+                console.log('--------\nJSON loaded\n--------');
+
+                return json;
             }
         };
         xhr.open("GET", "./get_bar/" + itineraryId, true);
         xhr.send();
     }
 
+    const jsonBar = getJsonBar();
         
     // position pour centrer la carte
     const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
@@ -394,7 +392,6 @@ function initMap() {
 
 
 
-    getJsonBar();
     
 }
 

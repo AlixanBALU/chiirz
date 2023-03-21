@@ -40,4 +40,27 @@ class StaticPages extends AbstractController
 
         return $response;
     }
+
+    /** 
+     * @Route("/itinerary/insert_bar/", name="insert_bar") 
+    */ 
+    public function insertBar()
+    {
+        // $_POST 
+        // Get the 'bar' field from the 'itinerary' table 
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQueryBuilder()
+            ->select('i.bar')
+            ->from('App\Entity\Itinerary', 'i')
+            ->where('i.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+        $bars = $query->getResult();
+
+        // Convert the results to a JSON response
+        $response = new JsonResponse($bars);
+
+        return $response;
+    }
 }
