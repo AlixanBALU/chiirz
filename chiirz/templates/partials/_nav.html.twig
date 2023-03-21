@@ -10,32 +10,19 @@
             </li>
             <li> 
                 {% if app.user %}
-<<<<<<< HEAD
-                    <a href="{{ path('app_city_show', {id : app.user.id}) }}">Itinéraires</a>
-                {% else %}
-                    <a href="{{ path('app_city_index') }}">Itinéraires</a>
-                {% endif %}
-            </li>
-        </ul>   
-=======
                     <a href="{{ path('app_city_show', {id : app.user.id}) }}">Routes</a>
                 {% else %}
                     <a href="{{ path('app_city_index') }}">Routes</a>
                 {% endif %}
             </li>
         </ul>
->>>>>>> 9fd6312860760c65d544fb0ae2e11cc0298c4d33
     </div>
     {% if app.user %}
         <a href="{{ path('user', {'id': app.user.id }) }}">
             {{ app.user.pseudo }}
         </a>
     {% else %}
-<<<<<<< HEAD
-        <div class="nav__content-btn p p--16">
-=======
         <div class="navcontent-btn p p--16">
->>>>>>> 9fd6312860760c65d544fb0ae2e11cc0298c4d33
             <a href="{{ path('login') }}" >Se connecter </a>
             <a href="{{ path('register') }}" class="btn btn--secondary">S'inscrire </a>
         </div>
