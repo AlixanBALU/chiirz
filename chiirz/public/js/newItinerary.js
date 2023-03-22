@@ -40,6 +40,11 @@ function initMap() {
     const service = new google.maps.places.PlacesService(map);
     let markers = [];
 
+    const sendBtn = document.querySelector('#sendBtn'); 
+    sendBtn.addEventListener('click', function (e) {
+        ajaxSendItinerary()
+    });
+
     barNameInput.addEventListener('input', function (e) {
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
     });
@@ -102,6 +107,7 @@ function initMap() {
                     "place_id" : placeId,
                     "lat" : e.target.parentElement.parentElement.dataset.lat,
                     "lng" : e.target.parentElement.parentElement.dataset.lng,
+                    "price" : e.target.parentElement.parentElement.dataset.price,
                     "img" : imgArray
                 });
 
@@ -155,13 +161,14 @@ function initMap() {
         let placeIdArray = [];
         let latArray = [];
         let lngArray = [];
+        let priceArray = [];
 
         let googleSearchRequest = {
             location: city,
             query : value,
             radius: '4000',
             type: ['bar'],
-            fields: ['name', 'place_id', 'formatted_address', 'geometry']
+            fields: ['name', 'place_id', 'formatted_address', 'geometry', 'price_level', 'rating', 'photos']
         };
 
         // Tableau des marqueurs
@@ -184,7 +191,8 @@ function initMap() {
 
                         latArray.push(place.geometry.location.lat());
                         lngArray.push(place.geometry.location.lng());
-
+                        
+                        priceArray.push(place.price_level);
     
                         // création d'un marqueur sur la carte
                         var marker = new google.maps.Marker({
@@ -211,7 +219,7 @@ function initMap() {
 
                 // On ajoute les éléments
                 nameArray.forEach(function (name, i) {
-                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
+                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
                 });
 
                 // On ajoute la fonctionnalité 'ajouter' aux boutons
@@ -271,31 +279,35 @@ function initMap() {
     }
 
     function ajaxSendItinerary() {
-        let img = document.querySelector('#newImg');
+        let img = jsonBar['steps'][0].img[0];
+        let name = document.querySelector('#newName');
+        let city = citySelect.value;
+        let distance = document.querySelector('#newDistance').innerHTML;
 
-        const imagesRequest = {
-            placeId : placeId,
-            fields : ['photos']
-        }
-
-        service.getDetails(imagesRequest, (place, status) => {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                // On recupere les 10 premieres photos
-                const photos = place.photos;
-                for (let i = 0; i < 10; i++) {
-                    try {
-                        const photoUrl = photos[i].getUrl();
-                        imgArray.push(photoUrl);
-                    }
-                    catch(e) {
-                        if (i === 0) {
-                            imgArray.push(linkToCityImg);
-                        }
-                        console.log(i + " photo recupérées");
-                    }
-                }
-            }
+        let priceTotal = 0;
+        let priceIndex = 0;
+        jsonBar['steps'].forEach(function (step) {
+            priceTotal += parseInt(step.price_level);
+            priceIndex++;
         });
+        let price= Math.round(priceTotal / priceIndex);
+        
+
+        // for (let i = 0; i < placeId) {
+
+        // }
+
+        // const imagesRequest = {
+        //     placeId : placeId,
+        //     fields : ['photos']
+        // }
+
+        // service.getDetails(imagesRequest, (place, status) => {
+        //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+                
+        //         }
+        //     }
+        // });
     }
 
     // function calculerDistanceTotal(array) {
