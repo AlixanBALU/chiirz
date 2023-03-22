@@ -11,7 +11,8 @@
     ///////////////////////////////////
     &__maps {
         width : 100%;
-        background-color : red;
+        height: 500px;
+        border-radius: 5px;
         @media (min-width: 1080px) {
             width : 45%;
         }

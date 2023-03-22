@@ -43,7 +43,6 @@ class CityController extends AbstractController
     #[Route('/{id}', name: 'app_city_show', methods: ['GET'])]
     public function show(City $city, CityRepository $cityRepository): Response
     {
-        var_dump($_POST);
         return $this->render('city/show.html.twig', [
             'city' => $city,
             'cities' => $cityRepository->findAll(),

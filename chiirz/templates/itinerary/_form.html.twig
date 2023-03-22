@@ -1,4 +1,73 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<header class="header-new">
+            <h1 class="title title--h1"> Créer une route de la soif sur </h1>
+            {{ form_widget(form.fk_city) }}
+    <div class="header__img-container">
+        <img src="{{ asset('img/rocket.png') }}" alt="">
+    </div>
+</header>
+{# Cacher cette div #}
+<span data-user="{{ app.user.id }}" data-city="{{ asset('img/cityRandom.jpg') }}" data-link="{{asset('img/svg/location.svg')}}" data-pin="{{ asset('img/svg/beer.svg') }}" id="linkToPosImg" aria-hidden="true" style="display: none;"></span>
+{# Supprimer ce css #}
+<style>
+    .new__map {
+        height: 400px;
+        width: 400px;
+        background-color: #ccc;
+        border-radius: 5px;
+    }
+</style>
+{# <li class='new__bar-input__prop__list__item'>
+    <div class='new__bar-input__prop__list__item__name'>
+        " + name + "
+    </div>
+    <div class='new__bar-input__prop__list__item__address'>
+        <img src='" + linkToPosImg + "' alt=''>
+        <div>
+            " + locationArray[i] + "
+        </div>
+        <div class='new__bar-input__prop__list__item__address__add'>+</div>
+    </div>
+</li> #}
+<section class="new">
+    <div class="new__map" id="newMap" height="200" width="200"></div>
+    <div class="new__content">
+        <div class="new__name">
+            <label class="h3" for="itinerary_name">Nom de la route de la soif</label>
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="new__text">
+            <label class="h4" for="itinerary_text">Description</label>
+            {{ form_widget(form.text) }}
+        </div>
+        <div class="new__bar-input">
+            <label class="h3" for="barNameInput">Ajouter un bar</label>
+            <div class="new__bar-input__prop">
+                <input type="text" name="bar-input" id="barNameInput" required="required">
+                <ul class="new__bar-input__prop__list" id="barList">
+
+                </ul>
+            </div>
+        </div>
+        <div class="new__step">
+            <h3 class="h3"> Étapes de l'itineraire </h3>
+            <ul class="new__step__list" id="barStepList">
+                {# <li class="new__step__list__item">
+                    <div class="new__step__list__item__bar">
+                        <div class="new__step__list__item__bar__step"></div>
+                        <div class="new__step__list__item__bar__name"></div>
+                    </div>
+                    <div class="new__step__list__item__btn">
+                        <button class="btn btn--secondary" id="deleteBarBtn">Supprimer</button>
+                    </div>
+                </li> #}
+            </ul>
+        </div>
+        <h3 class="new__distance">Distance totale : <span class="new__distance__number" id="newDistance">0.0 km</span></h3>
+    </div>
+</section>
+
+<button class="btn btn--cant-send" id="sendBtn">{{ button_label|default('Terminer') }}</button>
+
+{# <div id="info"></div>
+<div id="places"></div> #}

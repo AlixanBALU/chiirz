@@ -2,16 +2,15 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
     <script src="{{ asset('js/newItinerary.js') }}" defer></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
 {% endblock %}
 
 {% block title %}Nouvelle route{% endblock %}
 
 {% block body %}
-    <h1></h1>
 
     {{ include('itinerary/_form.html.twig') }}
 
-    <a href="{{ path('app_itinerary_index') }}">back to list</a>
+    <a href="{{ path('homepage') }}">Menu</a>
 {% endblock %}
