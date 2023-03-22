@@ -29,6 +29,7 @@ function initMap() {
     const citySelect = document.querySelector('#itinerary_fk_city');
     const barList = document.querySelector('#barList');
     const textInput = document.querySelector('#itinerary_text');
+    const nameInput = document.querySelector('#itinerary_name');
 
     const linkToPosImg = document.querySelector('#linkToPosImg').dataset.link;
     const linkToPinImg = document.querySelector('#linkToPosImg').dataset.pin;
@@ -51,7 +52,12 @@ function initMap() {
     });
 
     barNameInput.addEventListener('input', function (e) {
+        handleStateBtnSend();
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
+    });
+
+    nameInput.addEventListener('input', function (e) {
+        handleStateBtnSend();
     });
 
     citySelect.addEventListener('change', function (e) {
@@ -66,12 +72,24 @@ function initMap() {
         printSelectedBar();
     });
 
+    // Active le bouton 'envoyer' si le formulaire est valide
+    function handleStateBtnSend() {
+        let btn = document.querySelector('#sendBtn');
+        if (isFormValid()) {
+            btn.classList.remove('btn--cant-send');
+        }
+        else {
+            btn.classList.add('btn--cant-send');
+        }
+    };
+
     // Permet d'initialiser tout les boutons 'ajouter'
     function initAddButton() {
         let addBarBtn = document.querySelectorAll('#addBarBtn');
 
         addBarBtn.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
+
                 // On vide tout les champs
                 barNameInput.value = "";
                 barList.innerHTML = "";
@@ -125,9 +143,9 @@ function initMap() {
                 });
                 jsonBar.avgPrice = Math.round(priceTotal / priceIndex);
 
-                console.log(jsonBar)
                 // On affiche les bars de l'itinéraire
                 printSelectedBar();
+                handleStateBtnSend();
             });
         });
     }
@@ -160,11 +178,12 @@ function initMap() {
 
         deleteBarBtn.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
-
+                
                 // On supprime le bar de l'itinéraire
                 jsonBar.numberOfSteps--;
                 jsonBar.steps.splice(e.target.parentElement.parentElement.dataset.index, 1);
                 printSelectedBar();
+                handleStateBtnSend();
             });
         });
     }
@@ -294,24 +313,11 @@ function initMap() {
     }
 
     function isFormValid() {
-        // try {
-            let img = jsonBar['steps'][0].img[0];
-            let name = document.querySelector('#itinerary_name');
-            let distance = document.querySelector('#newDistance').innerHTML;
-            const userId = document.querySelector('#linkToPosImg').dataset.user;
-    
-            if (img == undefined || name.value == '' || distance == '' || userId == '') {
-                alert('Veuillez remplir tous les champs')
-                console.log(jsonBar, name.value, distance, userId)
-                return false;
-            }
-            return true;
-        // }
-        // catch(err) {
-        //     console.log(jsonBar, names.value, )
-        //     alert('Veuillez remplir tous les champs')
-        //     return false;
-        // }
+        if (nameInput.value == '' || jsonBar.steps.length <= 1) {
+            return false;
+        }
+        return true;
+
         
     }
 

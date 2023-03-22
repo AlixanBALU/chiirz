@@ -24,6 +24,28 @@ new Splide('#carouselSteps', {
 }).mount();
 
 function initMap() {
+
+    let itineraryMapDiv = document.querySelector('#itineraryMap');
+
+    const Position = {
+        paris : new google.maps.LatLng(48.8566, 2.3522),
+        lyon : new google.maps.LatLng(45.7640, 4.8357),
+        strasbourg : new google.maps.LatLng(48.5734, 7.7521),
+    }
+
+    // On relie les pos à leur identifier
+    const jsonPos = {
+        '1' : Position.paris,
+        '2' : Position.lyon,
+        '3' : Position.strasbourg
+    }
+
+    const itineraryMap = new google.maps.Map(itineraryMapDiv, {
+        center: jsonPos[itineraryMapDiv.dataset.city],
+        zoom: 12,
+        mapTypeControl: false,
+        streetViewControl: false
+    });
     /*
     *
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.

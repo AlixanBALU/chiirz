@@ -20,7 +20,7 @@
         Retour en arrière
     </a>
     <section class="section-itinerary">
-        <div class="section-itinerary__maps">
+        <div class="section-itinerary__maps" id="itineraryMap" data-city="{{ itinerary.fkCity.id }}">
             {# Intégration Google Maps #}
         </div>
         
@@ -72,8 +72,8 @@
                 </a>
             </div>
             <div class="section-itinerary__content__like">
-                <img src="{{ asset('img/svg/heart-color.svg') }}" alt="♡" id="likeHeartImg">
-                <div id="likeText">Ajouter aux favoris</div>
+                <img src="{{ asset('img/svg/heart-color.svg') }}" alt="♡" id="addToFavorites">
+                <div id="addToFavorites">Ajouter aux favoris</div>
             </div>
             <div class="section-itinerary__content__steps">
                 <h3 class="title title--h4">{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>

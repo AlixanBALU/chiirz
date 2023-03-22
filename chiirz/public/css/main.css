@@ -850,7 +850,7 @@ body {
 .section-itinerary__maps {
   width: 100%;
   height: 500px;
-  background-color: red;
+  border-radius: 5px;
 }
 @media (min-width: 1080px) {
   .section-itinerary__maps {
@@ -930,6 +930,9 @@ body {
   align-items: center;
   font-weight: bolder;
   margin: 0.7rem 0;
+}
+.section-itinerary__content__like * {
+  cursor: pointer;
 }
 .section-itinerary__content__steps {
   font-family: "Chillax", sans-serif;

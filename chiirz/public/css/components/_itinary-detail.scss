@@ -97,6 +97,10 @@
             align-items : center;
             font-weight : bolder;
             margin : 0.7rem 0;
+
+            & * {
+                cursor: pointer;
+            }
         }
 
         &__steps {
