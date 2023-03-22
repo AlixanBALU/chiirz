@@ -77,7 +77,7 @@
     <section class="itiner-container">
             {% for itinerary in city.itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_show', {'id': itinerary.id}) }}">
-                    <img class="itiner-container__card__img-bar" href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
+                    <img class="itiner-container__card__img-bar" src="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                     <div class="itiner-container__card__desc">
                         <h3 class="title title--h4">{{ itinerary.name }}</h3>
                         <div class="itiner-container__card__row p p--16">

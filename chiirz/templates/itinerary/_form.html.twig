@@ -39,7 +39,7 @@
         <div class="new__bar-input">
             <label class="h3" for="barNameInput">Ajouter un bar</label>
             <div class="new__bar-input__prop">
-                <input type="text" name="bar-input" id="barNameInput">
+                <input type="text" name="bar-input" id="barNameInput" required="required">
                 <ul class="new__bar-input__prop__list" id="barList">
 
                 </ul>
@@ -63,7 +63,7 @@
     </div>
 </section>
 
-<button class="btn" id="sendBtn">{{ button_label|default('Terminer') }}</button>
+<button class="btn btn--cant-send" id="sendBtn">{{ button_label|default('Terminer') }}</button>
 
 {# <div id="info"></div>
 <div id="places"></div> #}

@@ -16,7 +16,12 @@ class ItineraryType extends AbstractType
     {
         $builder
             ->add('fk_city')
-            ->add('name')
+            ->add('name', null, [
+                'attr' => [
+                    'placeholder' => 'Nom de la route',
+                    'required' => true
+                ]
+            ])
         ;
     }
 
