@@ -97,7 +97,7 @@
                 <ul class="splide__list">
                     {% for s in itinerary.bar['steps'] %}
                         <li class="splide__slide">
-                            <div class="section-parcours__content">
+                            <div class="section-parcours__content" >
                                 <div class="section-parcours__content__splide splide" aria-label="Images de : {{ s['name'] }}" id="splidePics">
                                     <div class="splide__track">
                                         <ul class="splide__list">
@@ -108,31 +108,36 @@
                                     </div>
                                 </div>
                                 {# Repart à 0 sur la notation bem sinon trop long #}
-                                <div class="parcours-info">
+                                <div class="parcours-info divContent">
                                     <div class="parcours-info__length" id="parcoursLength">
                                         
                                     </div>
+                                    {# Nombre d'étape #}
                                     <div class="parcours-info__step-index">
-                                        Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
+                                        Étape <span>{{ loop.index }}</span> <span class="parcours-info__step-index__of stepIndex">/{{ itinerary.bar['numberOfSteps'] }}</span>
                                     </div>
-                                    <a href="#" class="parcours-info__name" id="stepName">
+                                    <a href="#" class="parcours-info__name stepName">
                                         <h3>
                                             {{ s['name'] }}
                                         </h3>
                                         <img src="{{ asset('img/svg/external_link.svg') }}" alt="">
                                     </a>
-                                    <a href="tel:" class="parcours-info__phone" id="stepPhone"></a>
+                                    {# Numéro de téléphone #}
+                                    <a href="tel:" class="parcours-info__phone stepPhone"></a>
                                      <div class="parcours-info__rate" id="stepRate">
                                         <div class="parcours-info__rate__star">
                                             <img src="{{ asset('img/svg/star_color.svg') }}" alt="☆">
-                                            <div id="stepRateNumber"></div>
+                                            {# Note moyenne du bar #}
+                                            <div class="stepRateNumber"></div>
                                         </div>
-                                        <div class="parcours-info__rate__opinion" id="stepOpinion"></div>
+                                        {# Nombre d'avis #}
+                                        <div class="parcours-info__rate__opinion stepOpinion"></div>
                                     </div>
-                                    <div class="parcours-info__price" id="stepPrice"></div>
+                                    
+                                    {# <div class="parcours-info__price" id="stepPrice">{{itinerary.bar["avgPrice"]}}</div> #}
                                     <div class="parcours-info__opening">
-                                        <div class="parcours-info__rate__opening__tag" id="stepIsOpen"></div>
-                                        <p id="stepOpeningTag"></p>
+                                        {# Info Ouvert ou fermé et heure d'ouverture Ouvert ● Lundi : 18h00-23h00 #}
+                                        <p class="parcours-info__rate__opening__tag stepIsOpen"></p>
                                     </div>
                                     {# <div class="parcours-info__container-com">
                                         <div class="parcours-info__container-com__item">
@@ -161,7 +166,7 @@
     </section>
 
     {# Test google API #}
-    <div id="carte" height="200" width="200">Carte</div>
+    {# <div id="carte" height="200" width="200">Carte</div> #}
     <div id="info"></div>
     <div id="places"></div>
 {% endblock %}
