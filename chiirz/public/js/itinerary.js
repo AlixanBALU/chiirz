@@ -131,7 +131,7 @@ function initMap() {
                             new Splide(slide, {
                                 type : "loop",
                                 padding : "10rem",
-                                pager : false
+                                pagination : false
                             }).mount();
                         });
 
