@@ -5,6 +5,8 @@
     align-items : center;
     width : 85%;
     margin : auto;
+    margin-top : 6rem;
+    z-index : 0;
 
     @media (min-width: 1440px) {
         width : 70%;

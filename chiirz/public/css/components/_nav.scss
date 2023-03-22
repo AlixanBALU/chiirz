@@ -3,11 +3,15 @@
     justify-content: space-between;
     align-items : center;
     width : 85%;
-    margin: 0 auto 0 auto;
-    padding-top: 1rem;
+    position : absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index : 0;
 
     @media (min-width: 1080px) {
         width : 90%;
+        top: 70px;
     }
 
     @media (min-width: 1280px) {
@@ -25,15 +29,14 @@
       flex-direction : row-reverse;
       align-items: center;
 
+
       @media (min-width: 1080px) {
         width : 70%;
         flex-direction : row;
         justify-content : flex-start;
         gap : 3rem;
       }
-      // @media (min-width: 1280px) {
-      //   width : 70%;
-      // }
+
 
       & a {
         text-decoration: none;
@@ -133,5 +136,14 @@
         }
       }
     }
+
+    &__sidebar {
+      position : fixed;
+      top : 0;
+      left : 0;
+      z-index : 999;
+      background-color : red;
+    }
+   
   }
   

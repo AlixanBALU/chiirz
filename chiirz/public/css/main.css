@@ -255,12 +255,16 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 85%;
-  margin: 0 auto 0 auto;
-  padding-top: 1rem;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
 }
 @media (min-width: 1080px) {
   .nav {
     width: 90%;
+    top: 70px;
   }
 }
 @media (min-width: 1280px) {
@@ -386,6 +390,13 @@ body {
 .nav__content-online a img {
   width: 25%;
 }
+.nav__sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: red;
+}
 
 .what-section {
   display: flex;
@@ -473,6 +484,8 @@ body {
   align-items: center;
   width: 85%;
   margin: auto;
+  margin-top: 6rem;
+  z-index: 0;
 }
 @media (min-width: 1440px) {
   .hero {
