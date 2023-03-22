@@ -11,7 +11,7 @@
   &--primary {
     background-color: $black;
     color : $white;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.2s;
 
 
     &:hover {
@@ -22,7 +22,7 @@
   &--secondary {
     background-color: transparent;
     border: 2px $black solid;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.2s;
     color : $black;
 
 
@@ -34,7 +34,7 @@
   &--primary-bis {
     background-color: $violet;
     border: none;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.2s;
     color : $white;
     align-items : center;
 
@@ -48,7 +48,7 @@
   &--secondary-bis {
     background-color: transparent;
     border: 2px $violet solid;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.2s;
     color : $violet;
 
 

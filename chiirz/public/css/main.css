@@ -849,6 +849,7 @@ body {
 }
 .section-itinerary__maps {
   width: 100%;
+  height: 500px;
   background-color: red;
 }
 @media (min-width: 1080px) {
@@ -965,7 +966,7 @@ body {
 .btn--primary {
   background-color: #000000;
   color: #ffffff;
-  transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.2s;
 }
 .btn--primary:hover {
   background-color: #a77fee;
@@ -973,7 +974,7 @@ body {
 .btn--secondary {
   background-color: transparent;
   border: 2px #000000 solid;
-  transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.2s;
   color: #000000;
 }
 .btn--secondary:hover {
@@ -982,7 +983,7 @@ body {
 .btn--primary-bis {
   background-color: #a77fee;
   border: none;
-  transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.2s;
   color: #ffffff;
   align-items: center;
 }
@@ -993,7 +994,7 @@ body {
 .btn--secondary-bis {
   background-color: transparent;
   border: 2px #a77fee solid;
-  transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.2s;
   color: #a77fee;
 }
 .btn--secondary-bis:hover {
