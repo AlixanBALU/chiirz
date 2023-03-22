@@ -5,6 +5,7 @@ function initMap() {
 
     const jsonBar = {
         "numberOfSteps" : 0,
+        "avgPrice" : 0,
         "steps" : []
     } 
 
@@ -28,7 +29,7 @@ function initMap() {
     const linkToPosImg = document.querySelector('#linkToPosImg').dataset.link;
     const linkToPinImg = document.querySelector('#linkToPosImg').dataset.pin;
     const linkToCityImg = document.querySelector('#linkToPosImg').dataset.city;
-    
+
     const map = new google.maps.Map(document.querySelector('#newMap'), {
         center: jsonPos[citySelect.value],
         zoom: 12,
@@ -110,6 +111,14 @@ function initMap() {
                     "price" : e.target.parentElement.parentElement.dataset.price,
                     "img" : imgArray
                 });
+                
+                let priceTotal = 0;
+                let priceIndex = 0;
+                jsonBar['steps'].forEach(function (step) {
+                    priceTotal += parseInt(step.price_level);
+                    priceIndex++;
+                });
+                jsonBar.avgPrice = Math.round(priceTotal / priceIndex);
 
                 // On affiche les bars de l'itinéraire
                 printSelectedBar();
@@ -279,18 +288,47 @@ function initMap() {
     }
 
     function ajaxSendItinerary() {
-        let img = jsonBar['steps'][0].img[0];
-        let name = document.querySelector('#newName');
-        let city = citySelect.value;
-        let distance = document.querySelector('#newDistance').innerHTML;
+        // let img = jsonBar['steps'][0].img[0];
+        // let name = document.querySelector('#newName');
+        // let city = citySelect.value;
+        // let distance = document.querySelector('#newDistance').innerHTML;
+        // const userId = document.querySelector('#linkToPosImg').dataset.user;
 
-        let priceTotal = 0;
-        let priceIndex = 0;
-        jsonBar['steps'].forEach(function (step) {
-            priceTotal += parseInt(step.price_level);
-            priceIndex++;
-        });
-        let price= Math.round(priceTotal / priceIndex);
+        let data = {
+            'img': jsonBar['steps'][0].img[0],
+            'name': document.querySelector('#newName'),
+            'fk_city_id': citySelect.value,
+            'distance': document.querySelector('#newDistance').innerHTML,
+            'fk_user_id': document.querySelector('#linkToPosImg').dataset.user,
+            'bar': jsonBar
+        }
+
+        const url = window.location.href;
+        const urlSegments = url.split("/");
+        // ItineraryID -> Id de l'itinéraire. 
+        const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
+        
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            console.log(this.readyState);
+            if (this.readyState == 4 && this.status == 200) {
+                const json = this.responseText;
+                console.log(json);
+                console.log('--------\nJSON loaded\n--------');
+
+                return json;
+            }
+            else {
+                console.log('Status:', xhr.status, xhr.statusText);
+                console.log('Response:', xhr.responseText);
+            }
+        };
+        xhr.onerror = function() {
+            console.log('error');
+        }
+        xhr.open("POST", "./insert_bar/1", true);
+        xhr.send(JSON.stringify(data));
         
 
         // for (let i = 0; i < placeId) {

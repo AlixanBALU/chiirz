@@ -7,7 +7,7 @@
     </div>
 </header>
 {# Cacher cette div #}
-<span data-city="{{ asset('img/cityRandom.jpg') }}" data-link="{{asset('img/svg/location.svg')}}" data-pin="{{ asset('img/svg/beer.svg') }}" id="linkToPosImg" aria-hidden="true" style="display: none;"></span>
+<span data-user="{{ app.user.id }}" data-city="{{ asset('img/cityRandom.jpg') }}" data-link="{{asset('img/svg/location.svg')}}" data-pin="{{ asset('img/svg/beer.svg') }}" id="linkToPosImg" aria-hidden="true" style="display: none;"></span>
 {# Supprimer ce css #}
 <style>
     .new__map {

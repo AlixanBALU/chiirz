@@ -42,25 +42,43 @@ class StaticPages extends AbstractController
     }
 
     /** 
-     * @Route("/itinerary/insert_bar/", name="insert_bar") 
+     * @Route("/itinerary/insert_bar/{id}", name="insert_bar") 
     */ 
-    public function insertBar()
+    public function insertBar($id)
     {
-        // $_POST 
-        // Get the 'bar' field from the 'itinerary' table 
-        
+
+        // Get the JSON data from the request body
+        $json = file_get_contents('php://input');
+
+        // Decode the JSON data into a PHP associative array
+        $data = json_decode($json, true);
+
+        $img = $data["img"];
+        $name = $data["name"];
+        $fk_city_id = $data["fk_city_id"];
+        $distance = $data["distance"];
+        $fk_user_id = $data["fk_user_id"];
+        $bar = $data["bar"];
+
+
+
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQueryBuilder()
-            ->select('i.bar')
-            ->from('App\Entity\Itinerary', 'i')
-            ->where('i.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery();
-        $bars = $query->getResult();
+        $queryBuilder = $entityManager->createQueryBuilder()
+            ->insert('App\Entity\Itinerary', 'i')
+            ->set('i.img', ':img')
+            ->setParameter('img', $img)
+            ->set('i.name', ':name')
+            ->setParameter('name', $name)
+            ->set('i.fk_city_id', ':fk_city_id')
+            ->setParameter('fk_city_id', $fk_city_id)
+            ->set('i.distance', ':distance')
+            ->setParameter('distance', $distance)
+            ->set('i.fk_user_id', ':fk_user_id')
+            ->setParameter('fk_user_id', $fk_user_id)
+            ->set('i.bar', ':bar')
+            ->setParameter('bar', $bar);
 
-        // Convert the results to a JSON response
-        $response = new JsonResponse($bars);
-
-        return $response;
+        $query = $queryBuilder->getQuery();
+        $query->execute();
     }
 }

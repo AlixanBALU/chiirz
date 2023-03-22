@@ -31,9 +31,5 @@ city_from_user :
 
 itinerary_show :
     path: itinerary/{id}
-    controller: App\Controller\ItineraryController::index
-
-return_json :
-    path: /returnJson
-    controller: App\Controller\returnJson   
+    controller: App\Controller\ItineraryController::index 
     
