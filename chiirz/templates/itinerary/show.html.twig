@@ -107,6 +107,7 @@
                                     <div class="parcours-info__length" id="parcoursLength">
                                         
                                     </div>
+                                    {# Nombre d'étape #}
                                     <div class="parcours-info__step-index">
                                         Étape <span id="stepIndex">{{ loop.index }}</span> <span class="parcours-info__step-index__of">/{{ itinerary.bar['numberOfSteps'] }}</span>
                                     </div>
@@ -156,7 +157,7 @@
     </section>
 
     {# Test google API #}
-    <div id="carte" height="200" width="200">Carte</div>
+    {# <div id="carte" height="200" width="200">Carte</div> #}
     <div id="info"></div>
     <div id="places"></div>
 {% endblock %}
