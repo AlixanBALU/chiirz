@@ -65,18 +65,26 @@ function initMap() {
     const service = new google.maps.places.PlacesService(map);
     
     function afficheEtape(json){
+        // Nombre d'étape
         const nbEtape = document.querySelectorAll("#stepIndex");
-        nbEtape.forEach(function(){
-            console.log(nbEtape);
+        // Récupération des balises numéro de téléphone
+        const tel = document.querySelectorAll("#stepPhone");
+        // Récupération des balises noteMoyenne
+        const noteMoyenne = document.querySelectorAll("#stepRateNumber");
+        // Récupération des balises pour le nombre total de rate.
+        const nbNote = document.querySelectorAll("#stepOpinion");
+        // Récupération des balises pour l'heure d'ouverture.
+        const isOpen = document.querySelectorAll("#stepIsOpen");
+        // Récupération de div du contenu 
+        const content = document.querySelectorAll("#divContent");
+        for (let i=0; i<nbEtape.length; i++){
             const request_id = {
                 // Stocker dans la base de donnée le placeId. 
-                placeId: json[0].bar.steps[0].place_id
+                placeId: json[0].bar.steps[i].place_id
             };
 
             // Récupère PlaceId. 
             // placeId: barJson['steps'][i + 1]['place_id']
-
-
 
             service.getDetails(request_id, function (place, status) {
                 // pour comprendre ce qui est obtenu
@@ -85,57 +93,69 @@ function initMap() {
             
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     // récupération d'un élément pour l'affichage
-                    const div = document.getElementById('info');
+                    // const div = document.getElementById('info');
                 
                     // génération de l'affichage
-                    div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
-                    '<p>Adresse : ' + place.formatted_address + '</p>';
-                    div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
+                    // Nom du lieu et son adresse :
+                    // div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
+                    // '<p>Adresse : ' + place.formatted_address + '</p>';
+                    // div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
 
                     // Numéro de téléphone internationnal
-                    div.innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
-                    div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
+                    tel[i].innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
+
+                    // Lien : voir sur google map
+                    // div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
 
                     // Commentaires
-                    console.log(place);
-                    console.log('Les commentaires :');
-                    console.log(place.reviews);
                     if (!(typeof place.reviews === 'undefined')) {
+                        let s= "";
+                        s +='<section id="slide_comment" class="splide" aria-label="Slide sur les commentaires">'+
+                            '<div class="splide__track">' +
+                                    '<ul class="splide__list">';
                         place.reviews.forEach(function(review){
-                            div.innerHTML += '<h1>'+review.author_name+'</h1>';
-                            div.innerHTML += '<p>Commentaire : '+review.text+'</p>';
-                            div.innerHTML += '<p>Rating : '+review.rating+'</p>';
+                            s += '<li class="splide__slide">'
+                            s += '<h4>'+review.author_name+'</h4>';
+                            s += '<p>'+review.text+'</p>';
+                            s += '<p>Rating : '+review.rating+'</p>';
+                            s += '</li>';
                         });
+                        s+= '</ul>' +
+                            '</div>' +
+                        '</section>';
+                        content[i].innerHTML += s;
+                        console.log("Le contenu :");
+                        console.log(content[i].innerHTML);
+                        document.querySelectorAll('#slide_comment').forEach(slide => {
+                            
+                            new Splide(slide, {
+                                type : "loop",
+                                padding : "10rem",
+                                pager : false
+                            }).mount();
+                        });
+
                     }
-                    div.innerHTML += "fin de place détail";
                     
                     // Gestion de l'heure : 
                     const today = new Date().getDay();
                     const openingHours = place.opening_hours;
-                    div.innerHTML += openingHours;
+                    // div.innerHTML += openingHours;
                     const todayHours = openingHours.weekday_text[today];
                     const closingTime = todayHours.split(': ')[1];
 
                     const currentDate = new Date().toLocaleDateString();
                     const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
                     const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-                    div.innerHTML += '<h1>Heure d\'ouverture : '+ dateTimeString +'</h1>';
+                    isOpen[i].innerHTML += '<h1>Heure d\'ouverture : '+ dateTimeString +'</h1>';
         
                 }
             });
-        });
+        }
 
     }
-
-    // Appel de la fonction
-    afficheEtape(jsonBar);
-       
     
-        
-
-
-    
-   
+    /*
     // ... requêtes et affichage ...
 
     // position autour de laquelle la recherche est effectuée
@@ -157,6 +177,7 @@ function initMap() {
     };
 
     // exécution de la requête
+    
     service.nearbySearch(request, function (results, status) {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
         // récupération d'un élément pour générer l'affichage
@@ -200,6 +221,7 @@ function initMap() {
         });
         }
     });
+    */
 
 
 
