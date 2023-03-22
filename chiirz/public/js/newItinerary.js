@@ -27,7 +27,8 @@ function initMap() {
 
     const linkToPosImg = document.querySelector('#linkToPosImg').dataset.link;
     const linkToPinImg = document.querySelector('#linkToPosImg').dataset.pin;
-
+    const linkToCityImg = document.querySelector('#linkToPosImg').dataset.city;
+    
     const map = new google.maps.Map(document.querySelector('#newMap'), {
         center: jsonPos[citySelect.value],
         zoom: 12,
@@ -37,6 +38,7 @@ function initMap() {
 
     // lancement du service 'Places' pour les requêtes
     const service = new google.maps.places.PlacesService(map);
+    let markers = [];
 
     barNameInput.addEventListener('input', function (e) {
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
@@ -78,8 +80,16 @@ function initMap() {
                         // On recupere les 10 premieres photos
                         const photos = place.photos;
                         for (let i = 0; i < 10; i++) {
-                            const photoUrl = photos[i].getUrl();
-                            imgArray.push(photoUrl);
+                            try {
+                                const photoUrl = photos[i].getUrl();
+                                imgArray.push(photoUrl);
+                            }
+                            catch(e) {
+                                if (i === 0) {
+                                    imgArray.push(linkToCityImg);
+                                }
+                                console.log(i + " photo recupérées");
+                            }
                         }
                     }
                 });
@@ -151,9 +161,15 @@ function initMap() {
             query : value,
             radius: '4000',
             type: ['bar'],
-            fields: ['name', 'place_id', 'formatted_address', 'geometry'],
-            maxResults: 5
+            fields: ['name', 'place_id', 'formatted_address', 'geometry']
         };
+
+        // Tableau des marqueurs
+        markers = [];
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
 
         service.textSearch(googleSearchRequest, function (results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -179,6 +195,7 @@ function initMap() {
                                 scaledSize: new google.maps.Size(24, 24)
                             }
                         });
+                        markers.push(marker);
                     }       
                 });
 
@@ -206,7 +223,6 @@ function initMap() {
     function calculateRouteLength(array) {
         const newDistance = document.querySelector('#newDistance');
 
-        newDistance.innerHTML = 'Calcul en cours...'
         // Au cas ou il n'y a qu'un bar
         if (array.steps.length == 1) return '0.00km';
 
@@ -252,7 +268,35 @@ function initMap() {
                 newDistance.innerHTML = parseFloat(lengthInKm.toFixed(1)) + ' km';
             }
         });
-      }
+    }
+
+    function ajaxSendItinerary() {
+        let img = document.querySelector('#newImg');
+
+        const imagesRequest = {
+            placeId : placeId,
+            fields : ['photos']
+        }
+
+        service.getDetails(imagesRequest, (place, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                // On recupere les 10 premieres photos
+                const photos = place.photos;
+                for (let i = 0; i < 10; i++) {
+                    try {
+                        const photoUrl = photos[i].getUrl();
+                        imgArray.push(photoUrl);
+                    }
+                    catch(e) {
+                        if (i === 0) {
+                            imgArray.push(linkToCityImg);
+                        }
+                        console.log(i + " photo recupérées");
+                    }
+                }
+            }
+        });
+    }
 
     // function calculerDistanceTotal(array) {
     //     const service = new google.maps.DirectionsService();
