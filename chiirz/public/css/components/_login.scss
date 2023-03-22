@@ -49,12 +49,12 @@
             flex-direction : column;
             gap : 0.6rem;
             & input {
-                background-color : $white-grayer;
+                background-color : $white-gray;
                 border-radius : 40px;
-                padding : 1rem 0;
+                padding : 1rem;
 
                 @media (min-width: 768px) {
-                    padding : 1.3rem 0;
+                    padding : 1.3rem 1rem;
                 }
             }
             & input[type="checkbox"] {

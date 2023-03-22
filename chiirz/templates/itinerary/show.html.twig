@@ -23,19 +23,21 @@
         <div class="section-itinerary__maps">
             {# Intégration Google Maps #}
         </div>
+        
         <div class="section-itinerary__content">
             <div class="section-itinerary__content__creator">
-                <img src="{{ asset('img/glowing_star.png') }}" alt="☆">
+                <img src="{{ asset('img/glowing-star.png') }}" alt="☆">
                 <p>Route de la soif imaginé par <a href="{{ path('user', { 'id': itinerary.fkuser.id }) }}" class="section-itinerary__content__creator__link">{{ itinerary.fkuser.pseudo }}</a></p>
             </div>
-            <h1>{{ itinerary.name }}</h1>
+            <h1 class="title title--h2">{{ itinerary.name }}</h1>
             {% if is_granted('ROLE_ADMIN') %}
                 {{ include('itinerary/_delete_form.html.twig') }}
             {% endif %}
             <div class="section-itinerary__content__rate">
                 <div class="section-itinerary__content__rate__rating">
-                    <img src="{{ asset('img/svg/star/svg') }}" alt="☆">
+                    <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                     <div>
+                        4.5
                     {# {% if itinerary.likes is empty %}
                         N/A
                     {% else %}
@@ -51,34 +53,35 @@
                 </div>
                 <div class="section-itinerary__content__rate__price">
                     {% for i in 1..itinerary.price %}
-                        <img src="{{ asset('img/svg/euro.svg') }}" alt="€">
+                        <span> € </span>
                     {% endfor %}
                 </div>
             </div>
             {% if itinerary.text is not empty %}
                 <p class="section-itinerary__content__paragraph">{{ itinerary.text }}</p>
             {% endif %}
+
             <div class="section-itinerary__content__buttons">
-                <a href="#parcours" class="section-itinerary__content__buttons section-itinerary__content__buttons--go">
+                <a href="#parcours" class="section-itinerary__content__buttons__btn btn btn--primary-bis">
                     <div>C'est parti !</div>
-                    <img src="{{ asset('img/smiling_face.png') }}" alt="😝">
+                    <img src="{{ asset('img/tongue-smiley.png') }}" alt="😝">
                 </a>
-                <a href="" id="openOnGoogleMaps" class="section-itinerary__content__buttons section-itinerary__content__buttons--ggmaps">
+                <a href="" id="openOnGoogleMaps" class="section-itinerary__content__buttons__btn btn btn--secondary-bis">
                     <div>Ouvrir sur Google Maps</div>
                     <img src="{{ asset('img/svg/external_links.svg') }}" alt="↗">
                 </a>
             </div>
             <div class="section-itinerary__content__like">
-                <img src="{{ asset('img/svg/heart_color.svg') }}" alt="♡" id="likeHeartImg">
+                <img src="{{ asset('img/svg/heart-color.svg') }}" alt="♡" id="likeHeartImg">
                 <div id="likeText">Ajouter aux favoris</div>
             </div>
             <div class="section-itinerary__content__steps">
-                <h3>{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
-                <ul>
+                <h3 class="title title--h4">{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
+                <ol>
                     {% for s in itinerary.bar['steps'] %}
-                        <li>{{ s.name }}</li>
+                        <li> <span> {{loop.index}}. </span>{{ s.name }}</li>
                     {% endfor %}
-                </ul>
+                </ol>
             </div>
             <p class="section-itinerary__content__distance">Longeur du parcours : <span class="section-itinerary__content__distance__number">{{ itinerary.distance }}</p>
         </div>
@@ -87,6 +90,8 @@
         <div class="section-parcours__progress-bar">
 
         </div>
+
+        {# ///////////////////////////////////////////////////////// #}
         <div id="carouselSteps" class="splide">
             <div class="splide__track">
                 <ul class="splide__list">

@@ -1,16 +1,18 @@
 .hero {
-    // background : url(../../img/svg/hero-background.svg);
-    // background-size : cover;
-    // background-repeat : no-repeat;
     display : flex;
     justify-content : space-between;
-    // min-height : 100vh;
-    width : 100%;
+    // width : 100%;
     align-items : center;
+    width : 85%;
+    margin : auto;
 
-    // @media (min-width: 1080px) {
-    //     height : 70vh;
-    //   }
+    @media (min-width: 1440px) {
+        width : 70%;
+    }
+
+    @media (min-width: 1920px) {
+        width : 60%;
+    }
 
     &__text {
         display : flex;
@@ -74,4 +76,8 @@
     }
     
 
+}
+
+.hero .container {
+    padding-top: 0 !important;
 }

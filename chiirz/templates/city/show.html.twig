@@ -38,8 +38,8 @@
 {% endblock %}
 
 {% block body %}
-    <header class="header">
-        <div class="header__div">
+    <header class="header-itinerer">
+        <div class="header-itinerer__div">
             <div>
                 <h1 class="title title--h1"> Les routes de la soif de </h1>
                 <form id="redirectCity">
@@ -54,8 +54,8 @@
                 </form>
             </div>
             
-            <div class="header__button-wrapper">
-                <a href="#" class="header__button-wrapper__button btn btn--primary-bis">Créer une route</a>
+            <div class="header-itinerer__button-wrapper">
+                <a href="#" class="header-itinerer__button-wrapper__button btn btn--primary-bis">Créer une route</a>
                 {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
                     <label for="order-select">Trier par</label>
                     <select id="order-select" name="order">
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="header__img-container">
+        <div class="header-itinerer__img-container">
             <img src="{{ asset('img/rocket.png') }}" alt="">
         </div>
     </header>
