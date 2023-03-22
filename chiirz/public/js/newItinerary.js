@@ -28,6 +28,7 @@ function initMap() {
     const barNameInput = document.querySelector('#barNameInput');
     const citySelect = document.querySelector('#itinerary_fk_city');
     const barList = document.querySelector('#barList');
+    const textInput = document.querySelector('#itinerary_text');
 
     const linkToPosImg = document.querySelector('#linkToPosImg').dataset.link;
     const linkToPinImg = document.querySelector('#linkToPosImg').dataset.pin;
@@ -318,6 +319,7 @@ function initMap() {
 
         let data = {
             'img': jsonBar['steps'][0].img[0],
+            'text': textInput.value,
             'name': document.querySelector('#itinerary_name').value,
             'fk_city_id': citySelect.value,
             'distance': document.querySelector('#newDistance').innerHTML,

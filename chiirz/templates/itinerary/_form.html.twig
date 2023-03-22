@@ -33,8 +33,12 @@
     <div class="new__map" id="newMap" height="200" width="200"></div>
     <div class="new__content">
         <div class="new__name">
-            <label class="h3" for="itineraryName">Nom de la route de la soif</label>
+            <label class="h3" for="itinerary_name">Nom de la route de la soif</label>
             {{ form_widget(form.name) }}
+        </div>
+        <div class="new__text">
+            <label class="h4" for="itinerary_text">Description</label>
+            {{ form_widget(form.text) }}
         </div>
         <div class="new__bar-input">
             <label class="h3" for="barNameInput">Ajouter un bar</label>

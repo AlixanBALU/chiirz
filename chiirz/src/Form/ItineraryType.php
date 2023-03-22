@@ -16,6 +16,12 @@ class ItineraryType extends AbstractType
     {
         $builder
             ->add('fk_city')
+            ->add('text', null, [
+                'attr' => [
+                    'placeholder' => '🎤 Un petit mot ? ',
+                    'required' => true
+                ]
+            ])
             ->add('name', null, [
                 'attr' => [
                     'placeholder' => 'Nom de la route',

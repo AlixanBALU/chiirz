@@ -59,6 +59,7 @@ class StaticPages extends AbstractController
         $data = json_decode($json, true);
 
         $img = $data["img"];
+        $text = $data["text"];
         $name = $data["name"];
         $distance = $data["distance"];
         $bar = $data["bar"];
@@ -67,13 +68,13 @@ class StaticPages extends AbstractController
         $city = $entityManager->getRepository(City::class)->find($fk_city_id);
 
         $fk_user_id = $data["fk_user_id"];
-        $user = $entityManager->getRepository(User::class)->find($fk_city_id);
-
+        $user = $entityManager->getRepository(User::class)->find($fk_user_id);
 
         $entityManager = $this->getDoctrine()->getManager();
 
         $itinerary = new Itinerary();
         $itinerary->setImg($img);
+        $itinerary->setText($text);
         $itinerary->setName($name);
         $itinerary->setFkCity($city);
         $itinerary->setDistance($distance);
