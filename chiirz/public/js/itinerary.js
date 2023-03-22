@@ -46,10 +46,12 @@ function initMap() {
         mapTypeControl: false,
         streetViewControl: false
     });
+
+    const itineraryJson = JSON.parse(itineraryMapDiv.dataset.itinerary);
     /*
     *
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
-    * 
+    *   
     */ 
     function getJsonBar() {
         const url = window.location.href;

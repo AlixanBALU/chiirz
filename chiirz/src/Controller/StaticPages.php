@@ -81,9 +81,11 @@ class StaticPages extends AbstractController
         $itinerary->setFkUser($user);
         $itinerary->setBar($bar);
 
+        return new Response($itinerary->getImg());
+
         $entityManager->persist($itinerary);
         $entityManager->flush();
 
-        return new Response('Saved new itinerary with id '.$itinerary->getId());
+        return new Response('Saved new itinerary with img '.$itinerary->getImg());
     }
 }

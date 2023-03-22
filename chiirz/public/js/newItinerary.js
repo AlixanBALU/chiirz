@@ -6,6 +6,7 @@ function initMap() {
     const jsonBar = {
         "numberOfSteps" : 0,
         "avgPrice" : 0,
+        "avgRate" : 0,
         "steps" : []
     } 
 
@@ -24,6 +25,9 @@ function initMap() {
 
     let priceTotal = 0;
     let priceIndex = 0;
+
+    let rateTotal = 0;
+    let rateIndex = 0;
 
     const barNameInput = document.querySelector('#barNameInput');
     const citySelect = document.querySelector('#itinerary_fk_city');
@@ -131,6 +135,7 @@ function initMap() {
                     "lat" : e.target.parentElement.parentElement.dataset.lat,
                     "lng" : e.target.parentElement.parentElement.dataset.lng,
                     "price" : e.target.parentElement.parentElement.dataset.price,
+                    "rate" : e.target.parentElement.parentElement.dataset.rate,
                     "img" : imgArray
                 });
             
@@ -140,8 +145,17 @@ function initMap() {
                         priceTotal += price;
                         priceIndex++;
                     }
+
+                    let rate = parseFloat(step.rate)
+                    if (!isNaN(rate)) {
+                        console.log(rate)
+                        rateTotal += rate;
+                        rateIndex++;
+                        console.log(rateTotal)
+                    }
                 });
                 jsonBar.avgPrice = Math.round(priceTotal / priceIndex);
+                jsonBar.avgRate = parseFloat((rateTotal / rateIndex).toFixed(1));
 
                 // On affiche les bars de l'itinéraire
                 printSelectedBar();
@@ -155,8 +169,8 @@ function initMap() {
         barStepList.innerHTML = "";
 
         jsonBar.steps.forEach(function (bar, i) {
-            barStepList.innerHTML += `
-            <li class="new__step__list__item">
+            barStepList.innerHTML += 
+            `<li class="new__step__list__item">
                 <div class="new__step__list__item__bar">
                     <div class="new__step__list__item__bar__step">Étape ${i + 1} : </div>
                     <div class="new__step__list__item__bar__name">${bar.name}</div>
@@ -178,7 +192,7 @@ function initMap() {
 
         deleteBarBtn.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
-                
+
                 // On supprime le bar de l'itinéraire
                 jsonBar.numberOfSteps--;
                 jsonBar.steps.splice(e.target.parentElement.parentElement.dataset.index, 1);
@@ -196,6 +210,7 @@ function initMap() {
         let latArray = [];
         let lngArray = [];
         let priceArray = [];
+        let rateArray = [];
 
         let googleSearchRequest = {
             location: city,
@@ -227,6 +242,7 @@ function initMap() {
                         lngArray.push(place.geometry.location.lng());
                         
                         priceArray.push(place.price_level);
+                        rateArray.push(place.rating);
     
                         // création d'un marqueur sur la carte
                         var marker = new google.maps.Marker({
@@ -247,13 +263,15 @@ function initMap() {
                 placeIdArray.slice(0, 5);
                 latArray.slice(0, 5);
                 lngArray.slice(0, 5);
+                priceArray.slice(0, 5);
+                rateArray.slice(0, 5);
 
                 // On vide la liste
                 barList.innerHTML = "";
 
                 // On ajoute les éléments
                 nameArray.forEach(function (name, i) {
-                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
+                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
                 });
 
                 // On ajoute la fonctionnalité 'ajouter' aux boutons
@@ -317,8 +335,6 @@ function initMap() {
             return false;
         }
         return true;
-
-        
     }
 
     function ajaxSendItinerary() {
@@ -330,8 +346,11 @@ function initMap() {
             'fk_city_id': citySelect.value,
             'distance': document.querySelector('#newDistance').innerHTML,
             'fk_user_id': document.querySelector('#linkToPosImg').dataset.user,
-            'bar': jsonBar
+            'bar': jsonBar,
+            'barDecode': JSON.stringify(jsonBar)
         }
+
+        console.log(data['img'])
 
         const url = window.location.href;
         const urlSegments = url.split("/");
@@ -346,8 +365,7 @@ function initMap() {
                 const json = this.responseText;
                 console.log(json);
                 console.log('--------\nJSON loaded\n--------');
-
-                return json;
+                // window.location.href = '/';
             }
             else {
                 console.log('Status:', xhr.status, xhr.statusText);

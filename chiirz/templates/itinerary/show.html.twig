@@ -37,22 +37,11 @@
                 <div class="section-itinerary__content__rate__rating">
                     <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                     <div>
-                        4.5
-                    {# {% if itinerary.likes is empty %}
-                        N/A
-                    {% else %}
-                        {% set rating = 0 %}
-                        {% set ratingIndex = 0 %}
-                        {% for l in itinerary.likes %}
-                            {% set rating = rating + comment.rate %}
-                            {% set ratingIndex = ratingIndex + 1 %}
-                        {% endfor %}
-                        {{ rating / ratingIndex }}
-                    {% endif %} #}
+                        {{ itinerary.bar['avgRate'] }}
                     </div>
                 </div>
                 <div class="section-itinerary__content__rate__price">
-                    {% for i in 1..itinerary.price %}
+                    {% for i in 1..itinerary.bar['avgPrice'] %}
                         <span> € </span>
                     {% endfor %}
                 </div>

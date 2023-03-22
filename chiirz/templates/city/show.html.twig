@@ -85,17 +85,7 @@
                             <div class="itiner-container__card__row__rate">
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">
                                 <div>
-                                    {% if itinerary.comments is empty %}
-                                        N/A
-                                    {% else %}
-                                        {% set rating = 0 %}
-                                        {% set ratingIndex = 0 %}
-                                        {% for comment in itinerary.comments %}
-                                            {% set rating = rating + comment.rate %}
-                                            {% set ratingIndex = ratingIndex + 1 %}
-                                        {% endfor %}
-                                        {{ rating / ratingIndex }}
-                                    {% endif %}
+                                    {{ itinerary.bar["avgRate"] }}
                                 </div>
                             </div>
                         </div>
