@@ -112,16 +112,17 @@ function deleteFromFavorite(likeId) {
 
 
 function initMap() {
+
+    getJsonBar();
+
+    const itineraryMapDiv = document.querySelector('#itineraryMap');
+    const service = new google.maps.places.PlacesService(itineraryMap);
+
     /*
     *
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
     * 
     */ 
-
-    getJsonBar();
-
-    const service = new google.maps.places.PlacesService(itineraryMap);
-
     async function getJsonBar() {
         const url = window.location.href;
         const urlSegments = url.split("/");
@@ -133,20 +134,16 @@ function initMap() {
         console.log(json);
         console.log("--------\nJSON loaded\n--------");
       
-        await afficheEtape(json);
         await informationItinerary(json[0]["bar"]);
+        await afficheEtape(json);
     }
 
     function informationItinerary(jsonBar) {
 
-        console.log(jsonBar)
-
-        let itineraryMapDiv = document.querySelector('#itineraryMap');
-
         const Position = {
             paris : new google.maps.LatLng(48.8566, 2.3522),
-                lyon : new google.maps.LatLng(45.7640, 4.8357),
-                strasbourg : new google.maps.LatLng(48.5734, 7.7521),
+            lyon : new google.maps.LatLng(45.7640, 4.8357),
+            strasbourg : new google.maps.LatLng(48.5734, 7.7521),
         }
 
         // On relie les pos à leur identifier
@@ -163,6 +160,7 @@ function initMap() {
             streetViewControl: false
         });
 
+
         const directionService = new google.maps.DirectionsService();
         const directionsDisplay = new google.maps.DirectionsRenderer({
             map: itineraryMap
@@ -173,7 +171,7 @@ function initMap() {
             let step = jsonBar['steps'][i];
 
             if (i === 0) {
-                pointA = null
+                pointA = null;
                 pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
             }
             else {
@@ -188,6 +186,8 @@ function initMap() {
 
             calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
         }
+
+
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
             directionsService.route({
@@ -208,6 +208,8 @@ function initMap() {
 
 
     async function afficheEtape(json) {
+
+
 
         const nbEtape = document.querySelectorAll(".stepIndex");
         const tel = document.querySelectorAll(".stepPhone");
@@ -231,6 +233,7 @@ function initMap() {
                     }
                 });
             });
+            console.log('mkjb')
 
             place.then(async (value) => {
                 await (async function() {
@@ -494,80 +497,80 @@ function initMap() {
     // Doc sur l'api direction
     // https://developers.google.com/maps/documentation/javascript/directions?hl=fr
 
-    function WriteItineraryArguments(barJson) {
+    // function WriteItineraryArguments(barJson) {
         
-        // On initialise les fields qui vont contenir nos données
-        let lenghtField = document.querySelectorAll('#parcoursLength')
-        let phoneField = document.querySelectorAll('#stepPhone')
+    //     // On initialise les fields qui vont contenir nos données
+    //     let lenghtField = document.querySelectorAll('#parcoursLength')
+    //     let phoneField = document.querySelectorAll('#stepPhone')
 
-        let rateField = document.querySelectorAll('#stepRate')
-        let opinionField = document.querySelectorAll('#stepOpinion')
+    //     let rateField = document.querySelectorAll('#stepRate')
+    //     let opinionField = document.querySelectorAll('#stepOpinion')
 
-        let priceField = document.querySelectorAll('#stepPrice')
-        let openField = document.querySelectorAll('#stepIsOpen')
+    //     let priceField = document.querySelectorAll('#stepPrice')
+    //     let openField = document.querySelectorAll('#stepIsOpen')
 
-        for (let i = 0; i < barJson['steps'].length - 1; i++) {
+    //     for (let i = 0; i < barJson['steps'].length - 1; i++) {
 
-            // Longueur du parcours
-            let routeOrigin = {placeId: barJson['steps'][i]['place_id']};
-            let routeDestination = {placeId: barJson['steps'][i + 1]['place_id']};
+    //         // Longueur du parcours
+    //         let routeOrigin = {placeId: barJson['steps'][i]['place_id']};
+    //         let routeDestination = {placeId: barJson['steps'][i + 1]['place_id']};
         
-            const request = {
-                origin: routeOrigin,
-                destination: routeDestination,
-                travelMode: 'WALKING',
-                unitSystem: google.maps.UnitSystem.METRIC,
-                avoidHighways: false,
-                avoidTolls: false
-            };
+    //         const request = {
+    //             origin: routeOrigin,
+    //             destination: routeDestination,
+    //             travelMode: 'WALKING',
+    //             unitSystem: google.maps.UnitSystem.METRIC,
+    //             avoidHighways: false,
+    //             avoidTolls: false
+    //         };
         
-            service.route(request, function(result, status) {
-                if (status == "OK") {
-                    console.log(result)
-                    lengthField[i].innerHTML = result.routes[0].legs[0].distance.text;
-                }
-                else {
-                    distanceArray.push('ERROR');
-                }
-            }); 
-        }
+    //         service.route(request, function(result, status) {
+    //             if (status == "OK") {
+    //                 console.log(result)
+    //                 lengthField[i].innerHTML = result.routes[0].legs[0].distance.text;
+    //             }
+    //             else {
+    //                 distanceArray.push('ERROR');
+    //             }
+    //         }); 
+    //     }
         
-        // const dataCity = input.dataset.city;
+    //     // const dataCity = input.dataset.city;
 
-        let distanceArray = [];
+    //     // let distanceArray = [];
         
-        let routeWaypoints = [];
+    //     // let routeWaypoints = [];
 
         
 
-            let distance
-            // dataCity.push(distance)
+    //     //     let distance
+    //         // dataCity.push(distance)
 
 
-            // if (i !== 0 || i !== array['steps'].length - 1) {
-            //     // routeWaypoints.push({placeId: array['steps'][i]['place_id'], stopover: true})
-            //     let placeId = array['steps'][i]['place_id'];
+    //         // if (i !== 0 || i !== array['steps'].length - 1) {
+    //         //     // routeWaypoints.push({placeId: array['steps'][i]['place_id'], stopover: true})
+    //         //     let placeId = array['steps'][i]['place_id'];
 
-            //     // Utilisez l'API Google Places pour obtenir les coordonnées géographiques du lieu
-            //     let placeService = new google.maps.places.PlacesService(map);
-            //     placeService.getDetails({ placeId: placeId }, function (result, status) {
-            //         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            //             let latlng = result.geometry.location;
-            //             routeWaypoints.push({
-            //                 location: latlng,
-            //                 placeId: placeId,
-            //                 stopover: true
-            //     });
-            //     }
-            // });
-            // }
+    //         //     // Utilisez l'API Google Places pour obtenir les coordonnées géographiques du lieu
+    //         //     let placeService = new google.maps.places.PlacesService(map);
+    //         //     placeService.getDetails({ placeId: placeId }, function (result, status) {
+    //         //         if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //         //             let latlng = result.geometry.location;
+    //         //             routeWaypoints.push({
+    //         //                 location: latlng,
+    //         //                 placeId: placeId,
+    //         //                 stopover: true
+    //         //     });
+    //         //     }
+    //         // });
+    //         // }
             
-        // }
+    //     // }
 
-        // input.forEach(function (elem, i) {
-        //     elem.innerHTML+= 'Input' + i;
-        // });
-    }
+    //     // input.forEach(function (elem, i) {
+    //     //     elem.innerHTML+= 'Input' + i;
+    //     // });
+    // }
 
     // function calculerDistanceTotal(array) {
         
