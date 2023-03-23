@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Itinerary{% endblock %}
+{% block title %}{{ itinerary.name }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -19,7 +19,7 @@
         <img src="{{ asset('img/svg/back.svg') }}" alt="<">
         Retour en arrière
     </a>
-    <section class="section-itinerary">
+    <section class="section-itinerary" {% if app.user %} data-user="{{ itinerary.fkUser.id }}" data-itinerary="{{ itinerary.id }}" id="dataset" {% endif %}>
         <div class="section-itinerary__maps" id="itineraryMap" data-city="{{ itinerary.fkCity.id }}">
             {# Intégration Google Maps #}
         </div>

@@ -47,6 +47,27 @@ class StaticPages extends AbstractController
     }
 
     /** 
+     * @Route("/itinerary/add_fav/{id}", name="add_fav") 
+    */ 
+    public function addToFavorites($id)
+    {
+        // Get the 'bar' field from the 'itinerary' table
+        $entityManager = $this->getDoctrine()->getManager();
+        $query = $entityManager->createQueryBuilder()
+            ->select('i.bar')
+            ->from('App\Entity\Itinerary', 'i')
+            ->where('i.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery();
+        $bars = $query->getResult();
+
+        // Convert the results to a JSON response
+        $response = new JsonResponse($bars);
+
+        return $response;
+    }
+
+    /** 
      * @Route("/itinerary/insert_bar/{id}", name="insert_bar") 
     */ 
     public function insertBar($id, EntityManagerInterface $entityManager)

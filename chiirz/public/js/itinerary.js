@@ -1,10 +1,3 @@
-// Fonction principale avec laquelle on recupere le itineraryJson
-function getItinerary(itineraryJson) {
-    // ...
-    // console.log('toto');
-}
-
-
 // back button
 const backButton = document.querySelector('#backButton');
 
@@ -23,7 +16,75 @@ new Splide('#carouselSteps', {
     drag: false,
 }).mount();
 
+let addToFavorites = document.querySelectorAll('#addToFavorites');
+let isConnected = false
+
+if (document.querySelector('#dataset')) {
+    const itineraryId = document.querySelector('#dataset').dataset.itinerary;
+    const userId = document.querySelector('#dataset').dataset.user;
+    isConnected = true;
+};
+
+
+addToFavorites.forEach(addToFavorites => {
+    addToFavorites.addEventListener('click', () => {
+        if (isConnected) {
+            addToFavorite(itineraryId, userId);
+        }
+        else {
+            alert('Merci de vous connecter pour ajouter un itinéraire à vos favoris.')
+        }
+        
+    });
+});
+
+function addToFavorite(itineraryId, userId) {
+    let data = {
+        'itinerary_id': itineraryId,
+        'user_id': userId
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (this.readyState == 4 && this.status == 200) {
+            const json = this.responseText;
+            console.log(json);
+            // window.location.href = '/';
+        }
+        else {
+            console.log('Status:', xhr.status, xhr.statusText);
+            console.log('Response:', xhr.responseText);
+        }
+    };
+    xhr.onerror = function() {
+        console.log('error');
+    }
+    xhr.open("POST", "./add_fav/1", true);
+    xhr.send(JSON.stringify(data));
+};
+
+function getJsonBar() {
+    const url = window.location.href;
+    const urlSegments = url.split("/");
+    // ItineraryID -> Id de l'itinéraire. 
+    const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
+    
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const json = this.responseText;
+            console.log('--------\nJSON loaded\n--------');
+            return json;
+        }
+    };
+    xhr.open("GET", "./get_bar/" + itineraryId, true);
+    xhr.send();
+}
+
 function initMap() {
+
+    jsonBar = getJsonBar();
 
     let itineraryMapDiv = document.querySelector('#itineraryMap');
 
@@ -47,34 +108,54 @@ function initMap() {
         streetViewControl: false
     });
 
-    const itineraryJson = JSON.parse(itineraryMapDiv.dataset.itinerary);
+    const directionService = new google.maps.DirectionsService();
+    const directionsDisplay = new google.maps.DirectionsRenderer({
+        map: itineraryMap
+    });
+    const service = new google.maps.places.PlacesService(itineraryMap);
+
+    for (let i = 0; i < jsonBar['steps'].length; i++) {
+        if (i === 0) {
+            pointA = null
+        }
+        else {
+            pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
+            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+        }
+        let marker = new google.maps.Marker({
+            position: jsonPos[step['city_id']],
+            map: itineraryMap,
+            title: step['name']
+        });
+
+        calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
+    }
+
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+        directionsService.route({
+            origin: pointA,
+            destination: pointB,
+            avoidTolls: true,
+            avoidHighways: false,
+            travelMode: google.maps.TravelMode.DRIVING
+        }, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
     /*
     *
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
     *   
     */ 
-    function getJsonBar() {
-        const url = window.location.href;
-        const urlSegments = url.split("/");
-        // ItineraryID -> Id de l'itinéraire. 
-        const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
-        
+    
 
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            console.log(this.readyState);
-            if (this.readyState == 4 && this.status == 200) {
-                const json = this.responseText;
-                console.log('--------\nJSON loaded\n--------');
-
-                return json;
-            }
-        };
-        xhr.open("GET", "./get_bar/" + itineraryId, true);
-        xhr.send();
-    }
-
-    const jsonBar = getJsonBar();
+    
         
     // position pour centrer la carte
     const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
@@ -86,7 +167,6 @@ function initMap() {
     });
    
     // lancement du service 'Places' pour les requêtes
-    const service = new google.maps.places.PlacesService(map);
 
     
    
@@ -247,7 +327,6 @@ function initMap() {
 
         let distanceArray = [];
         
-        const service = new google.maps.DirectionsService();
         let routeWaypoints = [];
 
         
@@ -286,7 +365,6 @@ function initMap() {
 
         // const dataCity = input.dataset.city;
         
-        const service = new google.maps.DirectionsService();
         let routeWaypoints = [];
 
         for (let i = 0; i < array['steps'].length - 1; i++) {
