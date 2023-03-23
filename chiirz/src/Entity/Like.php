@@ -18,12 +18,6 @@ class Like
     #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?Itinerary $fk_itinerary = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $rate = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $favorite = null;
-
     #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?User $fk_user = null;
 
@@ -40,30 +34,6 @@ class Like
     public function setFkItinerary(?Itinerary $fk_itinerary): self
     {
         $this->fk_itinerary = $fk_itinerary;
-
-        return $this;
-    }
-
-    public function getRate(): ?int
-    {
-        return $this->rate;
-    }
-
-    public function setRate(?int $rate): self
-    {
-        $this->rate = $rate;
-
-        return $this;
-    }
-
-    public function isFavorite(): ?bool
-    {
-        return $this->favorite;
-    }
-
-    public function setFavorite(?bool $favorite): self
-    {
-        $this->favorite = $favorite;
 
         return $this;
     }
