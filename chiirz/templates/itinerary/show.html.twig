@@ -65,14 +65,17 @@
                     <img src="{{ asset('img/svg/external_links.svg') }}" alt="↗">
                 </a>
             </div>
-            {% if itinerary.likes is not empty %}
-                {% for like in itinerary.likes %}
+            {% set haveLiked = false %}
+            {% for like in itinerary.likes and app.user %}
+                {% if like.fkUser == app.user.id %}
+                    {% set haveLiked = true %}
                     <div class="section-itinerary__content__like fav--active" data-state="0" data-id="{{ like.id }}" id="favParent">
                         <img src="{{ asset('img/heart.png') }}" alt="♡" id="addTofavorites">
                         <div id="addToFavorites">Supprimer des favoris</div>
                     </div>
-                {% endfor %}
-            {% else %}
+                {% endif %}
+            {% endfor %}
+            {% if haveLiked == false %}
                 <div class="section-itinerary__content__like" data-state="1" data-id="" id="favParent">
                     <img src="{{ asset('img/heart.png') }}" alt="♡" id="addToFavorites">
                     <div id="addToFavorites">Ajouter aux favoris</div>
