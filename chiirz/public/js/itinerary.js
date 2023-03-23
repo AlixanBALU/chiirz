@@ -166,18 +166,14 @@ function initMap() {
             map: itineraryMap
         });
 
-        for (let i = 0; i < jsonBar['steps'].length; i++) {
+        for (let i = 1; i < jsonBar['steps'].length; i++) {
 
             let step = jsonBar['steps'][i];
 
-            if (i === 0) {
-                pointA = null;
-                pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
-            }
-            else {
-                pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
-                pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
-            }
+            pointA = null;
+            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+            pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
+            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
             let marker = new google.maps.Marker({
                 position: jsonPos[step['city_id']],
                 map: itineraryMap,
@@ -209,8 +205,6 @@ function initMap() {
 
     async function afficheEtape(json) {
 
-
-
         const nbEtape = document.querySelectorAll(".stepIndex");
         const tel = document.querySelectorAll(".stepPhone");
         const noteMoyenne = document.querySelectorAll(".stepRateNumber");
@@ -218,6 +212,7 @@ function initMap() {
         const isOpen = document.querySelectorAll(".stepIsOpen");
         const content = document.querySelectorAll(".divContent");
         const openGoogleMap = document.querySelectorAll(".stepName");
+
 
         for (let i = 0; i < nbEtape.length; i++) {
             const request_id = {
@@ -233,78 +228,74 @@ function initMap() {
                     }
                 });
             });
-            console.log('mkjb')
 
             place.then(async (value) => {
-                await (async function() {
-                    // Code à exécuter une fois value chargé
-                    console.log("Place : ");
-                    console.log(value);
-                    
-                    tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
-                    openGoogleMap[i].href = value.url;
+                // Code à exécuter une fois value chargé
+                console.log("Place : ");
+                console.log(value);
+                tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
+                openGoogleMap[i].href = value.url;
 
-                    if (value.opening_hours) {
-                        const today = new Date().getDay();
-                        const todayHours = value.opening_hours.weekday_text[today];
-                        const closingTime = todayHours.split(': ')[1];
-                        const currentDate = new Date().toLocaleDateString();
-                        const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-                        const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-                        const openingHours = 'Heure d\'ouverture : ' + dateTimeString;
-                        isOpen[i].innerHTML = openingHours;
-                    }
+                if (value.opening_hours) {
+                    const today = new Date().getDay();
+                    const todayHours = value.opening_hours.weekday_text[today];
+                    const closingTime = todayHours.split(': ')[1];
+                    const currentDate = new Date().toLocaleDateString();
+                    const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+                    const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+                    const openingHours = 'Heure d\'ouverture : ' + dateTimeString;
+                    isOpen[i].innerHTML = openingHours;
+                }
 
 
-                    // Commentaires
-                    
-                    if (value.reviews) {
-                        let section = document.createElement('section');
-                        section.id = 'slide_comment';
-                        section.className = 'splide';
-                        section.setAttribute('aria-label', 'Slide sur les commentaires');
-                        console.log("create comment "+ i)
-                    
-                        let div = document.createElement('div');
-                        div.className = 'splide__track';
-                    
-                        let ul = document.createElement('ul');
-                        ul.className = 'splide__list';
-                    
-                        value.reviews.forEach(function(review){
-                            let li = document.createElement('li');
-                            li.className = 'splide__slide';
-                    
-                            let h4 = document.createElement('h4');
-                            h4.textContent = review.author_name;
-                    
-                            let p1 = document.createElement('p');
-                            p1.textContent = review.text;
-                    
-                            let p2 = document.createElement('p');
-                            p2.textContent = 'Rating : ' + review.rating;
-                    
-                            li.appendChild(h4);
-                            li.appendChild(p1);
-                            li.appendChild(p2);
-                            ul.appendChild(li);
-                        });
-                    
-                        div.appendChild(ul);
-                        section.appendChild(div);
-                        content[i].appendChild(section);
-                    
-                        document.querySelectorAll('#slide_comment').forEach(slide => {
-                            new Splide(slide, {
-                                type : "loop",
-                                padding : "10rem",
-                                pagination : false
-                            }).mount();
-                        });
-                    }
-
-                });
+                // Commentaires
+                
+                if (value.reviews) {
+                    let section = document.createElement('section');
+                    section.id = 'slide_comment';
+                    section.className = 'splide';
+                    section.setAttribute('aria-label', 'Slide sur les commentaires');
+                    console.log("create comment "+ i)
+                
+                    let div = document.createElement('div');
+                    div.className = 'splide__track';
+                
+                    let ul = document.createElement('ul');
+                    ul.className = 'splide__list';
+                
+                    value.reviews.forEach(function(review){
+                        let li = document.createElement('li');
+                        li.className = 'splide__slide';
+                
+                        let h4 = document.createElement('h4');
+                        h4.textContent = review.author_name;
+                
+                        let p1 = document.createElement('p');
+                        p1.textContent = review.text;
+                
+                        let p2 = document.createElement('p');
+                        p2.textContent = 'Rating : ' + review.rating;
+                
+                        li.appendChild(h4);
+                        li.appendChild(p1);
+                        li.appendChild(p2);
+                        ul.appendChild(li);
+                    });
+                
+                    div.appendChild(ul);
+                    section.appendChild(div);
+                    content[i].appendChild(section);
+                
+                    document.querySelectorAll('#slide_comment').forEach(slide => {
+                        new Splide(slide, {
+                            type : "loop",
+                            padding : "10rem",
+                            pagination : false
+                        }).mount();
+                    });
+                }
             });
+
         }
     }
     /*
