@@ -118,6 +118,10 @@ function initMap() {
     * 
     */ 
 
+    getJsonBar();
+
+    const service = new google.maps.places.PlacesService(itineraryMap);
+
     async function getJsonBar() {
         const url = window.location.href;
         const urlSegments = url.split("/");
@@ -130,54 +134,60 @@ function initMap() {
         console.log("--------\nJSON loaded\n--------");
       
         await afficheEtape(json);
+        await informationItinerary(json[0]["bar"]);
     }
 
-    jsonBar = getJsonBar();
+    function informationItinerary(jsonBar) {
 
-    let itineraryMapDiv = document.querySelector('#itineraryMap');
+        console.log(jsonBar)
 
-    const Position = {
-        paris : new google.maps.LatLng(48.8566, 2.3522),
-            lyon : new google.maps.LatLng(45.7640, 4.8357),
-            strasbourg : new google.maps.LatLng(48.5734, 7.7521),
-    }
+        let itineraryMapDiv = document.querySelector('#itineraryMap');
 
-    // On relie les pos à leur identifier
-    const jsonPos = {
-        '1' : Position.paris,
-        '2' : Position.lyon,
-        '3' : Position.strasbourg
-    }
-
-    const itineraryMap = new google.maps.Map(itineraryMapDiv, {
-        center: jsonPos[itineraryMapDiv.dataset.city],
-        zoom: 12,
-        mapTypeControl: false,
-        streetViewControl: false
-    });
-
-    const directionService = new google.maps.DirectionsService();
-    const directionsDisplay = new google.maps.DirectionsRenderer({
-        map: itineraryMap
-    });
-    const service = new google.maps.places.PlacesService(itineraryMap);
-
-    for (let i = 0; i < jsonBar['steps'].length; i++) {
-        if (i === 0) {
-            pointA = null
+        const Position = {
+            paris : new google.maps.LatLng(48.8566, 2.3522),
+                lyon : new google.maps.LatLng(45.7640, 4.8357),
+                strasbourg : new google.maps.LatLng(48.5734, 7.7521),
         }
-        else {
-            pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
-            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+
+        // On relie les pos à leur identifier
+        const jsonPos = {
+            '1' : Position.paris,
+            '2' : Position.lyon,
+            '3' : Position.strasbourg
         }
-        let marker = new google.maps.Marker({
-            position: jsonPos[step['city_id']],
-            map: itineraryMap,
-            title: step['name']
+
+        const itineraryMap = new google.maps.Map(itineraryMapDiv, {
+            center: jsonPos[itineraryMapDiv.dataset.city],
+            zoom: 12,
+            mapTypeControl: false,
+            streetViewControl: false
         });
-    
-        calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
-    }
+
+        const directionService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer({
+            map: itineraryMap
+        });
+
+        for (let i = 0; i < jsonBar['steps'].length; i++) {
+
+            let step = jsonBar['steps'][i];
+
+            if (i === 0) {
+                pointA = null
+                pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+            }
+            else {
+                pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
+                pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+            }
+            let marker = new google.maps.Marker({
+                position: jsonPos[step['city_id']],
+                map: itineraryMap,
+                title: step['name']
+            });
+
+            calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
+        }
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
             directionsService.route({
@@ -185,7 +195,7 @@ function initMap() {
                 destination: pointB,
                 avoidTolls: true,
                 avoidHighways: false,
-                travelMode: google.maps.TravelMode.DRIVING
+                travelMode: google.maps.TravelMode.WALKING
             }, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
@@ -194,11 +204,10 @@ function initMap() {
                 }
             });
         }
+    }
 
 
     async function afficheEtape(json) {
-
-        
 
         const nbEtape = document.querySelectorAll(".stepIndex");
         const tel = document.querySelectorAll(".stepPhone");
@@ -208,7 +217,10 @@ function initMap() {
         const content = document.querySelectorAll(".divContent");
         const openGoogleMap = document.querySelectorAll(".stepName");
 
-    
+        for (let i = 0; i < nbEtape.length; i++) {
+            const request_id = {
+                placeId: json[0].bar.steps[i].place_id,
+            } 
 
             const place = new Promise((resolve, reject) => {
                 service.getDetails(request_id, function (place, status) {
@@ -288,6 +300,10 @@ function initMap() {
                         });
                     }
 
+                });
+            });
+        }
+    }
     /*
     *
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
@@ -297,112 +313,112 @@ function initMap() {
 
     
         
-    // position pour centrer la carte
-    const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
+    // // position pour centrer la carte
+    // const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
 
-    // création d'une carte
-    const map = new google.maps.Map(document.getElementById('carte'), {
-    center: myLatlng,
-    zoom: 15
-    });
+    // // création d'une carte
+    // const map = new google.maps.Map(document.getElementById('carte'), {
+    // center: myLatlng,
+    // zoom: 15
+    // });
 
-    // lancement du service 'Places' pour les requêtes
+    // // lancement du service 'Places' pour les requêtes
 
     
-    function afficheEtapeDisynchrone(json){
-        // Nombre d'étape
-        const nbEtape = document.querySelectorAll("#stepIndex");
-        // Récupération des balises numéro de téléphone
-        const tel = document.querySelectorAll("#stepPhone");
-        // Récupération des balises noteMoyenne
-        const noteMoyenne = document.querySelectorAll("#stepRateNumber");
-        // Récupération des balises pour le nombre total de rate.
-        const nbNote = document.querySelectorAll("#stepOpinion");
-        // Récupération des balises pour l'heure d'ouverture.
-        const isOpen = document.querySelectorAll("#stepIsOpen");
-        // Récupération de div du contenu 
-        const content = document.querySelectorAll("#divContent");
-        const openGoogleMap = document.querySelectorAll("#stepName");
-        for (let i=0; i<nbEtape.length; i++){
-            const request_id = {
-                // Stocker dans la base de donnée le placeId. 
-                placeId: json[0].bar.steps[i].place_id
-            };
+    // function afficheEtapeDisynchrone(json){
+    //     // Nombre d'étape
+    //     const nbEtape = document.querySelectorAll("#stepIndex");
+    //     // Récupération des balises numéro de téléphone
+    //     const tel = document.querySelectorAll("#stepPhone");
+    //     // Récupération des balises noteMoyenne
+    //     const noteMoyenne = document.querySelectorAll("#stepRateNumber");
+    //     // Récupération des balises pour le nombre total de rate.
+    //     const nbNote = document.querySelectorAll("#stepOpinion");
+    //     // Récupération des balises pour l'heure d'ouverture.
+    //     const isOpen = document.querySelectorAll("#stepIsOpen");
+    //     // Récupération de div du contenu 
+    //     const content = document.querySelectorAll("#divContent");
+    //     const openGoogleMap = document.querySelectorAll("#stepName");
+    //     for (let i=0; i<nbEtape.length; i++){
+    //         const request_id = {
+    //             // Stocker dans la base de donnée le placeId. 
+    //             placeId: json[0].bar.steps[i].place_id
+    //         };
 
-            // Récupère PlaceId. 
-            // placeId: barJson['steps'][i + 1]['place_id']
+    //         // Récupère PlaceId. 
+    //         // placeId: barJson['steps'][i + 1]['place_id']
 
-            service.getDetails(request_id, function (place, status) {
-                // pour comprendre ce qui est obtenu
-                console.log("place : ");
-                console.log(place);
+    //         service.getDetails(request_id, function (place, status) {
+    //             // pour comprendre ce qui est obtenu
+    //             console.log("place : ");
+    //             console.log(place);
             
-                if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    // récupération d'un élément pour l'affichage
-                    // const div = document.getElementById('info');
+    //             if (status == google.maps.places.PlacesServiceStatus.OK) {
+    //                 // récupération d'un élément pour l'affichage
+    //                 // const div = document.getElementById('info');
                 
-                    // génération de l'affichage
-                    // Nom du lieu et son adresse :
-                    // div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
-                    // '<p>Adresse : ' + place.formatted_address + '</p>';
-                    // div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
+    //                 // génération de l'affichage
+    //                 // Nom du lieu et son adresse :
+    //                 // div.innerHTML += '<p><strong>' + place.name + '</strong></p>' +
+    //                 // '<p>Adresse : ' + place.formatted_address + '</p>';
+    //                 // div.innerHTML += '<p>Description du lieu :' + place.formatted_address + '</p>';
 
-                    // Numéro de téléphone internationnal
-                    tel[i].innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
+    //                 // Numéro de téléphone internationnal
+    //                 tel[i].innerHTML += '<p>Numéro de téléphone :'+ place.international_phone_number +'</p>';
 
-                    // Lien : voir sur google map
-                    // div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
+    //                 // Lien : voir sur google map
+    //                 // div.innerHTML += '<a href="https://maps.google.com/?cid=5939382095293894464">Voir sur google map</a>';
 
-                    // Commentaires
-                    if (!(typeof place.reviews === 'undefined')) {
-                        let s= "";
-                        s +='<section id="slide_comment" class="splide" aria-label="Slide sur les commentaires">'+
-                            '<div class="splide__track">' +
-                                    '<ul class="splide__list">';
-                        place.reviews.forEach(function(review){
-                            s += '<li class="splide__slide">'
-                            s += '<h4>'+review.author_name+'</h4>';
-                            s += '<p>'+review.text+'</p>';
-                            s += '<p>Rating : '+review.rating+'</p>';
-                            s += '</li>';
-                        });
-                        s+= '</ul>' +
-                            '</div>' +
-                        '</section>';
-                        content[i].innerHTML += s;
-                        document.querySelectorAll('#slide_comment').forEach(slide => {
+    //                 // Commentaires
+    //                 if (!(typeof place.reviews === 'undefined')) {
+    //                     let s= "";
+    //                     s +='<section id="slide_comment" class="splide" aria-label="Slide sur les commentaires">'+
+    //                         '<div class="splide__track">' +
+    //                                 '<ul class="splide__list">';
+    //                     place.reviews.forEach(function(review){
+    //                         s += '<li class="splide__slide">'
+    //                         s += '<h4>'+review.author_name+'</h4>';
+    //                         s += '<p>'+review.text+'</p>';
+    //                         s += '<p>Rating : '+review.rating+'</p>';
+    //                         s += '</li>';
+    //                     });
+    //                     s+= '</ul>' +
+    //                         '</div>' +
+    //                     '</section>';
+    //                     content[i].innerHTML += s;
+    //                     document.querySelectorAll('#slide_comment').forEach(slide => {
                             
-                            new Splide(slide, {
-                                type : "loop",
-                                padding : "10rem",
-                                pagination : false
-                            }).mount();
-                        });
-                    }
+    //                         new Splide(slide, {
+    //                             type : "loop",
+    //                             padding : "10rem",
+    //                             pagination : false
+    //                         }).mount();
+    //                     });
+    //                 }
 
-                    console.log("Lien d'origine" + openGoogleMap[i].href);
-                    openGoogleMap[i].href = place.url;
-                    console.log("lien google map :" +openGoogleMap[i].href);
+    //                 console.log("Lien d'origine" + openGoogleMap[i].href);
+    //                 openGoogleMap[i].href = place.url;
+    //                 console.log("lien google map :" +openGoogleMap[i].href);
                     
-                    // Gestion de l'heure : 
-                    const today = new Date().getDay();
-                    const openingHours = place.opening_hours;
-                    // div.innerHTML += openingHours;
-                    const todayHours = openingHours.weekday_text[today];
-                    const closingTime = todayHours.split(': ')[1];
+    //                 // Gestion de l'heure : 
+    //                 const today = new Date().getDay();
+    //                 const openingHours = place.opening_hours;
+    //                 // div.innerHTML += openingHours;
+    //                 const todayHours = openingHours.weekday_text[today];
+    //                 const closingTime = todayHours.split(': ')[1];
 
-                    const currentDate = new Date().toLocaleDateString();
-                    const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-                    const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-                    const c = 'Heure d\'ouverture : '+ dateTimeString ;
-                    isOpen[i].innerText = c;
-                    console.log(isOpen[i].innerText);
+    //                 const currentDate = new Date().toLocaleDateString();
+    //                 const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+    //                 const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+    //                 const c = 'Heure d\'ouverture : '+ dateTimeString ;
+    //                 isOpen[i].innerText = c;
+    //                 console.log(isOpen[i].innerText);
                     
-                }
-            });
-        }
+    //             }
+    //         });
+    //     }
 
-    }
+    // }
     
     /*
     // ... requêtes et affichage ...
@@ -553,106 +569,106 @@ function initMap() {
         // });
     }
 
-    function calculerDistanceTotal(array) {
+    // function calculerDistanceTotal(array) {
         
 
-        // const dataCity = input.dataset.city;
+    //     // const dataCity = input.dataset.city;
         
-        let routeWaypoints = [];
+    //     let routeWaypoints = [];
 
-        for (let i = 0; i < array['steps'].length - 1; i++) {
-            if (i !== 0 || i !== array['steps'].length - 1) {
-                // routeWaypoints.push({placeId: array['steps'][i]['place_id'], stopover: true})
-                let placeId = array['steps'][i]['place_id'];
+    //     for (let i = 0; i < array['steps'].length - 1; i++) {
+    //         if (i !== 0 || i !== array['steps'].length - 1) {
+    //             // routeWaypoints.push({placeId: array['steps'][i]['place_id'], stopover: true})
+    //             let placeId = array['steps'][i]['place_id'];
 
-                // Utilisez l'API Google Places pour obtenir les coordonnées géographiques du lieu
-                let placeService = new google.maps.places.PlacesService(map);
-                placeService.getDetails({ placeId: placeId }, function (result, status) {
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        let latlng = result.geometry.location;
-                        routeWaypoints.push({
-                            location: latlng,
-                            placeId: placeId,
-                            stopover: true
-                        });
-                    }
-                });
-            }
-        }
+    //             // Utilisez l'API Google Places pour obtenir les coordonnées géographiques du lieu
+    //             let placeService = new google.maps.places.PlacesService(map);
+    //             placeService.getDetails({ placeId: placeId }, function (result, status) {
+    //                 if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //                     let latlng = result.geometry.location;
+    //                     routeWaypoints.push({
+    //                         location: latlng,
+    //                         placeId: placeId,
+    //                         stopover: true
+    //                     });
+    //                 }
+    //             });
+    //         }
+    //     }
 
-        console.log('waypoints', routeWaypoints);
+    //     console.log('waypoints', routeWaypoints);
 
-        let routeOrigin = {placeId: array['steps'][0]['place_id']};
-        let routeDestination = {placeId: array['steps'][array['steps'].length - 1]['place_id']};
+    //     let routeOrigin = {placeId: array['steps'][0]['place_id']};
+    //     let routeDestination = {placeId: array['steps'][array['steps'].length - 1]['place_id']};
     
-        const request = {
-            origin: routeOrigin,
-            destination: routeDestination,
-            waypoints: routeWaypoints,
-            // waypoints: [waypoint1, waypoint2],
-            travelMode: 'WALKING',
-            unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false
-        };
+    //     const request = {
+    //         origin: routeOrigin,
+    //         destination: routeDestination,
+    //         waypoints: routeWaypoints,
+    //         // waypoints: [waypoint1, waypoint2],
+    //         travelMode: 'WALKING',
+    //         unitSystem: google.maps.UnitSystem.METRIC,
+    //         avoidHighways: false,
+    //         avoidTolls: false
+    //     };
     
-        service.route(request, function(result, status) {
-            if (status == "OK") {
-                return result.routes[0].legs[0].distance.text;
-            }
-            else {
-                throw new console.error('Impossible de recuperer la route');
-            }
-        });
+    //     service.route(request, function(result, status) {
+    //         if (status == "OK") {
+    //             return result.routes[0].legs[0].distance.text;
+    //         }
+    //         else {
+    //             throw new console.error('Impossible de recuperer la route');
+    //         }
+    //     });
 
-    }
+    // }
     
-    const jsonModel = {
-        "numberOfSteps" : 8,
-        "steps" : [
-            {
-                "name" : "Brasserie du Haras",
-                "place_id" : "ChIJMeZc_bLJlkcRmWB8Ns6akSo",
-                "img" : [
-                    "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
-                ]
-            },
-            {
-                "name" : "Le Meteor",
-                "place_id" : "ChIJu0dm8oHJlkcRqXTYHkfYgK0",
-                "img" : [
-                    "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
-                ]
-            },
-            {
-                "name" : "Au Brasseur",
-                "place_id" : "ChIJN7WSOFTIlkcRnF8aSbkqvH0",
-                "img" : [
-                    "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
-                ]
-            },
-            {
-                "name" : "Au Cèdre",
-                "place_id" : "ChIJObNrNFXIlkcRtqb7ocKZgj0",
-                "img" : [
-                    "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
-                    "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
-                ]
-            }
-        ]
+    // const jsonModel = {
+    //     "numberOfSteps" : 8,
+    //     "steps" : [
+    //         {
+    //             "name" : "Brasserie du Haras",
+    //             "place_id" : "ChIJMeZc_bLJlkcRmWB8Ns6akSo",
+    //             "img" : [
+    //                 "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
+    //             ]
+    //         },
+    //         {
+    //             "name" : "Le Meteor",
+    //             "place_id" : "ChIJu0dm8oHJlkcRqXTYHkfYgK0",
+    //             "img" : [
+    //                 "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
+    //             ]
+    //         },
+    //         {
+    //             "name" : "Au Brasseur",
+    //             "place_id" : "ChIJN7WSOFTIlkcRnF8aSbkqvH0",
+    //             "img" : [
+    //                 "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
+    //             ]
+    //         },
+    //         {
+    //             "name" : "Au Cèdre",
+    //             "place_id" : "ChIJObNrNFXIlkcRtqb7ocKZgj0",
+    //             "img" : [
+    //                 "https://lh5.googleusercontent.com/p/AF1QipP3rZ7RtDKzASXQOCVFo5fFm9NE0nSGChkLZvsT=w426-h240-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPlPFQREbfq98X0-toVSQCO0QACHSRl5xBr86Pz=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipNlHDYIcKKWqVnH6PBA8mG_yhHn9S5qGfrRBTnC=w408-h272-k-no",
+    //                 "https://lh5.googleusercontent.com/p/AF1QipPVywS9k7-EDVefG4tOG-71P6HpHjqzldW41_ew=w408-h272-k-no"
+    //             ]
+    //         }
+    //     ]
         
-    } 
+    // } 
     
     // WriteItineraryArguments(jsonModel, 'parcoursLength');
 
@@ -688,7 +704,6 @@ function initMap() {
 
     
 }
-
 
 
 

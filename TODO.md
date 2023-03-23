@@ -9,3 +9,4 @@ Changer le systeme de notation par un systeme devue -> update la table itinerary
 Afficher les chemin (func async ?)
 Retirer les marker plus utilisé /new
 Retirer la barlist quand input vide
+Fixer le avg Rating
