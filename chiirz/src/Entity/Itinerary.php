@@ -29,9 +29,6 @@ class Itinerary
     #[ORM\JoinColumn(nullable: false)]
     private ?City $fk_city = null;
 
-    #[ORM\OneToMany(mappedBy: 'fk_itinerary', targetEntity: Comment::class, orphanRemoval: true)]
-    private Collection $comments;
-
     #[ORM\OneToMany(mappedBy: 'fk_itinerary', targetEntity: Like::class)]
     private Collection $likes;
 
@@ -49,7 +46,6 @@ class Itinerary
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
     }
 
@@ -107,36 +103,6 @@ class Itinerary
     public function setFkCity(?City $fk_city): self
     {
         $this->fk_city = $fk_city;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments->add($comment);
-            $comment->setFkItinerary($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getFkItinerary() === $this) {
-                $comment->setFkItinerary(null);
-            }
-        }
 
         return $this;
     }
