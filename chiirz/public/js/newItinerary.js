@@ -56,6 +56,9 @@ function initMap() {
     });
 
     barNameInput.addEventListener('input', function (e) {
+        if (e.target.value === "") {
+            barList.innerHTML = "";
+        }
         handleStateBtnSend();
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
     });
