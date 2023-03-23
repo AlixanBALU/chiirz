@@ -29,25 +29,19 @@ function initMap() {
     *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
     * 
     */ 
-    function getJsonBar() {
+
+    async function getJsonBar() {
         const url = window.location.href;
         const urlSegments = url.split("/");
-        // ItineraryID -> Id de l'itinéraire. 
         const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
-
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            console.log(this.readyState);
-            if (this.readyState == 4 && this.status == 200) {
-                const json = JSON.parse(this.responseText);
-                console.log(json);
-                console.log('--------\nJSON loaded\n--------');
-                afficheEtape(json);
-
-            }
-        };
-        xhr.open("GET", "./get_bar/" + itineraryId, true);
-        xhr.send();
+      
+        const response = await fetch("./get_bar/" + itineraryId);
+        const json = await response.json();
+      
+        console.log(json);
+        console.log("--------\nJSON loaded\n--------");
+      
+        await afficheEtape(json);
     }
 
     let json = getJsonBar();
@@ -57,14 +51,18 @@ function initMap() {
 
     // création d'une carte
     const map = new google.maps.Map(document.getElementById('carte'), {
-    center: myLatlng,
-    zoom: 15
+        center: myLatlng,
+        zoom: 15
     });
 
     // lancement du service 'Places' pour les requêtes
     const service = new google.maps.places.PlacesService(map);
 
+
     async function afficheEtape(json) {
+
+        
+
         const nbEtape = document.querySelectorAll(".stepIndex");
         const tel = document.querySelectorAll(".stepPhone");
         const noteMoyenne = document.querySelectorAll(".stepRateNumber");
@@ -87,6 +85,7 @@ function initMap() {
                     }
                 });
             });
+
             place.then(async (value) => {
                 await (async function() {
                     // Code à exécuter une fois value chargé
@@ -104,18 +103,18 @@ function initMap() {
                         const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
                         const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
                         const openingHours = 'Heure d\'ouverture : ' + dateTimeString;
-                        // isOpen[i].innerHTML = openingHours;
                         isOpen[i].innerHTML = openingHours;
                     }
 
 
                     // Commentaires
                     
-                    if (!(typeof value.reviews === 'undefined')) {
+                    if (value.reviews) {
                         let section = document.createElement('section');
                         section.id = 'slide_comment';
                         section.className = 'splide';
                         section.setAttribute('aria-label', 'Slide sur les commentaires');
+                        console.log("create comment "+ i)
                     
                         let div = document.createElement('div');
                         div.className = 'splide__track';
