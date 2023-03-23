@@ -1,4 +1,45 @@
 <nav class="nav">
+    {# Connasse de side bar #}
+    {# <div class="nav__sidebar">
+        <img src="{{ asset('img/svg/close.svg') }}" alt="close-menu">
+
+        {% if app.user %}
+        <div class="nav__sidebar__content-online">
+            <a href="{{ path('user', {'id': app.user.id }) }}">
+                <img src="{{ asset('img/happy-smiley.png') }}">
+                <div>
+                    <p> Bonjour à toi !</p>
+                    <p> {{ app.user.pseudo }} </p>
+                </div>
+            </a>
+        </div>
+        {% else %}
+        <p> Bien le bonjour ! </p>
+        {% endif %}
+        
+        <ul class="p p-20">
+            <li> 
+                <a href="{{ path('home') }}">Accueil</a>
+            </li>
+            <li> 
+                {% if app.user %}
+                    <a href="{{ path('app_city_show', {id : app.user.id}) }}">Tous les itinéraires </a>
+                {% else %}
+                    <a href="{{ path('app_city_index') }}">Tous les itinéraires </a>
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class="nav__sidebar__content-btn p p--16">
+                {% if app.user %}
+                    <a href="#"> Se déconnecter </a>
+                {% else %}
+                <a href="{{ path('login') }}" >Se connecter </a>
+                <a href="{{ path('register') }}" class="btn btn--secondary">S'inscrire </a>     
+                {% endif %}   
+        </div>
+    </div> #}
+
     <div class="nav__content-nav">
         <img src="{{ asset('img/logo.png') }}" alt="logo de Chiirz">
 
@@ -23,7 +64,11 @@
                     
                 {% endif %}
             </li>
-        </ul>  
+        </ul>
+    
+        </div>
+
+          
     </div>
 
     
@@ -46,3 +91,5 @@
         </div>
     {% endif %}
 </nav>
+
+
