@@ -53,9 +53,37 @@
                     </select>
                 </form>
             </div>
-            
             <div class="header-itinerer__button-wrapper">
-                <a href="#" class="header-itinerer__button-wrapper__button btn btn--primary-bis">Créer une route</a>
+                <a href="{{ path('app_itinerary_new')}}" class="header-itinerer__button-wrapper__button btn btn--primary-bis">Créer une route</a>
+                <form id="redirectOrder" method="POST">
+                    <label for="order-select">Trier par</label>
+                    <select class="header-itinerer__button-wrappe__select" id="order-select" name="order" data-asc="1">
+                        {% if order == 'views' %}
+                            <option value="views">Vues</option>
+                            <option value="id">Nouveautés</option>
+                            <option value="name">Titre</option>
+                        {% elseif order == 'id' %}
+                        <option value="id">Nouveautés</option>
+                            <option value="views">Vues</option>
+                            <option value="name">Titre</option>
+                        {% elseif order == 'name' %}
+                            <option value="name">Titre</option>
+                            <option value="views">Vues</option>
+                            <option value="id">Nouveautés</option>
+                        {% endif %}
+                    </select>
+                    {% if isAsc == null or isAsc == true %}
+                        <input type="hidden" name="ascOrDesc" value="DESC" style="display : none;">
+                        <button id="ascOrDesc"  >
+                                <img src="{{ asset('img/svg/asc.svg') }}" alt="desc" id="ordering">
+                        </button>
+                    {% else %}
+                        <input type="hidden" name="ascOrDesc" value="ASC" style="display : none;">
+                        <button id="text">
+                            <img src="{{ asset('img/svg/desc.svg') }}" alt="asc" id="ordering">
+                        </button>
+                    {% endif %}
+                </form>
                 {# <form action="{{ app.request.uri }}" class="header__button-wrapper__select" method="POST" id="orderBySelect">
                     <label for="order-select">Trier par</label>
                     <select id="order-select" name="order">
@@ -75,7 +103,7 @@
     </header>
 
     <section class="itiner-container">
-            {% for itinerary in city.itineraries %}
+            {% for itinerary in itineraries %}
                 <a class="itiner-container__card" href="{{ path('itinerary_show', {'id': itinerary.id}) }}">
                     <img class="itiner-container__card__img-bar" src="{{ itinerary.bar['steps'][0]['img'][0] }}" alt="{{ itinerary.name }}">
                     <div class="itiner-container__card__desc">

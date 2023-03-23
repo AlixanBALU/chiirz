@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\Criteria;
 
 #[Route('/city')]
 class CityController extends AbstractController
@@ -40,11 +41,51 @@ class CityController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_city_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_city_show', methods: ['GET', 'POST'])]
     public function show(City $city, CityRepository $cityRepository): Response
     {
+
+
+        $itineraries = $city->getItineraries();
+        $order = "views";
+
+        var_dump($_POST);
+
+        if (isset($_POST["order"])) {
+            $order = $_POST["order"];
+
+            if (!isset($_POST["ordering"]) || $_POST["ordering"] == "ASC") {
+                $isAsc = true;
+                $orderBy = [$order => Criteria::ASC];
+            }
+            else {
+                $isAsc = false;
+                $orderBy = [$order => Criteria::DESC];
+            }
+            // On ordonne les itinéraires
+            $criteria = Criteria::create()->orderBy($orderBy);
+            $itineraries = $itineraries->matching($criteria);
+
+        }
+        else {
+            if (!isset($_POST["ordering"]) || $_POST["ordering"] == "ASC") {
+                $isAsc = true;
+                $orderBy = [$order => Criteria::ASC];
+            }
+            else {
+                $isAsc = false;
+                $orderBy = [$order => Criteria::DESC];
+            }
+            // On ordonne les itinéraires
+            $criteria = Criteria::create()->orderBy($orderBy);
+            $itineraries = $itineraries->matching($criteria);
+        }
+
         return $this->render('city/show.html.twig', [
+            'isAsc' => $isAsc,
+            'order' => $order,
             'city' => $city,
+            'itineraries' => $itineraries,
             'cities' => $cityRepository->findAll(),
         ]);
     }
@@ -62,6 +103,7 @@ class CityController extends AbstractController
         }
 
         return $this->renderForm('city/edit.html.twig', [
+            'order' => $order,
             'city' => $city,
             'form' => $form,
         ]);
