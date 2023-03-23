@@ -72,7 +72,7 @@ function initMap() {
         const isOpen = document.querySelectorAll(".stepIsOpen");
         const content = document.querySelectorAll(".divContent");
         const openGoogleMap = document.querySelectorAll(".stepName");
-        
+
         for (let i = 0; i < nbEtape.length; i++) {
             const request_id = {
             placeId: json[0].bar.steps[i].place_id,
@@ -87,130 +87,91 @@ function initMap() {
                     }
                 });
             });
-            place.then((value) => {
-                // Affichage des données reçues
-                console.log("La valeur");
-                console.log(value);
+            place.then(async (value) => {
+                await (async function() {
+                    // Code à exécuter une fois value chargé
+                    console.log("Place : ");
+                    console.log(value);
+                    
+                    tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
+                    openGoogleMap[i].href = value.url;
 
-                // Placer le reste du code utilisant "place" ici
-                let numTelephone = value.international_phone_number;
-                let googleMapUrl = value.url;
-                let openingHours = value.opening_hours;
-                let reviews = value.reviews;
-                console.log(numTelephone);
-                tel[i].innerHTML += `<p>Numéro de téléphone : ${numTelephone}</p>`;
+                    if (value.opening_hours) {
+                        const today = new Date().getDay();
+                        const todayHours = value.opening_hours.weekday_text[today];
+                        const closingTime = todayHours.split(': ')[1];
+                        const currentDate = new Date().toLocaleDateString();
+                        const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+                        const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+                        const openingHours = 'Heure d\'ouverture : ' + dateTimeString;
+                        // isOpen[i].innerHTML = openingHours;
+                        isOpen[i].innerHTML = openingHours;
+                    }
 
-                // Commentaires
-                if (!(typeof reviews === 'undefined')) {
-                    let s= "";
-                    s +='<section id="slide_comment" class="splide" aria-label="Slide sur les commentaires">'+
-                        '<div class="splide__track">' +
-                                '<ul class="splide__list">';
-                    reviews.forEach(function(review){
-                        s += '<li class="splide__slide">'
-                        s += '<h4>'+review.author_name+'</h4>';
-                        s += '<p>'+review.text+'</p>';
-                        s += '<p>Rating : '+review.rating+'</p>';
-                        s += '</li>';
-                    });
-                    s+= '</ul>' +
-                        '</div>' +
-                    '</section>';
-                    content[i].innerHTML += s;
-                    document.querySelectorAll('#slide_comment').forEach(slide => {
-                        
-                        new Splide(slide, {
-                            type : "loop",
-                            padding : "10rem",
-                            pagination : false
-                        }).mount();
-                    });
-                }
+
+                    // Commentaires
+                    
+                    if (!(typeof value.reviews === 'undefined')) {
+                        let section = document.createElement('section');
+                        section.id = 'slide_comment';
+                        section.className = 'splide';
+                        section.setAttribute('aria-label', 'Slide sur les commentaires');
+                    
+                        let div = document.createElement('div');
+                        div.className = 'splide__track';
+                    
+                        let ul = document.createElement('ul');
+                        ul.className = 'splide__list';
+                    
+                        value.reviews.forEach(function(review){
+                            let li = document.createElement('li');
+                            li.className = 'splide__slide';
+                    
+                            let h4 = document.createElement('h4');
+                            h4.textContent = review.author_name;
+                    
+                            let p1 = document.createElement('p');
+                            p1.textContent = review.text;
+                    
+                            let p2 = document.createElement('p');
+                            p2.textContent = 'Rating : ' + review.rating;
+                    
+                            li.appendChild(h4);
+                            li.appendChild(p1);
+                            li.appendChild(p2);
+                            ul.appendChild(li);
+                        });
+                    
+                        div.appendChild(ul);
+                        section.appendChild(div);
+                        content[i].appendChild(section);
+                    
+                        document.querySelectorAll('#slide_comment').forEach(slide => {
+                            new Splide(slide, {
+                                type : "loop",
+                                padding : "10rem",
+                                pagination : false
+                            }).mount();
+                        });
+                    }
+
+                    // Les notes
+
+                    if(value.rating){
+                        // Note moyen du restaurant.
+                        noteMoyenne[i].innerHTML = value.rating;
+                    }
+
+                    if(value.user_ratings_total) {
+                        // Total des notes du restaurant 
+                        nbNote[i].innerHTML = '('+value.user_ratings_total+')';
+                    }
+                    
+
+                })();
                 
-                openGoogleMap[i].href = value.url;
-                console.log("lien google map :" +openGoogleMap[i].href);
-                
-                // Gestion de l'heure : 
-                const today = new Date().getDay();
-                
-                const todayHours = openingHours.weekday_text[today];
-                const closingTime = todayHours.split(': ')[1];
-                const currentDate = new Date().toLocaleDateString();
-                const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-                const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-                const c = 'Heure d\'ouverture : '+ dateTimeString ;
-                isOpen[i].innerHTML = c;
-                console.log(isOpen[i].innerHTML);
             });
 
-            // const place = new Promise((resolve, reject) => {
-            //     service.getDetails(request_id, function (place, status) {
-            //       if (status === google.maps.places.PlacesServiceStatus.OK) {
-            //         resolve(place);
-            //       } else {
-            //         reject(status);
-            //       }
-            //     });
-            // });
-              
-            // place.then((value) => {
-            //     // Affichage des données reçues
-            //     console.log("La valeur est :");
-            //     console.log(value);
-            //     // Placer le reste du code utilisant "place" ici
-            //     let numTelephone = value.international_phone_number;
-            //     let googleMapUrl = value.url;
-            //     let openingHours = value.opening_hours;
-            //     let reviews = value.reviews;
-            //     console.log(numTelephone);
-            //     tel[i].innerHTML += `<p>Numéro de téléphone : ${numTelephone}</p>`;
-
-            //     // Commentaires
-            //     if (!(typeof reviews === 'undefined')) {
-            //         let s= "";
-            //         s +='<section id="slide_comment" class="splide" aria-label="Slide sur les commentaires">'+
-            //             '<div class="splide__track">' +
-            //                     '<ul class="splide__list">';
-            //         reviews.forEach(function(review){
-            //             s += '<li class="splide__slide">'
-            //             s += '<h4>'+review.author_name+'</h4>';
-            //             s += '<p>'+review.text+'</p>';
-            //             s += '<p>Rating : '+review.rating+'</p>';
-            //             s += '</li>';
-            //         });
-            //         s+= '</ul>' +
-            //             '</div>' +
-            //         '</section>';
-            //         content[i].innerHTML += s;
-            //         document.querySelectorAll('#slide_comment').forEach(slide => {
-                        
-            //             new Splide(slide, {
-            //                 type : "loop",
-            //                 padding : "10rem",
-            //                 pagination : false
-            //             }).mount();
-            //         });
-            //     }
-                
-                // openGoogleMap[i].href = value.url;
-                // console.log("lien google map :" +openGoogleMap[i].href);
-                
-                // Gestion de l'heure : 
-            //     const today = new Date().getDay();
-                
-            //     const todayHours = openingHours.weekday_text[today];
-            //     const closingTime = todayHours.split(': ')[1];
-            //     const currentDate = new Date().toLocaleDateString();
-            //     const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-            //     const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-            //     const c = 'Heure d\'ouverture : '+ dateTimeString ;
-            //     isOpen[i].innerHTML = c;
-            //     console.log(isOpen[i].innerHTML);
-            // }).catch((error) => {
-            //     // Gérer l'erreur ici
-            //     console.error(error);
-            // });
-            
         }
     }
     
@@ -239,8 +200,8 @@ function initMap() {
 
             service.getDetails(request_id, function (place, status) {
                 // pour comprendre ce qui est obtenu
-                // console.log("place : ");
-                // console.log(place);
+                console.log("place : ");
+                console.log(place);
             
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                     // récupération d'un élément pour l'affichage
