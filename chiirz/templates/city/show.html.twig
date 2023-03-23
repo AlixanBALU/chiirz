@@ -91,10 +91,15 @@
                         </div>
                         <div class="itiner-container__card__row">
                             <div>{{ itinerary.distance }}</div>
-                            <div class="itiner-container__card__row__price">
-                                {% for i in 1..itinerary.price %}
-                                    <span>€</span>
-                                {% endfor %}
+                            <div class="itiner-container__card__row__views">
+                                <img src="{{ asset('img/svg/views.svg') }}" alt="vue">
+                                <div>
+                                {% if itinerary.views != null %}
+                                    {{ itinerary.views }}
+                                {% else %}
+                                    0
+                                {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
