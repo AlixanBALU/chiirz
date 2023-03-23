@@ -157,3 +157,30 @@ function initMap() {
   
   calculerDistance(); 
 }
+
+
+
+
+
+
+
+// // Compteur pour suivre quelle URL d'image utiliser
+// let imageUrlIndex = 0;
+
+// // Ajoute l'événement "mouseover" à chaque article
+// articles.forEach(article => {
+//   article.addEventListener('mouseover', () => {
+//     // Change l'URL de l'image en utilisant le compteur et le tableau d'URLs
+//     article.querySelector('img').setAttribute('src', imageUrls[imageUrlIndex]);
+
+//     // Incrémente le compteur pour la prochaine fois
+//     imageUrlIndex++;
+
+//     // Réinitialise le compteur s'il dépasse la dernière URL dans le tableau
+//     if (imageUrlIndex >= imageUrls.length) {
+//       imageUrlIndex = 0;
+//     }
+//   });
+
+//   
+// });

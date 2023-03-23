@@ -45,33 +45,75 @@
     <p class="p p--16"> Permettez-moi de vous présenter Skoll, une entreprise qui propose de vous aider à trouver les meilleurs bars dans les villes de Paris, Lyon et Strasbourg. En utilisant notre plateforme, vous pouvez planifier votre itinéraire de soirée, découvrir les dernières tendances de la vie nocturne et trouver des endroits sympas pour sortir avec vos amis. En outre, notre site répertorie également les paris dans ces villes, pour les amateurs de jeux de hasard. Avec Skoll, vous êtes sûr de passer une soirée inoubliable !</p>
     <h3 class="title title--h3"> Autrement dit c'est </h3>
     <div class="what-section__articles-content">
-        <article>
+        <article >
             <img src="{{ asset('img/beers.png') }}">
             <p class="p p--24 "> 57 <br> Etablissaments </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
+            <img src="{{ asset('img/monkey.png') }}">
             <p class="p p--24 "> 500<br> Commentaires </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
+            <img src="{{ asset('img/reallyhappy-smiley.png') }}">
             <p class="p p--24 "> +200 <br> Inscrits </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
+            <img src="{{ asset('img/stareyes-smiley.png') }}">
             <p class="p p--24 "> Bref un site <br> <span> (presque) </span> parfait </p>
         </article>
     </div>
 </section>
 
+{# Balise script à ranger dans le main ? #}
+<script>
+    //////////////////Gestion animation png en hover home-page
+    //////
 
+    //selection des articles
+    const tabArticle = document.querySelectorAll(".what-section__articles-content article");
+     //selection des img actuelles
+    const tabImg = document.querySelectorAll(".what-section__articles-content article img");
+
+    //Définition des url de non animées
+    const oldUrls = [
+          "{{ asset('img/beers.png') }}",
+          "{{ asset('img/monkey.png') }}",
+            "{{ asset('img/reallyhappy-smiley.png') }}",
+            "{{ asset('img/stareyes-smiley.png') }}"
+            ];
+
+     //définition des url animées
+    const newUrls = [
+          "{{ asset('img/beers-animated.png') }}",
+          "{{ asset('img/monkey-animated.png') }}",
+            "{{ asset('img/reallyhappy-smiley-animated.png') }}",
+            "{{ asset('img/stareyes-smiley-animated.png') }}"
+            ];
+
+    //quand la souris est sur l'article, déclenchement png animé
+    for (let i=0; i<tabArticle.length; i++) {
+        tabArticle[i].addEventListener("mouseover", function(){
+            tabImg[i].setAttribute('src', newUrls[i]);
+            });
+    }
+
+    //quand la souris quitte l'article, arrêt du png animé
+    for (let i=0; i<tabArticle.length; i++) {
+        tabArticle[i].addEventListener("mouseout", function(){
+            tabImg[i].setAttribute('src', oldUrls[i]);
+            });
+    }
+    
+</script>
+
+{# 
 <script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
-<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script>
+<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script> #}
 
-<script> 
+{# <script> 
 const splide = new Splide( '.splide', {
   type   : 'loop',
   drag   : 'free',
@@ -87,6 +129,6 @@ const splide = new Splide( '.splide', {
 } );
 
 splide.mount();
-</script>
+</script> #}
 
 {% endblock %}
