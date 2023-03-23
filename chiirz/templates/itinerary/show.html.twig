@@ -40,10 +40,15 @@
                         {{ itinerary.bar['avgRate'] }}
                     </div>
                 </div>
-                <div class="section-itinerary__content__rate__price">
-                    {% for i in 1..itinerary.bar['avgPrice'] %}
-                        <span> € </span>
-                    {% endfor %}
+                <div class="section-itinerary__content__rate__views">
+                    <img src="{{ asset('img/svg/views.svg') }}" alt="vue">
+                    <div>
+                    {% if itinerary.views != null %}
+                        {{ itinerary.views }}
+                    {% else %}
+                        0
+                    {% endif %}
+                    </div>
                 </div>
             </div>
             {% if itinerary.text is not empty %}
