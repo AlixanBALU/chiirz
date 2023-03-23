@@ -1,10 +1,3 @@
-// Fonction principale avec laquelle on recupere le itineraryJson
-function getItinerary(itineraryJson) {
-    // ...
-    // console.log('toto');
-}
-
-
 // back button
 const backButton = document.querySelector('#backButton');
 
@@ -22,6 +15,101 @@ const splidesPics = document.querySelectorAll('#splidePics');
 new Splide('#carouselSteps', {
     drag: false,
 }).mount();
+
+let addToFavorites = document.querySelectorAll('#addToFavorites');
+let isConnected = false
+let itineraryId = HTMLElement;
+let userId = HTMLElement;
+
+if (document.querySelector('#dataset')) {
+    itineraryId = document.querySelector('#dataset').dataset.itinerary;
+    userId = document.querySelector('#dataset').dataset.user;
+    isConnected = true;
+};
+
+let isClickable = true;
+
+addToFavorites.forEach(fav => {
+    fav.addEventListener('click', () => {
+        if (!isClickable) {
+            return;
+        }
+        isClickable = false;
+        setTimeout(() => {
+            isClickable = true;
+        }, 1000);
+        if (isConnected) {
+            console.log('itineraryId', itineraryId);
+            let favParent = fav.parentElement;
+            let favoriteText = favParent.querySelector('div#addToFavorites');
+
+            if (favParent.dataset.state === '1') {
+                favParent.classList.add('fav--active');
+                addToFavorite(itineraryId, userId);
+                favParent.dataset.state = '0';
+                favoriteText.innerHTML = 'Retirer des favoris';
+            }
+            else {
+                favParent.classList.remove('fav--active');
+                deleteFromFavorite(favParent.dataset.id);
+                favParent.dataset.state = '1';
+                favoriteText.innerHTML = 'Ajouter aux favoris';
+            }
+        }
+        else {
+            alert('Merci de vous connecter pour ajouter un itinéraire à vos favoris.')
+        }
+        
+    });
+});
+
+function addToFavorite(itineraryId, userId) {
+    let data = {
+        'fk_itinerary': itineraryId,
+        'fk_user': userId
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (this.readyState == 4 && this.status == 200) {
+            let likeId = this.responseText;
+            document.querySelector('#favParent').dataset.id = likeId;
+            // window.location.href = '/';
+        }
+        else {
+            console.log('Status:', xhr.status, xhr.statusText);
+            console.log('Response:', xhr.responseText);
+        }
+    };
+    xhr.onerror = function() {
+        console.log('error');
+    }
+    xhr.open("POST", "./add_fav/1", true);
+    xhr.send(JSON.stringify(data));
+};
+
+function deleteFromFavorite(likeId) {
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const response = this.responseText;
+            return response;
+        }
+        else {
+            console.log('Status:', xhr.status, xhr.statusText);
+            console.log('Response:', xhr.responseText);
+        }
+    };
+    xhr.onerror = function() {
+        console.log('error');
+    }
+    xhr.open("GET", "./delete_like/" + likeId, true);
+    xhr.send();
+};
+
+
 
 function initMap() {
     /*
@@ -44,19 +132,68 @@ function initMap() {
         await afficheEtape(json);
     }
 
-    let json = getJsonBar();
+    jsonBar = getJsonBar();
 
-    // position pour centrer la carte
-    const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
+    let itineraryMapDiv = document.querySelector('#itineraryMap');
 
-    // création d'une carte
-    const map = new google.maps.Map(document.getElementById('carte'), {
-        center: myLatlng,
-        zoom: 15
+    const Position = {
+        paris : new google.maps.LatLng(48.8566, 2.3522),
+            lyon : new google.maps.LatLng(45.7640, 4.8357),
+            strasbourg : new google.maps.LatLng(48.5734, 7.7521),
+    }
+
+    // On relie les pos à leur identifier
+    const jsonPos = {
+        '1' : Position.paris,
+        '2' : Position.lyon,
+        '3' : Position.strasbourg
+    }
+
+    const itineraryMap = new google.maps.Map(itineraryMapDiv, {
+        center: jsonPos[itineraryMapDiv.dataset.city],
+        zoom: 12,
+        mapTypeControl: false,
+        streetViewControl: false
     });
 
-    // lancement du service 'Places' pour les requêtes
-    const service = new google.maps.places.PlacesService(map);
+    const directionService = new google.maps.DirectionsService();
+    const directionsDisplay = new google.maps.DirectionsRenderer({
+        map: itineraryMap
+    });
+    const service = new google.maps.places.PlacesService(itineraryMap);
+
+    for (let i = 0; i < jsonBar['steps'].length; i++) {
+        if (i === 0) {
+            pointA = null
+        }
+        else {
+            pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
+            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+        }
+        let marker = new google.maps.Marker({
+            position: jsonPos[step['city_id']],
+            map: itineraryMap,
+            title: step['name']
+        });
+    
+        calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
+    }
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+            directionsService.route({
+                origin: pointA,
+                destination: pointB,
+                avoidTolls: true,
+                avoidHighways: false,
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
 
 
     async function afficheEtape(json) {
@@ -71,10 +208,7 @@ function initMap() {
         const content = document.querySelectorAll(".divContent");
         const openGoogleMap = document.querySelectorAll(".stepName");
 
-        for (let i = 0; i < nbEtape.length; i++) {
-            const request_id = {
-            placeId: json[0].bar.steps[i].place_id,
-            };
+    
 
             const place = new Promise((resolve, reject) => {
                 service.getDetails(request_id, function (place, status) {
@@ -154,25 +288,26 @@ function initMap() {
                         });
                     }
 
-                    // Les notes
+    /*
+    *
+    *   Cette fonction permet de récuperer en ajax les bars d'un itinaires stocker dans un json.
+    *   
+    */ 
+    
 
-                    if(value.rating){
-                        // Note moyen du restaurant.
-                        noteMoyenne[i].innerHTML = value.rating;
-                    }
+    
+        
+    // position pour centrer la carte
+    const myLatlng = new google.maps.LatLng(48.816475, 7.786471);
 
-                    if(value.user_ratings_total) {
-                        // Total des notes du restaurant 
-                        nbNote[i].innerHTML = '('+value.user_ratings_total+')';
-                    }
-                    
+    // création d'une carte
+    const map = new google.maps.Map(document.getElementById('carte'), {
+    center: myLatlng,
+    zoom: 15
+    });
 
-                })();
-                
-            });
+    // lancement du service 'Places' pour les requêtes
 
-        }
-    }
     
     function afficheEtapeDisynchrone(json){
         // Nombre d'étape
@@ -385,7 +520,6 @@ function initMap() {
 
         let distanceArray = [];
         
-        const service = new google.maps.DirectionsService();
         let routeWaypoints = [];
 
         
@@ -424,7 +558,6 @@ function initMap() {
 
         // const dataCity = input.dataset.city;
         
-        const service = new google.maps.DirectionsService();
         let routeWaypoints = [];
 
         for (let i = 0; i < array['steps'].length - 1; i++) {

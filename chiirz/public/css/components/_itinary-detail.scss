@@ -92,11 +92,25 @@
         }
 
         &__like {
+            user-select: none;
             display : flex;
-            gap : 1rem;
+            gap :.2rem;
             align-items : center;
             font-weight : bolder;
             margin : 0.7rem 0;
+
+            & * {
+                cursor: pointer;
+            }
+
+            & img {
+                width : 48px;
+                filter: grayscale(1) brightness(1.5);
+            }
+
+            &.fav--active img {
+                filter: grayscale(0) brightness(1);
+            }
         }
 
         &__steps {
