@@ -65,6 +65,7 @@ class ItineraryController extends AbstractController
         // return $this->render('student/ajax.html.twig'); 
         // } 
         
+        
         return $this->render('itinerary/show.html.twig', [
             'itinerary' => $itinerary,
         ]);

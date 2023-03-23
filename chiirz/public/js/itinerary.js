@@ -199,8 +199,6 @@ function initMap() {
             calculateAndDisplayRoute(directionService, directionsDisplay, start, waypoints, end, startName, waypointsName, endName);
         }
 
-
-
         function calculateAndDisplayRoute(directionsService, directionsDisplay, start, waypoints, end, starName, waypointsName, endName) {
             directionsService.route({
                 origin: start,

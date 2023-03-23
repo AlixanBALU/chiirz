@@ -44,6 +44,9 @@ class Itinerary
     #[ORM\ManyToOne(inversedBy: 'itineraries')]
     private ?User $fk_user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $views = null;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -181,6 +184,18 @@ class Itinerary
     public function setFkUser(?User $fk_user): self
     {
         $this->fk_user = $fk_user;
+
+        return $this;
+    }
+
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(?int $views): self
+    {
+        $this->views = $views;
 
         return $this;
     }
