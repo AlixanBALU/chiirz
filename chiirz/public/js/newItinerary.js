@@ -365,7 +365,7 @@ function initMap() {
                 const json = this.responseText;
                 console.log(json);
                 console.log('--------\nJSON loaded\n--------');
-                // window.location.href = '/';
+                window.location.href = '/';
             }
             else {
                 console.log('Status:', xhr.status, xhr.statusText);
