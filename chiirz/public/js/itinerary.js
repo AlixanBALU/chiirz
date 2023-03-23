@@ -18,18 +18,35 @@ new Splide('#carouselSteps', {
 
 let addToFavorites = document.querySelectorAll('#addToFavorites');
 let isConnected = false
+let itineraryId = HTMLElement;
+let userId = HTMLElement;
 
 if (document.querySelector('#dataset')) {
-    const itineraryId = document.querySelector('#dataset').dataset.itinerary;
-    const userId = document.querySelector('#dataset').dataset.user;
+    itineraryId = document.querySelector('#dataset').dataset.itinerary;
+    userId = document.querySelector('#dataset').dataset.user;
     isConnected = true;
 };
 
 
-addToFavorites.forEach(addToFavorites => {
-    addToFavorites.addEventListener('click', () => {
+addToFavorites.forEach(fav => {
+    fav.addEventListener('click', () => {
         if (isConnected) {
-            addToFavorite(itineraryId, userId);
+            console.log('itineraryId', itineraryId);
+            let favParent = fav.parentElement;
+            let favoriteText = favParent.querySelector('div#addToFavorites');
+
+            if (favParent.dataset.state === '1') {
+                favParent.classList.add('fav--active');
+                addToFavorite(itineraryId, userId);
+                favParent.dataset.state = '0';
+                favoriteText.innerHTML = 'Retirer des favoris';
+            }
+            else {
+                favParent.classList.remove('fav--active');
+                deleteFromFavorite(favParent.dataset.id);
+                favParent.dataset.state = '1';
+                favoriteText.innerHTML = 'Ajouter aux favoris';
+            }
         }
         else {
             alert('Merci de vous connecter pour ajouter un itinéraire à vos favoris.')
@@ -40,16 +57,16 @@ addToFavorites.forEach(addToFavorites => {
 
 function addToFavorite(itineraryId, userId) {
     let data = {
-        'itinerary_id': itineraryId,
-        'user_id': userId
+        'fk_itinerary': itineraryId,
+        'fk_user': userId
     }
 
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         console.log(this.readyState);
         if (this.readyState == 4 && this.status == 200) {
-            const json = this.responseText;
-            console.log(json);
+            let likeId = this.responseText;
+            document.querySelector('#favParent').dataset.id = likeId;
             // window.location.href = '/';
         }
         else {
@@ -62,6 +79,26 @@ function addToFavorite(itineraryId, userId) {
     }
     xhr.open("POST", "./add_fav/1", true);
     xhr.send(JSON.stringify(data));
+};
+
+function deleteFromFavorite(likeId) {
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const response = this.responseText;
+            return response;
+        }
+        else {
+            console.log('Status:', xhr.status, xhr.statusText);
+            console.log('Response:', xhr.responseText);
+        }
+    };
+    xhr.onerror = function() {
+        console.log('error');
+    }
+    xhr.open("GET", "./delete_like/" + likeId, true);
+    xhr.send();
 };
 
 function getJsonBar() {

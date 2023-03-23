@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Itinerary;
 use App\Entity\City;
 use App\Entity\User;
+use App\Entity\Like;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,24 +48,51 @@ class StaticPages extends AbstractController
     }
 
     /** 
+     * @Route("/itinerary/delete_like/{id}", name="delete_like") 
+    */ 
+    public function deleteLike($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->delete('App\Entity\Like', 'l')
+            ->where('l.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $queryBuilder->getQuery();
+        $result = $query->execute();
+
+        return new Response('Deleted itinerary with id ' . $id);
+    }
+
+    /** 
      * @Route("/itinerary/add_fav/{id}", name="add_fav") 
     */ 
-    public function addToFavorites($id)
+    public function addToFavorites($id, EntityManagerInterface $entityManager)
     {
-        // Get the 'bar' field from the 'itinerary' table
+        // Get the JSON data from the request body
+        $json = file_get_contents('php://input');
+
+        // Decode the JSON data into a PHP associative array
+        $data = json_decode($json, true);
+
+
+        $fk_itinerary = $data["fk_itinerary"];
+        $itineray = $entityManager->getRepository(Itinerary::class)->find($fk_itinerary);
+        
+        $fk_user = $data["fk_user"];
+        $user = $entityManager->getRepository(User::class)->find($fk_user);
+
         $entityManager = $this->getDoctrine()->getManager();
-        $query = $entityManager->createQueryBuilder()
-            ->select('i.bar')
-            ->from('App\Entity\Itinerary', 'i')
-            ->where('i.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery();
-        $bars = $query->getResult();
 
-        // Convert the results to a JSON response
-        $response = new JsonResponse($bars);
+        $like = new Like();
+        $like->setFkItinerary($itineray);
+        $like->setFkUser($user);        
 
-        return $response;
+        $entityManager->persist($like);
+        $entityManager->flush();
+
+        return new Response($like->getId());
     }
 
     /** 
@@ -101,8 +129,6 @@ class StaticPages extends AbstractController
         $itinerary->setDistance($distance);
         $itinerary->setFkUser($user);
         $itinerary->setBar($bar);
-
-        return new Response($itinerary->getImg());
 
         $entityManager->persist($itinerary);
         $entityManager->flush();

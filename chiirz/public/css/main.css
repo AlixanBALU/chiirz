@@ -925,14 +925,24 @@ body {
   width: 8%;
 }
 .section-itinerary__content__like {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   display: flex;
-  gap: 1rem;
+  gap: 0.2rem;
   align-items: center;
   font-weight: bolder;
   margin: 0.7rem 0;
 }
 .section-itinerary__content__like * {
   cursor: pointer;
+}
+.section-itinerary__content__like img {
+  width: 48px;
+  filter: grayscale(1) brightness(1.5);
+}
+.section-itinerary__content__like.fav--active img {
+  filter: grayscale(0) brightness(1);
 }
 .section-itinerary__content__steps {
   font-family: "Chillax", sans-serif;

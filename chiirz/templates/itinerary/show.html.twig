@@ -60,10 +60,19 @@
                     <img src="{{ asset('img/svg/external_links.svg') }}" alt="↗">
                 </a>
             </div>
-            <div class="section-itinerary__content__like">
-                <img src="{{ asset('img/svg/heart-color.svg') }}" alt="♡" id="addToFavorites">
-                <div id="addToFavorites">Ajouter aux favoris</div>
-            </div>
+            {% if itinerary.likes is not empty %}
+                {% for like in itinerary.likes %}
+                    <div class="section-itinerary__content__like fav--active" data-state="0" data-id="{{ like.id }}" id="favParent">
+                        <img src="{{ asset('img/heart.png') }}" alt="♡" id="addTofavorites">
+                        <div id="addToFavorites">Supprimer des favoris</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="section-itinerary__content__like" data-state="1" data-id="" id="favParent">
+                    <img src="{{ asset('img/heart.png') }}" alt="♡" id="addToFavorites">
+                    <div id="addToFavorites">Ajouter aux favoris</div>
+                </div>
+            {% endif %}
             <div class="section-itinerary__content__steps">
                 <h3 class="title title--h4">{{ itinerary.bar['numberOfSteps'] }}{# {{ itinerary.bar.numberOfSteps }} #} Étapes</h3>
                 <ol>
