@@ -42,3 +42,57 @@
       }
   }
 
+  .splide {
+    &__list {
+      gap : 2rem;
+    }
+
+    &__slide {
+      width : 200px;
+      height : 600px;
+  
+      &__img-bg {
+        
+        width : 100%;
+        height : 100%;
+        display:inline-block;
+        border-radius: 40px;
+        font-family: "Chillax", sans-serif;
+        color : $white;
+        display : flex;
+        flex-direction : column;
+        gap : 0.5rem;
+        text-decoration : none;
+        padding : 4rem 3rem;
+        justify-content : flex-end;
+  
+          &--lyon {
+            background: linear-gradient(180deg, rgba(52, 39, 77, 0) 41.37%, rgba(52, 39, 77, 0.5) 70.31%), url('../../img/lyon.jpg');
+            background-size : cover;
+          }
+  
+          &--paris {
+            background: linear-gradient(180deg, rgba(48, 65, 17, 0) 41.37%, rgba(48, 65, 17, 0.5) 70.31%), url('../../img/paris.jpg');
+            background-size : cover;
+            background-position : 25%;
+          }
+          &--strasbourg {
+            background: linear-gradient(180deg, rgba(52, 39, 77, 0) 41.37%, rgba(52, 39, 77, 0.5) 70.31%), url('../../img/strasbourg.jpg');
+            background-size : cover;
+          }
+  
+          & h3 {
+            font-size : 4rem;
+            font-weight : 400;
+          }
+    
+          & p {
+            font-size : 1.25rem;
+            font-weight : 500;
+            line-height : 1.5rem;
+          }
+      }
+    }
+  
+  }
+  

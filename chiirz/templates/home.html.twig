@@ -1,4 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/splide.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/splide.min.js') }}" defer></script>
+    <script src="{{asset('js/splide-extension-auto-scroll.min.js')}}"></script>
+    <script src="{{asset('js/home.js')}}" defer > </script>
+{% endblock %}
 
 {% block header %}
     <header class="header header--home header--all">
@@ -29,12 +38,27 @@
 
 <section class="splide-section" id="choose"> 
     <h2 class="title title--h2"> Choisis ta ville </h2>
-    <div class="splide full-width" aria-labelledby="carousel-heading">
+    <div id="carousel" class="splide full-width" aria-labelledby="carousel-heading">
         <div class="splide__track">
             <ul class="splide__list">
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide">
+                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--lyon"> 
+                        <h3> Lyon </h3>
+                        <p> La ville des bouchons et des bars animés </p>
+                    </a>
+                </li>
+                <li class="splide__slide">
+                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--paris"> 
+                        <h3> Paris </h3>
+                        <p> Paris regorge de bars chaleureux et branchés </p>
+                    </a>
+                </li>
+                <li class="splide__slide">
+                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--strasbourg"> 
+                        <h3> Strasbourg </h3>
+                        <p> Découvrez ses bars authentiques et conviviaux </p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -67,8 +91,7 @@
     </div>
 </section>
 
-{# Balise script à ranger dans le main ? #}
-<script>
+<script> 
     //////////////////Gestion animation png en hover home-page
     //////
 
@@ -106,29 +129,6 @@
             tabImg[i].setAttribute('src', oldUrls[i]);
             });
     }
-    
 </script>
-
-{# 
-<script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
-<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script> #}
-
-{# <script> 
-const splide = new Splide( '.splide', {
-  type   : 'loop',
-  drag   : 'free',
-  focus  : 'center',
-  arrows : false,
-  pagination : false,
-  autoStart: boolean = true,
-  perPage: 3,
-  gap : '1.3rem',
-  autoScroll: {
-    speed: 2,
-  },
-} );
-
-splide.mount();
-</script> #}
 
 {% endblock %}

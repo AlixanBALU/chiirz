@@ -557,11 +557,6 @@ body {
     margin: 0 auto;
   }
 }
-@media (min-width: 1240px) {
-  .hero {
-    width: 70%;
-  }
-}
 @media (min-width: 1440px) {
   .hero {
     width: 70%;
@@ -569,7 +564,7 @@ body {
 }
 @media (min-width: 1920px) {
   .hero {
-    width: 60%;
+    width: 65%;
   }
 }
 .hero__text {
@@ -1483,6 +1478,50 @@ body {
     height: 50px;
     right: 0;
   }
+}
+
+.splide__list {
+  gap: 2rem;
+}
+.splide__slide {
+  width: 200px;
+  height: 600px;
+}
+.splide__slide__img-bg {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  border-radius: 40px;
+  font-family: "Chillax", sans-serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 4rem 3rem;
+  justify-content: flex-end;
+}
+.splide__slide__img-bg--lyon {
+  background: linear-gradient(180deg, rgba(52, 39, 77, 0) 41.37%, rgba(52, 39, 77, 0.5) 70.31%), url("../../img/lyon.jpg");
+  background-size: cover;
+}
+.splide__slide__img-bg--paris {
+  background: linear-gradient(180deg, rgba(48, 65, 17, 0) 41.37%, rgba(48, 65, 17, 0.5) 70.31%), url("../../img/paris.jpg");
+  background-size: cover;
+  background-position: 25%;
+}
+.splide__slide__img-bg--strasbourg {
+  background: linear-gradient(180deg, rgba(52, 39, 77, 0) 41.37%, rgba(52, 39, 77, 0.5) 70.31%), url("../../img/strasbourg.jpg");
+  background-size: cover;
+}
+.splide__slide__img-bg h3 {
+  font-size: 4rem;
+  font-weight: 400;
+}
+.splide__slide__img-bg p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5rem;
 }
 
 .itiner-container {
