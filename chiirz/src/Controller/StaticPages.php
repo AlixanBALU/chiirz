@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Itinerary;
 use App\Entity\City;
 use App\Entity\User;
+use App\Entity\Like;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,6 +48,54 @@ class StaticPages extends AbstractController
     }
 
     /** 
+     * @Route("/itinerary/delete_like/{id}", name="delete_like") 
+    */ 
+    public function deleteLike($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->delete('App\Entity\Like', 'l')
+            ->where('l.id = :id')
+            ->setParameter('id', $id);
+
+        $query = $queryBuilder->getQuery();
+        $result = $query->execute();
+
+        return new Response('Deleted itinerary with id ' . $id);
+    }
+
+    /** 
+     * @Route("/itinerary/add_fav/{id}", name="add_fav") 
+    */ 
+    public function addToFavorites($id, EntityManagerInterface $entityManager)
+    {
+        // Get the JSON data from the request body
+        $json = file_get_contents('php://input');
+
+        // Decode the JSON data into a PHP associative array
+        $data = json_decode($json, true);
+
+
+        $fk_itinerary = $data["fk_itinerary"];
+        $itineray = $entityManager->getRepository(Itinerary::class)->find($fk_itinerary);
+        
+        $fk_user = $data["fk_user"];
+        $user = $entityManager->getRepository(User::class)->find($fk_user);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $like = new Like();
+        $like->setFkItinerary($itineray);
+        $like->setFkUser($user);        
+
+        $entityManager->persist($like);
+        $entityManager->flush();
+
+        return new Response($like->getId());
+    }
+
+    /** 
      * @Route("/itinerary/insert_bar/{id}", name="insert_bar") 
     */ 
     public function insertBar($id, EntityManagerInterface $entityManager)
@@ -84,6 +133,18 @@ class StaticPages extends AbstractController
         $entityManager->persist($itinerary);
         $entityManager->flush();
 
-        return new Response('Saved new itinerary with id '.$itinerary->getId());
+        return new Response('Saved new itinerary with img '.$itinerary->getImg());
+    }
+
+    /**
+     * @Route("/mention_legales", name="mention_legales")
+     */
+    public function mentionLegales(): Response
+    {
+        $titre = 'Mentions légales';
+ 
+        return $this->render('mentions.html.twig', [
+            'titre' => $titre
+        ]);
     }
 }

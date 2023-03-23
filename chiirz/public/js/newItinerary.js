@@ -6,6 +6,7 @@ function initMap() {
     const jsonBar = {
         "numberOfSteps" : 0,
         "avgPrice" : 0,
+        "avgRate" : 0,
         "steps" : []
     } 
 
@@ -25,10 +26,14 @@ function initMap() {
     let priceTotal = 0;
     let priceIndex = 0;
 
+    let rateTotal = 0;
+    let rateIndex = 0;
+
     const barNameInput = document.querySelector('#barNameInput');
     const citySelect = document.querySelector('#itinerary_fk_city');
     const barList = document.querySelector('#barList');
     const textInput = document.querySelector('#itinerary_text');
+    const nameInput = document.querySelector('#itinerary_name');
 
     const linkToPosImg = document.querySelector('#linkToPosImg').dataset.link;
     const linkToPinImg = document.querySelector('#linkToPosImg').dataset.pin;
@@ -51,7 +56,12 @@ function initMap() {
     });
 
     barNameInput.addEventListener('input', function (e) {
+        handleStateBtnSend();
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
+    });
+
+    nameInput.addEventListener('input', function (e) {
+        handleStateBtnSend();
     });
 
     citySelect.addEventListener('change', function (e) {
@@ -66,12 +76,24 @@ function initMap() {
         printSelectedBar();
     });
 
+    // Active le bouton 'envoyer' si le formulaire est valide
+    function handleStateBtnSend() {
+        let btn = document.querySelector('#sendBtn');
+        if (isFormValid()) {
+            btn.classList.remove('btn--cant-send');
+        }
+        else {
+            btn.classList.add('btn--cant-send');
+        }
+    };
+
     // Permet d'initialiser tout les boutons 'ajouter'
     function initAddButton() {
         let addBarBtn = document.querySelectorAll('#addBarBtn');
 
         addBarBtn.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
+
                 // On vide tout les champs
                 barNameInput.value = "";
                 barList.innerHTML = "";
@@ -113,6 +135,7 @@ function initMap() {
                     "lat" : e.target.parentElement.parentElement.dataset.lat,
                     "lng" : e.target.parentElement.parentElement.dataset.lng,
                     "price" : e.target.parentElement.parentElement.dataset.price,
+                    "rate" : e.target.parentElement.parentElement.dataset.rate,
                     "img" : imgArray
                 });
             
@@ -122,12 +145,21 @@ function initMap() {
                         priceTotal += price;
                         priceIndex++;
                     }
+
+                    let rate = parseFloat(step.rate)
+                    if (!isNaN(rate)) {
+                        console.log(rate)
+                        rateTotal += rate;
+                        rateIndex++;
+                        console.log(rateTotal)
+                    }
                 });
                 jsonBar.avgPrice = Math.round(priceTotal / priceIndex);
+                jsonBar.avgRate = parseFloat((rateTotal / rateIndex).toFixed(1));
 
-                console.log(jsonBar)
                 // On affiche les bars de l'itinéraire
                 printSelectedBar();
+                handleStateBtnSend();
             });
         });
     }
@@ -137,8 +169,8 @@ function initMap() {
         barStepList.innerHTML = "";
 
         jsonBar.steps.forEach(function (bar, i) {
-            barStepList.innerHTML += `
-            <li class="new__step__list__item">
+            barStepList.innerHTML += 
+            `<li class="new__step__list__item">
                 <div class="new__step__list__item__bar">
                     <div class="new__step__list__item__bar__step">Étape ${i + 1} : </div>
                     <div class="new__step__list__item__bar__name">${bar.name}</div>
@@ -165,6 +197,7 @@ function initMap() {
                 jsonBar.numberOfSteps--;
                 jsonBar.steps.splice(e.target.parentElement.parentElement.dataset.index, 1);
                 printSelectedBar();
+                handleStateBtnSend();
             });
         });
     }
@@ -177,6 +210,7 @@ function initMap() {
         let latArray = [];
         let lngArray = [];
         let priceArray = [];
+        let rateArray = [];
 
         let googleSearchRequest = {
             location: city,
@@ -208,6 +242,7 @@ function initMap() {
                         lngArray.push(place.geometry.location.lng());
                         
                         priceArray.push(place.price_level);
+                        rateArray.push(place.rating);
     
                         // création d'un marqueur sur la carte
                         var marker = new google.maps.Marker({
@@ -228,13 +263,15 @@ function initMap() {
                 placeIdArray.slice(0, 5);
                 latArray.slice(0, 5);
                 lngArray.slice(0, 5);
+                priceArray.slice(0, 5);
+                rateArray.slice(0, 5);
 
                 // On vide la liste
                 barList.innerHTML = "";
 
                 // On ajoute les éléments
                 nameArray.forEach(function (name, i) {
-                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
+                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
                 });
 
                 // On ajoute la fonctionnalité 'ajouter' aux boutons
@@ -294,25 +331,10 @@ function initMap() {
     }
 
     function isFormValid() {
-        // try {
-            let img = jsonBar['steps'][0].img[0];
-            let name = document.querySelector('#itinerary_name');
-            let distance = document.querySelector('#newDistance').innerHTML;
-            const userId = document.querySelector('#linkToPosImg').dataset.user;
-    
-            if (img == undefined || name.value == '' || distance == '' || userId == '') {
-                alert('Veuillez remplir tous les champs')
-                console.log(jsonBar, name.value, distance, userId)
-                return false;
-            }
-            return true;
-        // }
-        // catch(err) {
-        //     console.log(jsonBar, names.value, )
-        //     alert('Veuillez remplir tous les champs')
-        //     return false;
-        // }
-        
+        if (nameInput.value == '' || jsonBar.steps.length <= 1) {
+            return false;
+        }
+        return true;
     }
 
     function ajaxSendItinerary() {
@@ -324,8 +346,11 @@ function initMap() {
             'fk_city_id': citySelect.value,
             'distance': document.querySelector('#newDistance').innerHTML,
             'fk_user_id': document.querySelector('#linkToPosImg').dataset.user,
-            'bar': jsonBar
+            'bar': jsonBar,
+            'barDecode': JSON.stringify(jsonBar)
         }
+
+        console.log(data['img'])
 
         const url = window.location.href;
         const urlSegments = url.split("/");
@@ -340,8 +365,7 @@ function initMap() {
                 const json = this.responseText;
                 console.log(json);
                 console.log('--------\nJSON loaded\n--------');
-
-                return json;
+                // window.location.href = '/';
             }
             else {
                 console.log('Status:', xhr.status, xhr.statusText);
