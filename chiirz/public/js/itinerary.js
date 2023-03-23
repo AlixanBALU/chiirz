@@ -27,9 +27,17 @@ if (document.querySelector('#dataset')) {
     isConnected = true;
 };
 
+let isClickable = true;
 
 addToFavorites.forEach(fav => {
     fav.addEventListener('click', () => {
+        if (!isClickable) {
+            return;
+        }
+        isClickable = false;
+        setTimeout(() => {
+            isClickable = true;
+        }, 1000);
         if (isConnected) {
             console.log('itineraryId', itineraryId);
             let favParent = fav.parentElement;
@@ -105,25 +113,25 @@ function deleteFromFavorite(likeId) {
 
 function initMap() {
     function getJsonBar() {
-        const url = window.location.href;
-        const urlSegments = url.split("/");
-        // ItineraryID -> Id de l'itinéraire. 
-        const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
-    
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            console.log(this.readyState);
-            if (this.readyState == 4 && this.status == 200) {
-                const json = JSON.parse(this.responseText);
-                console.log(json);
-                console.log('--------\nJSON loaded\n--------');
-                afficheEtape(json);
-    
-            }
-        };
-        xhr.open("GET", "./get_bar/" + itineraryId, true);
-        xhr.send();
-    }
+    const url = window.location.href;
+    const urlSegments = url.split("/");
+    // ItineraryID -> Id de l'itinéraire. 
+    const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        console.log(this.readyState);
+        if (this.readyState == 4 && this.status == 200) {
+            const json = JSON.parse(this.responseText);
+            console.log(json);
+            console.log('--------\nJSON loaded\n--------');
+            afficheEtape(json);
+
+        }
+    };
+    xhr.open("GET", "./get_bar/" + itineraryId, true);
+    xhr.send();
+}
 
     jsonBar = getJsonBar();
 
