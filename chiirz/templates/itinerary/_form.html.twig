@@ -1,4 +1,5 @@
 
+{# ************************* Header de la page #}
 <header class="header-new">
         <div>
             <h1 class="title title--h1"> Créer une route de la soif sur </h1>
@@ -9,7 +10,8 @@
         <img src="{{ asset('img/monster.png') }}" alt="">
     </div>
 </header>
-{# Cacher cette div #}
+
+{# ************************* API MAPS #}
 <span data-user="{{ app.user.id }}" data-city="{{ asset('img/cityRandom.jpg') }}" data-link="{{asset('img/svg/location.svg')}}" data-pin="{{ asset('img/svg/beer.svg') }}" id="linkToPosImg" aria-hidden="true" style="display: none;"></span>
 
 {# <li class='new__bar-input__prop__list__item'>
@@ -25,7 +27,7 @@
     </div>
 </li> #}
 
-
+{# ************************* Section #}
 <section class="new">
     <div class="new__map" id="newMap" height="200" width="200"></div>
     <div class="new__content">
@@ -36,10 +38,9 @@
         
         <div class="new__content__bar-input">
             <label class="title title--h4" for="barNameInput">Ajouter un bar</label>
-            <div class="new__bar-input__prop">
-                <input type="text" name="bar-input" id="barNameInput" required="required" placeholder="🔍">
+            <div class="new__content__bar-input__prop">
+                <input class="new__content__bar-input__prop__search" type="text" name="bar-input" id="barNameInput" required="required" placeholder="🔍">
                 <ul class="new__bar-input__prop__list" id="barList">
-
                 </ul>
             </div>
         </div>
@@ -71,5 +72,3 @@
 
 
 
-{# <div id="info"></div>
-<div id="places"></div> #}

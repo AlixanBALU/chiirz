@@ -2,6 +2,8 @@
     display : flex;
     flex-direction : column;
     gap : 2rem;
+    min-height : 100%;
+    position : relative;
 
     @media (min-width: 1080px) {
         flex-direction : row;
@@ -11,9 +13,15 @@
     &__map {
         width : 100%;
         border-radius : 5px;
+        height : 20rem;
+        @media (min-width: 768px) {
+            height : 25rem;
+        }
         @media (min-width: 1080px) {
             width : 40%;
             height : 30rem;
+            position : sticky !important;
+            top : 0;
         }
     }
 
@@ -22,6 +30,11 @@
         display: flex;
         flex-direction : column;
         gap : 2rem;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+            }
         @media (min-width: 1080px) {
             width : 55%;
         }
@@ -42,26 +55,59 @@
             display : flex;
             flex-direction: column;
             gap : 1rem;
-            & input {
-                background-color : $white-grayer; 
-                border-radius : 5px;
-                padding : 0.7rem;
-                width : 100%;
-                font-family : "Plus Jakarta Sans", sans-serif;
-                font-size : 1rem;
+            &__prop {
+
+                &__search {
+                    background-color : $white-grayer; 
+                    border-radius : 5px;
+                    padding : 0.7rem;
+                    width : 100%;
+                    font-family : "Plus Jakarta Sans", sans-serif;
+                    font-size : 1rem;
+                }
+
+                &__list {
+                    background: $white-grayer;
+                    border-radius: 0 0 5px 5px;
+                    padding: 1rem 2rem;
+                    font-family : "Plus Jakarta Sans", sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    gap : 0.6rem;
+                    
+                    &__item {
+                        display : flex;
+                        justify-content : space-between;
+                        align-items : center;
+                        &__name {
+                            font-weight : 700;
+                        }
+                        &__adress {
+                            display : flex;
+                            gap : 0.3rem;
+                            align-items : center;
+
+                            &__add {
+                                background : $valid;
+                                padding: 0.3rem 0.5rem 0.5rem 0.5rem;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                                color : $white;
+                            }
+                        }
+                    }
+                }
             }
+            
+            
         }
 
         &__step {
             display : flex;
             flex-direction : column;
             gap : 1rem;
-            height : 9rem;
-            overflow-y: scroll;
-
-            &::-webkit-scrollbar {
-                display: none;
-              }
 
             & span {
                 color : $violet;
@@ -137,10 +183,16 @@
     }
 }
 
+////////////////////////Header du create itinary
 .header-new {
     display : flex;
-    margin-top: 7rem;
-    margin-bottom : 2rem;
+    margin-top: 10rem;
+    margin-bottom : 3rem;
+
+    @media (min-width: 1180px) {
+        margin-bottom : 2rem;
+    }
+
     & select {
         background-color : $green;
         padding : 0 1.3rem;
@@ -174,6 +226,9 @@
             @media (min-width: 768px) {
                 display : inline-block;
                 width : 100%;
+            } 
+            @media (min-width: 2200px) {
+                width : 80%;
             }    
         }
     }
