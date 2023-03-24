@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% if not app.user %}
+    {% do app.request.redirect('/') %}
+{% endif %}
 
 {% block javascripts %}
     {{ parent() }}

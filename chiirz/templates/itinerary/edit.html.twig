@@ -1,8 +1,4 @@
 {% extends 'base.html.twig' %}
-{% if app.user.id  %}
-    {% do redirect('/') %}
-{% endif %}
-
 
 {% block title %}Modifier {{itinerary.name}}{% endblock %}
 
@@ -16,3 +12,4 @@
     <span style="display : none" id="itineraryId" data-id="{{itinerary.id}}"></span>
     {{ include('itinerary/_form.html.twig', {'button_label': 'Terminer les modifications'}) }}
 {% endblock %}
+
