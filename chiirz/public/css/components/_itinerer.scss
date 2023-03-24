@@ -1,38 +1,56 @@
 .header-itinerer {
-    background-size: 40%;
-    display : flex;
-    gap : 5rem;
-    justify-content : space-between;
-    margin : 4rem 0;
+  display: flex;
+  gap: 5rem;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
 
-    &__div {
-        display : flex;
-        flex-direction : column;
-        gap : 5rem;
-        width : 55%;
+  @media (min-width: 1180px) {
+    margin-bottom: 2rem;
+  }
 
-        & form select {
-            background-color : $green;
-            padding : 0 1.3rem;
-            border-radius : 40px;
-        }
+  &__div {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    & select:first-child {
+      background-color: $green;
+      padding: 0 1.3rem;
+      border-radius: 40px;
+      font-size: 3rem;
+      font-family: "Chillax", sans-serif;
+      font-weight: 600;
+      line-height: 3.5rem;
+      @media (min-width: 1080px) {
+        //110 px
+        font-size: 4rem;
+        line-height: 4.5rem;
+      }
+      @media (min-width: 1280px) {
+        //110 px
+        font-size: 5rem;
+        line-height: 5.5rem;
+      }
+    }
+  }
+
+  &__img-container {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+      width: 35%;
     }
 
-    &__img-container {
-        display : none;
-
-        @media (min-width: 768px) {
-            display : block;
-            width : 35%;
-        }
-
-        & img {
-            display : none;
-            @media (min-width: 768px) {
-                display : inline-block;
-                width : 100%;
-            }    
-        }
+    & img {
+      display: none;
+      @media (min-width: 768px) {
+        display: inline-block;
+        width: 100%;
+      }
+      @media (min-width: 2200px) {
+        width: 80%;
+      }
     }
-    
+  }
 }
