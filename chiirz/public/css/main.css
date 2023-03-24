@@ -1248,13 +1248,14 @@ body {
   font-size: 1rem;
 }
 .new__content__bar-input__prop__list {
-  background: #d9d9d9;
   border-radius: 0 0 5px 5px;
   padding: 1rem 2rem;
   font-family: "Plus Jakarta Sans", sans-serif;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  border: 1px solid black;
+  border-top: none;
 }
 .new__content__bar-input__prop__list__item {
   display: flex;
@@ -1264,19 +1265,24 @@ body {
 .new__content__bar-input__prop__list__item__name {
   font-weight: 700;
 }
-.new__content__bar-input__prop__list__item__adress {
+.new__content__bar-input__prop__list__item__address {
   display: flex;
-  gap: 0.3rem;
+  gap: 1rem;
   align-items: center;
 }
-.new__content__bar-input__prop__list__item__adress__add {
+.new__content__bar-input__prop__list__item__address__add {
   background: #397e35;
-  padding: 0.3rem 0.5rem 0.5rem 0.5rem;
+  padding: 0.3rem 1rem 0.5rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   color: #ffffff;
+  margin: 0.1rem;
+  cursor: pointer;
+}
+.new__content__bar-input__prop__list__item__address__add:hover {
+  filter: brightness(0.8);
 }
 .new__content__step {
   display: flex;
@@ -1343,7 +1349,7 @@ body {
 }
 .new__content .btn {
   align-self: flex-end;
-  padding: 1rem 3rem;
+  padding: 0.5rem 1rem;
 }
 
 .header-new {
@@ -1414,6 +1420,7 @@ body {
   text-align: center;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 .btn--primary {
   background-color: #000000;

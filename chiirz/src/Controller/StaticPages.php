@@ -131,7 +131,6 @@ class StaticPages extends AbstractController
         // Decode the JSON data into a PHP associative array
         $data = json_decode($json, true);
 
-        $img = $data["img"];
         $text = $data["text"];
         $name = $data["name"];
         $distance = $data["distance"];
@@ -156,7 +155,7 @@ class StaticPages extends AbstractController
         $entityManager->persist($itinerary);
         $entityManager->flush();
 
-        return new Response('Saved new itinerary with img '.$itinerary->getImg());
+        return new Response('Saved new itinerary !');
     }
 
     /**

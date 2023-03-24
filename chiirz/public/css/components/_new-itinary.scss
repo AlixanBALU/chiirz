@@ -67,13 +67,14 @@
                 }
 
                 &__list {
-                    background: $white-grayer;
                     border-radius: 0 0 5px 5px;
                     padding: 1rem 2rem;
                     font-family : "Plus Jakarta Sans", sans-serif;
                     display: flex;
                     flex-direction: column;
                     gap : 0.6rem;
+                    border: 1px solid black;
+                    border-top: none;
                     
                     &__item {
                         display : flex;
@@ -82,19 +83,25 @@
                         &__name {
                             font-weight : 700;
                         }
-                        &__adress {
+                        &__address {
                             display : flex;
-                            gap : 0.3rem;
+                            gap : 1rem;
                             align-items : center;
 
                             &__add {
                                 background : $valid;
-                                padding: 0.3rem 0.5rem 0.5rem 0.5rem;
+                                padding: 0.3rem 1rem 0.5rem 1rem;
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
                                 border-radius: 5px;
                                 color : $white;
+                                margin: .1rem;
+                                cursor: pointer;
+
+                                &:hover {
+                                    filter: brightness(.8);
+                                }
                             }
                         }
                     }
@@ -177,7 +184,7 @@
 
         & .btn {
             align-self : flex-end;
-            padding : 1rem 3rem;
+            padding : .5rem 1rem;
         }
 
     }

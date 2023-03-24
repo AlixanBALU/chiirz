@@ -5,7 +5,6 @@ function initMap() {
 
     const jsonBar = {
         "numberOfSteps" : 0,
-        "avgPrice" : 0,
         "avgRate" : 0,
         "steps" : []
     } 
@@ -32,6 +31,7 @@ function initMap() {
     const barNameInput = document.querySelector('#barNameInput');
     const citySelect = document.querySelector('#itinerary_fk_city');
     const barList = document.querySelector('#barList');
+    barList.style.display = "none";
     const textInput = document.querySelector('#itinerary_text');
     const nameInput = document.querySelector('#itinerary_name');
 
@@ -46,21 +46,36 @@ function initMap() {
         streetViewControl: false
     });
 
+    const directionService = new google.maps.DirectionsService();
+    const directionsDisplay = new google.maps.DirectionsRenderer({
+        map: map
+    });
+
     // lancement du service 'Places' pour les requêtes
     const service = new google.maps.places.PlacesService(map);
     let markers = [];
+    let selectedMarkers = [];
 
     const sendBtn = document.querySelector('#sendBtn'); 
     sendBtn.addEventListener('click', function (e) {
-        if (isFormValid()) ajaxSendItinerary()
+        if (isFormValid()) {
+            ajaxSendItinerary()
+        }
+        else {
+            alert("Le formulaire n'est pas valide");
+        }
     });
 
     barNameInput.addEventListener('input', function (e) {
+        emptyMarkers();
         if (e.target.value === "") {
-            barList.innerHTML = "";
+            barList.style.display = "none";
         }
-        handleStateBtnSend();
-        googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
+        else {
+            barList.style.display = "block";
+            handleStateBtnSend();
+            googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
+        }
     });
 
     nameInput.addEventListener('input', function (e) {
@@ -68,6 +83,7 @@ function initMap() {
     });
 
     citySelect.addEventListener('change', function (e) {
+        emptyMarkers();
         if (barNameInput.value != "") {
             googleApiSearch(barNameInput.value, jsonPos[e.target.value], barList);
         }
@@ -96,9 +112,11 @@ function initMap() {
 
         addBarBtn.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
+                emptyMarkers();
 
                 // On vide tout les champs
                 barNameInput.value = "";
+                barList.style.display = "none";
                 barList.innerHTML = "";
 
                 let placeId = e.target.parentElement.parentElement.dataset.placeid
@@ -133,7 +151,7 @@ function initMap() {
                 jsonBar.numberOfSteps++;
                 
                 jsonBar.steps.push({
-                    "name" : e.target.parentElement.parentElement.querySelector('.new__bar-input__prop__list__item__name').innerHTML,
+                    "name" : e.target.parentElement.parentElement.querySelector('.new__content__bar-input__prop__list__item__name').innerHTML,
                     "place_id" : placeId,
                     "lat" : e.target.parentElement.parentElement.dataset.lat,
                     "lng" : e.target.parentElement.parentElement.dataset.lng,
@@ -141,30 +159,58 @@ function initMap() {
                     "rate" : e.target.parentElement.parentElement.dataset.rate,
                     "img" : imgArray
                 });
+
+                var selectedMarker = new google.maps.Marker({
+                    map: map,
+                    position: new google.maps.LatLng(e.target.parentElement.parentElement.dataset.lat, e.target.parentElement.parentElement.dataset.lng),
+                });
+
+                selectedMarkers.push(selectedMarker);
             
                 jsonBar['steps'].forEach(function (step) {
-                    let price = parseInt(step.price)
-                    if (!isNaN(price)) {
-                        priceTotal += price;
-                        priceIndex++;
-                    }
-
                     let rate = parseFloat(step.rate)
                     if (!isNaN(rate)) {
-                        console.log(rate)
                         rateTotal += rate;
                         rateIndex++;
-                        console.log(rateTotal)
                     }
                 });
-                jsonBar.avgPrice = Math.round(priceTotal / priceIndex);
                 jsonBar.avgRate = parseFloat((rateTotal / rateIndex).toFixed(1));
 
                 // On affiche les bars de l'itinéraire
+                drawRoute();
                 printSelectedBar();
                 handleStateBtnSend();
             });
         });
+    }
+
+    function drawRoute() {
+        if (jsonBar.steps.length > 2) {
+            let start = new google.maps.LatLng(jsonBar.steps[0].lat, jsonBar.steps[0].lng);
+            let end = new google.maps.LatLng(jsonBar.steps[jsonBar.steps.length - 1].lat, jsonBar.steps[jsonBar.steps.length - 1].lng);
+            let waypoints = [];
+
+            for (let i = 1; i < jsonBar.steps.length - 2; i++) {
+                waypoints.push({
+                    location: new google.maps.LatLng(jsonBar.steps[i].lat, jsonBar.steps[i].lng),
+                    stopover: true
+                });
+            }
+
+            directionService.route({
+                    origin: start,
+                    destination: end,
+                    waypoints: waypoints,
+                    avoidHighways: true,
+                    travelMode: google.maps.TravelMode.WALKING,
+                }, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        window.alert('Directions request failed due to ' + status);
+                    }
+                });
+        }
     }
 
     function printSelectedBar() {
@@ -173,12 +219,12 @@ function initMap() {
 
         jsonBar.steps.forEach(function (bar, i) {
             barStepList.innerHTML += 
-            `<li class="new__step__list__item">
-                <div class="new__step__list__item__bar">
-                    <div class="new__step__list__item__bar__step">Étape ${i + 1} : </div>
-                    <div class="new__step__list__item__bar__name">${bar.name}</div>
+            `<li class="new__content__step__list__item" data-index="${i}">
+                <div class="new__content__step__list__item__bar">
+                    <div class="new__content__step__list__item__bar__step">Étape ${i + 1} : </div>
+                    <div class="new__content__step__list__item__bar__name">${bar.name}</div>
                 </div>
-                <div class="new__step__list__item__btn">
+                <div class="new__content__step__list__item__btn">
                     <button class="btn btn--secondary" id="deleteBarBtn">Supprimer</button>
                 </div>
             </li>`;
@@ -190,6 +236,12 @@ function initMap() {
         initDeleteBar();
     }
 
+    function emptyMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+    }
+
     function initDeleteBar() {
         let deleteBarBtn = document.querySelectorAll('#deleteBarBtn');
 
@@ -197,8 +249,10 @@ function initMap() {
             btn.addEventListener('click', function (e) {
 
                 // On supprime le bar de l'itinéraire
+                let indexOfDelete = e.target.parentElement.parentElement.dataset.index;
                 jsonBar.numberOfSteps--;
-                jsonBar.steps.splice(e.target.parentElement.parentElement.dataset.index, 1);
+                jsonBar.steps.splice(indexOfDelete, 1);
+                selectedMarkers[indexOfDelete].setMap(null);
                 printSelectedBar();
                 handleStateBtnSend();
             });
@@ -222,13 +276,6 @@ function initMap() {
             type: ['bar'],
             fields: ['name', 'place_id', 'formatted_address', 'geometry', 'price_level', 'rating', 'photos']
         };
-
-        // Tableau des marqueurs
-        markers = [];
-
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
 
         service.textSearch(googleSearchRequest, function (results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -274,7 +321,7 @@ function initMap() {
 
                 // On ajoute les éléments
                 nameArray.forEach(function (name, i) {
-                    barList.innerHTML += "<li class='new__content__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__content__bar-input__prop__list__item__name'>" + name + "</div><div class='new__content__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__content__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
+                    barList.innerHTML += "<li class='new__content__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__content__bar-input__prop__list__item__name'>" + name + "</div><div class='new__content__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div class='new__content__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></li>";
                 });
 
                 // On ajoute la fonctionnalité 'ajouter' aux boutons
@@ -291,7 +338,6 @@ function initMap() {
 
         let origin = {placeId: array.steps[0].place_id};
         let destination = {placeId: array.steps[array.steps.length - 1].place_id};
-
         
         let waypoints = [];
 
@@ -306,7 +352,7 @@ function initMap() {
             }
         }
 
-        var directionsService = new google.maps.DirectionsService();
+        var directionService = new google.maps.DirectionsService();
 
         var request = {
             origin: origin,
@@ -318,7 +364,7 @@ function initMap() {
             avoidTolls: false
         };
         
-        directionsService.route(request, function(response, status) {
+        directionService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 let route = response.routes[0];
                 let lengthInMeters = 0;
@@ -334,7 +380,7 @@ function initMap() {
     }
 
     function isFormValid() {
-        if (nameInput.value == '' || jsonBar.steps.length <= 3) {
+        if (nameInput.value == '' || jsonBar.steps.length <= 2) {
             return false;
         }
         return true;
@@ -353,8 +399,6 @@ function initMap() {
             'barDecode': JSON.stringify(jsonBar)
         }
 
-        console.log(data['img'])
-
         const url = window.location.href;
         const urlSegments = url.split("/");
         // ItineraryID -> Id de l'itinéraire. 
@@ -363,7 +407,6 @@ function initMap() {
 
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            console.log(this.readyState);
             if (this.readyState == 4 && this.status == 200) {
                 const json = this.responseText;
                 console.log(json);
