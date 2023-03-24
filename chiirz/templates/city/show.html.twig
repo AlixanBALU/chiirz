@@ -27,9 +27,10 @@
                     </select>
                 </form>
             </div>
-            <div class="header-itinerer__button-wrapper">
+            <div class="header-itinerer__div__button-wrapper">
                 <a href="{{ path('app_itinerary_new')}}" class="header-itinerer__button-wrapper__button btn btn--primary-bis">Créer une route</a>
                 <form id="redirectOrder" method="POST">
+                <div>
                     <label for="order-select">Trier par</label>
                     <select class="header-itinerer__button-wrappe__select" id="order-select" name="order" data-asc="1">
                         {% if order == 'views' %}
@@ -46,7 +47,7 @@
                             <option value="id">Nouveautés</option>
                         {% endif %}
                     </select>
-                    {{ dump(isAsc is null) }}
+                </div>
                     {% if isAsc is null or isAsc == true %}
                     <input type="hidden" id="ordering" name="ascOrDesc" data-value="DESC" value="ASC" style="display : none;">
                         <button id="ascOrDesc">

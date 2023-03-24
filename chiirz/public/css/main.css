@@ -688,30 +688,95 @@ body {
   background-color: #b1ef42;
   padding: 0 1.3rem;
   border-radius: 40px;
-  font-size: 3rem;
+  font-size: 4rem;
   font-family: "Chillax", sans-serif;
   font-weight: 600;
-  line-height: 3.5rem;
+  line-height: 4.5rem;
 }
 @media (min-width: 1080px) {
-  .header-itinerer__div select:first-child {
-    font-size: 4rem;
-    line-height: 4.5rem;
-  }
-}
-@media (min-width: 1280px) {
   .header-itinerer__div select:first-child {
     font-size: 5rem;
     line-height: 5.5rem;
   }
 }
+@media (min-width: 1280px) {
+  .header-itinerer__div select:first-child {
+    font-size: 6rem;
+    line-height: 6.5rem;
+  }
+}
+.header-itinerer__div__button-wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+@media (min-width: 1080px) {
+  .header-itinerer__div__button-wrapper {
+    flex-direction: row;
+  }
+}
+.header-itinerer__div__button-wrapper form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.header-itinerer__div__button-wrapper form div {
+  display: flex;
+  background-color: transparent;
+  border: 2px #a77fee solid;
+  transition: all ease-in-out 0.2s;
+  color: #a77fee;
+  border-radius: 500px;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  cursor: pointer;
+}
+.header-itinerer__div__button-wrapper form div:hover {
+  background-color: #a77fee;
+  color: #ffffff;
+}
+.header-itinerer__div__button-wrapper form div:hover select {
+  color: #ffffff;
+}
+.header-itinerer__div__button-wrapper form div select {
+  font-weight: 700;
+  background-color: transparent;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #a77fee;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  border-radius: 30px;
+  padding-right: 2rem;
+}
+.header-itinerer__div__button-wrapper form div select option {
+  color: #a77fee;
+}
+.header-itinerer__div__button-wrapper form button {
+  background: transparent;
+  border-radius: 50%;
+  border: 2px #a77fee solid;
+  height: 100%;
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.header-itinerer__div__button-wrapper form button:hover {
+  transform: translateY(-5px);
+}
 .header-itinerer__img-container {
   display: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 1080px) {
   .header-itinerer__img-container {
     display: block;
-    width: 35%;
+    width: 45%;
   }
 }
 .header-itinerer__img-container img {
