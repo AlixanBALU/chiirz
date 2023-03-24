@@ -254,7 +254,10 @@ function initMap() {
                 // Code à exécuter une fois value chargé
                 console.log("Place : ");
                 console.log(value);
-                tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
+                if (value.international_phone_number) {
+                    tel[i].href = "tel:"+value.international_phone_number;
+                    tel[i].innerHTML = value.international_phone_number;
+                }
                 openGoogleMap[i].href = value.url;
 
                 if (value.opening_hours) {
@@ -268,8 +271,10 @@ function initMap() {
                     let ouverture;
                     if (value.opening_hours.isOpen()) {
                         ouverture = "Ouvert";
+                        isOpen[i].classList.add("parcours-info__p--ouvert");
                     } else {
                         ouverture = "Fermée";
+                        isOpen[i].classList.add("parcours-info__p--fermee");
                     }
                     const openingHours = ouverture +' ● ' + dateTimeString;
                     isOpen[i].innerHTML = openingHours;
@@ -300,13 +305,37 @@ function initMap() {
                         let p1 = document.createElement('p');
                         p1.textContent = review.text;
                 
-                        let p2 = document.createElement('p');
-                        p2.textContent = 'Rating : ' + review.rating;
-                
+                        // let p2 = document.createElement('p');
+
+                        let images =[];
+                        for (let j=0; j<review.rating; j++) {
+                            let img = document.createElement("img");
+                            images.push(img);
+                        }
+                        console.log(images.length);
+
+                        let div1 = document.createElement("div");
+                        div1.classList.add("comment__stars");
+
+                        images.forEach((img)=> {
+                            img.src = starImage;
+                            img.alt = "☆";
+                            img.classList.add("comment__img");
+                            div1.appendChild(img);
+                            console.log(img.src);
+                        });
+
                         li.appendChild(h4);
                         li.appendChild(p1);
-                        li.appendChild(p2);
+                        li.appendChild(div1);
                         ul.appendChild(li);
+
+                        // p2.textContent = 'Rating : ' + review.rating + '/5';
+                
+                        // li.appendChild(h4);
+                        // li.appendChild(p1);
+                        // li.appendChild(p2);
+                        // ul.appendChild(li);
                     });
                 
                     div.appendChild(ul);
@@ -376,8 +405,9 @@ function initMap() {
 
                 for (let i = 0; i < route.legs.length; i++) {
                     lengthInMeters += route.legs[i].distance.value;
+                    numEtape =i+2;
                     
-                    newDistance[i].innerHTML = route.legs[i].distance.text;
+                    newDistance[i].innerHTML = route.legs[i].distance.text + '<span class="p p--16"> avant l\'étape '+numEtape+'</span>';
                 }
                 // let lengthInKm = lengthInMeters / 1000;
 

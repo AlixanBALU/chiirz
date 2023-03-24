@@ -10,6 +10,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/splide.min.js') }}" defer></script>
+    <script>
+        const starImage = "{{ asset('img/svg/star.svg') }}";
+    </script>
     <script src="{{ asset('js/itinerary.js') }}" defer></script>
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTF1YkHLhu-ami5vuu4x0HyQ1Zhrirq0Q&callback=initMap&libraries=places"></script>
 {% endblock %}
