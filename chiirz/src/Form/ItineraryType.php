@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
@@ -25,7 +26,8 @@ class ItineraryType extends AbstractType
             ->add('name', null, [
                 'attr' => [
                     'placeholder' => 'Nom de la route',
-                    'required' => true
+                    'required' => true,
+                    'maxlength' => 24
                 ]
             ])
         ;

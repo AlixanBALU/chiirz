@@ -1089,6 +1089,16 @@ body {
     display: none;
   }
 }
+.section-itinerary__content__admin {
+  display: flex;
+  gap: 1rem;
+}
+.section-itinerary__content__admin .btn {
+  padding: 0.5rem 2rem;
+}
+.section-itinerary__content__admin a.btn {
+  text-decoration: underline;
+}
 .section-itinerary__content__creator {
   display: flex;
   align-items: center;
@@ -1458,6 +1468,10 @@ body {
 }
 .btn--secondary-bis:hover {
   background-color: #000000;
+}
+.btn--delete {
+  background-color: #c82f2a;
+  color: #ffffff;
 }
 
 .splide-section {

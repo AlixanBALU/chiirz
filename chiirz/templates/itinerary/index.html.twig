@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% if not app.user %}
+    {% do redirect('/') %}
+{% endif %}
+
+{% block title %}Itinerary index{% endblock %}
+
+{% block body %}
+
+    <h1>Itinerary index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Distance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for itinerary in itineraries %}
+            {% if itinerary.fkUser.id == app.user.id %}
+                <tr>
+                    <td>{{ itinerary.id }}</td>
+                    <td>{{ itinerary.name }}</td>
+                    <td>{{ itinerary.price }}</td>
+                    <td>{{ itinerary.distance }}</td>
+                    <td>
+                        <a href="{{ path('app_itinerary_show', {'id': itinerary.id}) }}">show</a>
+                        <a href="{{ path('app_itinerary_edit', {'id': itinerary.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_itinerary_new') }}">Create new</a>
+{% endblock %}

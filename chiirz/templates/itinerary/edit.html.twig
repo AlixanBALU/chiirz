@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{itinerary.name}}{% endblock %}
+
+{% block body %}
+    {{ include('itinerary/_form.html.twig', {'button_label': 'Update'}) }}
+{% endblock %}
