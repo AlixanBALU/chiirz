@@ -1,0 +1,165 @@
+#slide__comment {
+    width : 100%;
+    
+}
+
+#slide_comment .splide__arrow button {
+    display : none;
+}
+
+#slide_comment-list {
+    display : flex;
+    gap : 1rem;
+}
+
+#slide_comment-list li {
+    width : calc(120%) !important;
+    background : $white-gray;
+    border : 1px $white-grayer solid;
+    padding : 1.5rem 2rem;
+    height:220px;
+    border-radius : 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+   
+    & .splide__arrow {
+        display : none;
+        &--ltr {
+            display : none;
+        }
+        &--prev {
+            display : none;
+        }
+    }
+}
+
+#slide_comment-list h4 {
+    font-size : 20px;
+    font-weight : 500;
+}
+
+#slide_comment-list p:first-child {
+    font-size : 1rem;
+}
+
+.parcours-info__rate {
+    display : flex;
+    justify-content: space-between;
+    width : 20%;
+    align-items : center;
+
+    &__star {
+        display : flex;
+        gap : 0.5rem;
+        font-weight : 500;
+        align-items : center;
+        & img {
+            width : 20px;
+            height : 20px;
+            object-fit: contain;
+        }
+    }
+    &__opinion {
+        color : $p-grey;
+        font-weight : 400;
+        font-size : 16px;
+        &::before {
+            content : '( ';
+        }
+        &::after {
+            content : ' )';
+        }
+    }
+}
+
+.parcours-info__opening {
+    color : $valid;
+}
+
+.section-parcours__content {
+    display : flex;
+    justify-content: space-between;
+}
+
+.divContent {
+    width : 55%;
+}
+
+.section-parcours__content__splide {
+    width : 42%;
+    
+    & li {
+        border-radius : 40px;
+        overflow: hidden;
+        height : 700px;
+    }
+    &  img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    & .splide__pagination {
+        position : static;
+        display : flex;
+        gap : 0.2rem;
+        height : 30px;
+        & button {
+            background:black;
+        }
+    }
+
+    & .splide__arrow {
+        display : none;
+        &--ltr {
+            display : none;
+        }
+        &--prev {
+            display : none;
+        }
+    }
+}
+
+
+
+.parcours-info {
+    display : flex;
+    flex-direction : column;
+    gap : 1.5rem;
+    
+
+    &__step-index {
+        display : flex;
+        flex-direction: column;
+        gap : 0.8rem;
+
+        & .newDistance {
+            font-weight : 500;
+        }
+        &__of {
+            color : gray;
+        }     
+    }
+    
+    &__phone {
+        text-decoration : none;
+        color : $black;
+        font-weight : 500;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__name {
+        display : flex;
+        align-items : center;
+        gap : 0.7rem;
+        text-decoration : none;
+        color : $black;
+        & img {
+            fill : $p-grey;
+        }
+    }
+}
+
