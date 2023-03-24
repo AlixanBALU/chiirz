@@ -66,7 +66,6 @@ function initMap() {
         printSelectedBar();
         drawRoute()
         calculateRouteLength(jsonBar)
-        initDeleteBar();
 
         const sendBtn = document.querySelector('#sendBtn'); 
         sendBtn.addEventListener('click', function (e) {
@@ -223,6 +222,9 @@ function initMap() {
                         }
                     });
             }
+            else {
+                directionsDisplay.setDirections({routes: []});
+            }
         }
 
         function printSelectedBar() {
@@ -264,9 +266,10 @@ function initMap() {
                     let indexOfDelete = e.target.parentElement.parentElement.dataset.index;
                     jsonBar.numberOfSteps--;
                     jsonBar.steps.splice(indexOfDelete, 1);
-                    selectedMarkers[indexOfDelete].setMap(null);
                     printSelectedBar();
                     handleStateBtnSend();
+                    drawRoute();
+                    console.log(jsonBar);
                 });
             });
         }
