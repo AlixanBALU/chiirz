@@ -245,8 +245,7 @@ function initMap() {
 
             place.then(async (value) => {
                 // Code à exécuter une fois value chargé
-                console.log("Place : ");
-                console.log(value);
+                
                 if (value.international_phone_number) {
                     tel[i].href = "tel:"+value.international_phone_number;
                     tel[i].innerHTML = value.international_phone_number;
