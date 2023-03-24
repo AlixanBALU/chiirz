@@ -180,13 +180,12 @@ function initMap() {
             let step = jsonBar['steps'][i];
             waypoints.push(
                 { 
-                location :new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng'])),
-                stopover: true 
+                    location :new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng'])),
+                    stopover: true 
                 }
             );
 
             waypointsName.push(step['name']);
-
                     
             let marker = new google.maps.Marker({
                 position: jsonPos[step['city_id']],

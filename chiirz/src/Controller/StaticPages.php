@@ -38,6 +38,7 @@ class StaticPages extends AbstractController
             ->select('COUNT(u.id)')
             ->getQuery()
             ->getSingleScalarResult();
+
         
         $titre = 'Bienvenue';
  

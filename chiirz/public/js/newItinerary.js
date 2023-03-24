@@ -334,7 +334,7 @@ function initMap() {
     }
 
     function isFormValid() {
-        if (nameInput.value == '' || jsonBar.steps.length <= 1) {
+        if (nameInput.value == '' || jsonBar.steps.length <= 3) {
             return false;
         }
         return true;
