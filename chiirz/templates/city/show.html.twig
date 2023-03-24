@@ -72,15 +72,16 @@
                             <option value="id">Nouveautés</option>
                         {% endif %}
                     </select>
-                    {% if isAsc == null or isAsc == true %}
-                        <input type="hidden" name="ascOrDesc" value="DESC" style="display : none;">
-                        <button id="ascOrDesc"  >
-                                <img src="{{ asset('img/svg/asc.svg') }}" alt="desc" id="ordering">
+                    {{ dump(isAsc is null) }}
+                    {% if isAsc is null or isAsc == true %}
+                    <input type="hidden" id="ordering" name="ascOrDesc" data-value="DESC" value="ASC" style="display : none;">
+                        <button id="ascOrDesc">
+                                <img src="{{ asset('img/svg/asc.svg') }}" alt="desc">
                         </button>
                     {% else %}
-                        <input type="hidden" name="ascOrDesc" value="ASC" style="display : none;">
-                        <button id="text">
-                            <img src="{{ asset('img/svg/desc.svg') }}" alt="asc" id="ordering">
+                        <input type="hidden" id="ordering" name="ascOrDesc" data-value="ASC" value="DESC" style="display : none;">
+                        <button id="ascOrDesc">
+                            <img src="{{ asset('img/svg/desc.svg') }}" alt="asc">
                         </button>
                     {% endif %}
                 </form>

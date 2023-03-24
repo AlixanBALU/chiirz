@@ -51,10 +51,12 @@ class CityController extends AbstractController
 
         var_dump($_POST);
 
+
+
         if (isset($_POST["order"])) {
             $order = $_POST["order"];
 
-            if (!isset($_POST["ordering"]) || $_POST["ordering"] == "ASC") {
+            if (!isset($_POST["ascOrDesc"]) || $_POST["ascOrDesc"] == "ASC") {
                 $isAsc = true;
                 $orderBy = [$order => Criteria::ASC];
             }
@@ -68,7 +70,7 @@ class CityController extends AbstractController
 
         }
         else {
-            if (!isset($_POST["ordering"]) || $_POST["ordering"] == "ASC") {
+            if (!isset($_POST["ascOrDesc"]) || $_POST["ascOrDesc"] == "ASC") {
                 $isAsc = true;
                 $orderBy = [$order => Criteria::ASC];
             }
@@ -80,6 +82,8 @@ class CityController extends AbstractController
             $criteria = Criteria::create()->orderBy($orderBy);
             $itineraries = $itineraries->matching($criteria);
         }
+
+
 
         return $this->render('city/show.html.twig', [
             'isAsc' => $isAsc,
@@ -103,7 +107,6 @@ class CityController extends AbstractController
         }
 
         return $this->renderForm('city/edit.html.twig', [
-            'order' => $order,
             'city' => $city,
             'form' => $form,
         ]);
