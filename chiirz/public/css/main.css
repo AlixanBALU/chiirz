@@ -1174,6 +1174,7 @@ body {
   .section-itinerary__content {
     width: 50%;
     height: 600px;
+    scrollbar-width: none;
     overflow-y: scroll;
   }
   .section-itinerary__content::-webkit-scrollbar {
@@ -1817,11 +1818,19 @@ body {
   gap: 0.5rem;
 }
 
+#parcours {
+  margin-top: 3rem;
+}
+
 #slide__comment {
   width: 100%;
 }
 
-#slide_comment .splide__arrow button {
+#slide__comment .splide__arrow .splide__arrow--next {
+  display: none;
+}
+
+.parcours-info .splide button {
   display: none;
 }
 
@@ -1831,24 +1840,25 @@ body {
 }
 
 #slide_comment-list li {
-  width: 120% !important;
+  width: 410% !important;
   background: #f8f8f8;
   border: 1px #d9d9d9 solid;
   padding: 1.5rem 2rem;
-  height: 220px;
+  height: 160px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
-#slide_comment-list li .splide__arrow {
+#slide_comment-list li::-webkit-scrollbar {
   display: none;
 }
-#slide_comment-list li .splide__arrow--ltr {
-  display: none;
-}
-#slide_comment-list li .splide__arrow--prev {
-  display: none;
+@media (min-width: 1080px) {
+  #slide_comment-list li {
+    width: 120% !important;
+  }
 }
 
 #slide_comment-list h4 {
@@ -1863,7 +1873,7 @@ body {
 .parcours-info__rate {
   display: flex;
   justify-content: space-between;
-  width: 20%;
+  width: 150px;
   align-items: center;
 }
 .parcours-info__rate__star {
@@ -1895,21 +1905,43 @@ body {
 }
 
 .section-parcours__content {
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+}
+@media (min-width: 1080px) {
+  .section-parcours__content {
+    flex-direction: row;
+  }
 }
 
 .divContent {
-  width: 55%;
+  width: 100%;
+}
+@media (min-width: 1080px) {
+  .divContent {
+    width: 55%;
+  }
 }
 
 .section-parcours__content__splide {
-  width: 42%;
+  width: 100%;
+}
+@media (min-width: 1080px) {
+  .section-parcours__content__splide {
+    width: 42%;
+  }
 }
 .section-parcours__content__splide li {
   border-radius: 40px;
   overflow: hidden;
-  height: 700px;
+  height: 500px;
+}
+@media (min-width: 1080px) {
+  .section-parcours__content__splide li {
+    height: 700px;
+  }
 }
 .section-parcours__content__splide img {
   -o-object-fit: cover;
