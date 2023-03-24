@@ -106,7 +106,7 @@ class ItineraryController extends AbstractController
            throw new AccessDeniedException('You must be logged in to access this page.');
        }
 
-        if ($this->isGranted('ROLE_ADMIN') || $itinerary->getFkUser()->getId() == $user->getId()) {
+        if (!$this->isGranted('ROLE_ADMIN') && $itinerary->getFkUser()->getId() == $userId) {
             throw new AccessDeniedException('You must be logged in to access this page.');
         }
 
