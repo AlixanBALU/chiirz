@@ -1746,11 +1746,7 @@ body {
 .itiner-container {
   display: flex;
   flex-wrap: wrap;
-<<<<<<< HEAD
   justify-content: space-between;
-=======
-  gap: 1.5rem;
->>>>>>> backend
   text-decoration: none;
   color: #000000;
   row-gap: 1rem;
