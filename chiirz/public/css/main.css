@@ -77,6 +77,12 @@ Titres
     font-size: 2rem;
   }
 }
+.title--mt {
+  margin-top: 2rem;
+}
+.title--rgpd {
+  margin-top: 12rem;
+}
 
 /*
 Paragraphes
