@@ -7,6 +7,10 @@
     <script src="{{ asset('js/city.js') }}" defer></script>
 {% endblock %}
 
+{# {% block header %}
+    {% include 'partials/_nav.html.twig' %}
+{% endblock %} #}
+
 {% block body %}
     <header class="header-itinerer">
         <div class="header-itinerer__div">
@@ -23,9 +27,10 @@
                     </select>
                 </form>
             </div>
-            <div class="header-itinerer__button-wrapper">
+            <div class="header-itinerer__div__button-wrapper">
                 <a href="{{ path('app_itinerary_new')}}" class="header-itinerer__button-wrapper__button btn btn--primary-bis">Créer une route</a>
                 <form id="redirectOrder" method="POST">
+                <div>
                     <label for="order-select">Trier par</label>
                     <select class="header-itinerer__button-wrappe__select" id="order-select" name="order" data-asc="1">
                         {% if order == 'views' %}
@@ -42,7 +47,7 @@
                             <option value="id">Nouveautés</option>
                         {% endif %}
                     </select>
-                    {{ dump(isAsc is null) }}
+                </div>
                     {% if isAsc is null or isAsc == true %}
                     <input type="hidden" id="ordering" name="ascOrDesc" data-value="DESC" value="ASC" style="display : none;">
                         <button id="ascOrDesc">
@@ -78,8 +83,8 @@
                 <a class="itiner-container__card" href="{{ path('itinerary_show', {'id': itinerary.id}) }}">
                     <img class="itiner-container__card__img-bar" src="{{ itinerary.bar['steps'][0]['img'][0] }}" alt="{{ itinerary.name }}">
                     <div class="itiner-container__card__desc">
-                        <h3 class="title title--h4">{{ itinerary.name }}</h3>
-                        <div class="itiner-container__card__row p p--16">
+                        <h3 class="title title--card">{{ itinerary.name }}</h3>
+                        <div class="itiner-container__card__row ">
                             <div>{{itinerary.bar["numberOfSteps"]}} Étapes</div>
                             <div class="itiner-container__card__row__rate">
                                 <img src="{{ asset('img/svg/star.svg') }}" alt="☆">

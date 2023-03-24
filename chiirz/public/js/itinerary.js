@@ -321,6 +321,14 @@ function initMap() {
                         }).mount();
                     });
                 }
+
+                if(value.rating) {
+                    noteMoyenne[i].innerHTML = value.rating;
+                }
+
+                if(value.user_ratings_total){
+                    nbNote[i].innerHTML = value.user_ratings_total;
+                }
             });
 
         }

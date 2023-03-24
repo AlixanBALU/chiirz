@@ -32,12 +32,10 @@ Titres
     line-height: 4.5rem;
 
     @media (min-width: 1080px) {
-      //110 px
       font-size: 5rem;
       line-height: 5.5rem;
     }
     @media (min-width: 1280px) {
-      //
       font-size: 6rem;
       line-height: 6.5rem;
     }
@@ -60,6 +58,10 @@ Titres
   }
   &--h4 {
     font-size: 1.8rem;
+  }
+
+  &--card {
+    font-size: 1.5rem;
   }
 
   &--footer {
