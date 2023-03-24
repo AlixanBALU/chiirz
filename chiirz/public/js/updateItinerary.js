@@ -3,7 +3,8 @@
 
 function initMap() {
 
-    getJsonBar(document.querySelector('#itineraryId').dataset.id);
+    const itineraryId = document.querySelector('#itineraryId').dataset.id;
+    getJsonBar(itineraryId);
 
     async function getJsonBar(id) {
         const response = await fetch("/itinerary/get_bar/" + id);
@@ -402,9 +403,7 @@ function initMap() {
         }
 
         function ajaxSendItinerary() {
-
             let data = {
-                'img': jsonBar['steps'][0].img[0],
                 'text': textInput.value,
                 'name': document.querySelector('#itinerary_name').value,
                 'fk_city_id': citySelect.value,
@@ -417,7 +416,6 @@ function initMap() {
             const url = window.location.href;
             const urlSegments = url.split("/");
             // ItineraryID -> Id de l'itinéraire. 
-            const itineraryId = parseInt(urlSegments[urlSegments.length - 1]);
             
 
             const xhr = new XMLHttpRequest();
@@ -426,7 +424,7 @@ function initMap() {
                     const json = this.responseText;
                     console.log(json);
                     console.log('--------\nJSON loaded\n--------');
-                    window.location.href = '/';
+                    // window.location.href = '/';
                 }
                 else {
                     console.log('Status:', xhr.status, xhr.statusText);
@@ -436,7 +434,7 @@ function initMap() {
             xhr.onerror = function() {
                 console.log('error');
             }
-            xhr.open("POST", "./insert_bar/1", true);
+            xhr.open("POST", "/itinerary/edit_bar/" + itineraryId, true);
             xhr.send(JSON.stringify(data));
         }
     }

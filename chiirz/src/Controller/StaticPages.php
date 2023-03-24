@@ -158,6 +158,44 @@ class StaticPages extends AbstractController
         return new Response('Saved new itinerary !');
     }
 
+    /** 
+     * @Route("/itinerary/edit_bar/{id}", name="edit_bar") 
+    */ 
+    public function editBar(Itinerary $itinerary, $id, EntityManagerInterface $entityManager)
+    {
+
+        // Get the JSON data from the request body
+        $json = file_get_contents('php://input');
+
+        // Decode the JSON data into a PHP associative array
+        $data = json_decode($json, true);
+
+        $text = $data["text"];
+        $name = $data["name"];
+        $distance = $data["distance"];
+        $bar = $data["bar"];
+
+        $fk_city_id = $data["fk_city_id"];
+        $city = $entityManager->getRepository(City::class)->find($fk_city_id);
+
+        $fk_user_id = $data["fk_user_id"];
+        $user = $entityManager->getRepository(User::class)->find($fk_user_id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+;
+        $itinerary->setText($text);
+        $itinerary->setName($name);
+        $itinerary->setFkCity($city);
+        $itinerary->setDistance($distance);
+        $itinerary->setFkUser($user);
+        $itinerary->setBar($bar);
+
+        $entityManager->persist($itinerary);
+        $entityManager->flush();
+
+        return new Response('Saved new itinerary !');
+    }
+
     /**
      * @Route("/mention_legales", name="mention_legales")
      */
