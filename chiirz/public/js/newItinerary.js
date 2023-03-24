@@ -190,7 +190,7 @@ function initMap() {
             let end = new google.maps.LatLng(jsonBar.steps[jsonBar.steps.length - 1].lat, jsonBar.steps[jsonBar.steps.length - 1].lng);
             let waypoints = [];
 
-            for (let i = 1; i < jsonBar.steps.length - 2; i++) {
+            for (let i = 1; i < jsonBar.steps.length - 1; i++) {
                 waypoints.push({
                     location: new google.maps.LatLng(jsonBar.steps[i].lat, jsonBar.steps[i].lng),
                     stopover: true
@@ -210,6 +210,9 @@ function initMap() {
                         window.alert('Directions request failed due to ' + status);
                     }
                 });
+        }
+        else {
+            directionsDisplay.setDirections({routes: []});
         }
     }
 
@@ -255,6 +258,7 @@ function initMap() {
                 selectedMarkers[indexOfDelete].setMap(null);
                 printSelectedBar();
                 handleStateBtnSend();
+                drawRoute();
             });
         });
     }

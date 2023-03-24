@@ -177,13 +177,19 @@
                         }
                     }
         
-                    &__price {
-                        color : $violet;
+                    &__views {
                         display : flex;
-                        gap : 0.05rem;
+                        gap : 1rem;
                     }
                 }
             }
+        }
+
+        &--created {
+            width: 100% !important;
+            height : 100%;
+            overflow: visible;
+            margin-top: 12rem;
         }
     }
 }

@@ -11,6 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\SecurityTrait;
+
 
 #[Route('/itinerary')]
 class ItineraryController extends AbstractController
@@ -18,6 +23,10 @@ class ItineraryController extends AbstractController
     #[Route('/', name: 'app_itinerary_index', methods: ['GET'])]
     public function index(ItineraryRepository $itineraryRepository): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException('You must be logged in to access this page.');
+        }
+        
         return $this->render('itinerary/index.html.twig', [
             'itineraries' => $itineraryRepository->findAll(),
         ]);
@@ -26,9 +35,15 @@ class ItineraryController extends AbstractController
     #[Route('/new', name: 'app_itinerary_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ItineraryRepository $itineraryRepository): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException('You must be logged in to access this page.');
+        }
+
         $itinerary = new Itinerary();
         $form = $this->createForm(ItineraryType::class, $itinerary);
         $form->handleRequest($request);
+
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $itineraryRepository->save($itinerary, true);
@@ -81,6 +96,19 @@ class ItineraryController extends AbstractController
     {
         $form = $this->createForm(ItineraryType::class, $itinerary);
         $form->handleRequest($request);
+
+       /** @var User $user */
+       $user = $this->getUser();
+       if (!empty($user)) {
+           $userId = $user->getId();
+           // Your logic here...
+       } else {
+           throw new AccessDeniedException('You must be logged in to access this page.');
+       }
+
+        if ($this->isGranted('ROLE_ADMIN') || $itinerary->getFkUser()->getId() == $user->getId()) {
+            throw new AccessDeniedException('You must be logged in to access this page.');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $itineraryRepository->save($itinerary, true);
