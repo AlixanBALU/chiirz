@@ -1,7 +1,5 @@
 Faire que les path soit accessibles ou non en fonction des roles de l'utilisateur
 
-Syncro les chiffre de home avec les vrais (itinerarires, connectées, ...)
-
 Retirer les marker plus utilisé /new
 
 Fixer le avg Rating

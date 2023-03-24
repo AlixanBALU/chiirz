@@ -325,9 +325,8 @@ body {
 }
 @media (min-width: 1080px) {
   .nav__content-nav {
-    width: 70%;
+    width: 100%;
     flex-direction: row;
-    justify-content: flex-start;
     gap: 3rem;
   }
 }
@@ -620,6 +619,9 @@ body {
   .hero__text img {
     display: none;
   }
+}
+.hero__text .title--h1 {
+  width: 1000px;
 }
 .hero__img {
   display: none !important;

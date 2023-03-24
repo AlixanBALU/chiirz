@@ -22,9 +22,9 @@
         </li>
         <li> 
             {% if app.user %}
-                <a href="{{ path('app_city_show', {id : app.user.id}) }}">Tous les itinéraires </a>
+                <a href="{{ path('app_city_show', {id : app.user.fkCity.id}) }}">Tous les itinéraires </a>
             {% else %}
-                <a href="{{ path('app_city_index') }}">Tous les itinéraires </a>
+                <a href="{{ path('app_city_show', {id : 1}) }}">Tous les itinéraires </a>
             {% endif %}
         </li>
     </ul>
@@ -83,7 +83,7 @@
             </div>
         {% endif %}
     </div>
-
+</div>
 </nav>
 
 
