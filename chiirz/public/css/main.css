@@ -119,6 +119,7 @@ Paragraphes
 
 body, html {
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -1089,7 +1090,7 @@ body {
 }
 .section-itinerary__content__rate {
   display: flex;
-  gap: 1.4rem;
+  gap: 2rem;
   align-items: center;
 }
 .section-itinerary__content__rate__rating {
@@ -1104,11 +1105,11 @@ body {
   color: #000000;
   font-weight: bolder;
 }
-.section-itinerary__content__rate__price {
-  color: #a77fee;
+.section-itinerary__content__rate__views {
   display: flex;
-  gap: 0.05rem;
+  gap: 0.5rem;
   font-weight: bold;
+  align-items: center;
 }
 .section-itinerary__content__buttons {
   display: flex;
@@ -1680,8 +1681,7 @@ body {
 .itiner-container__card__row__rate img {
   height: 1.2rem;
 }
-.itiner-container__card__row__price {
-  color: #a77fee;
+.itiner-container__card__row__views {
   display: flex;
-  gap: 0.05rem;
+  gap: 0.5rem;
 }/*# sourceMappingURL=main.css.map */

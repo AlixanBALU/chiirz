@@ -32,9 +32,6 @@ class Itinerary
     #[ORM\OneToMany(mappedBy: 'fk_itinerary', targetEntity: Like::class)]
     private Collection $likes;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $img = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $text = null;
 
@@ -43,6 +40,9 @@ class Itinerary
 
     #[ORM\ManyToOne(inversedBy: 'itineraries')]
     private ?User $fk_user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $views = null;
 
     public function __construct()
     {
@@ -137,18 +137,6 @@ class Itinerary
         return $this;
     }
 
-    public function getImg(): ?string
-    {
-        return $this->img;
-    }
-
-    public function setImg(?string $img): self
-    {
-        $this->img = $img;
-
-        return $this;
-    }
-
     public function getText(): ?string
     {
         return $this->text;
@@ -181,6 +169,18 @@ class Itinerary
     public function setFkUser(?User $fk_user): self
     {
         $this->fk_user = $fk_user;
+
+        return $this;
+    }
+
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(?int $views): self
+    {
+        $this->views = $views;
 
         return $this;
     }

@@ -29,10 +29,8 @@
         </header>
         <section class="itiner-container">
             {% for city in cities %}
-            {{dump(city)}}
                 {% for itinerary in city.itineraries %}
                     <div class="itiner-container__card">
-                        <img href="{{ itinerary.img }}" alt="{{ itinerary.name }}">
                         {# <h3>{{ itinerary.name }}</h3> #}
                         <div class="itiner-container__card__desc">
                             <div class="itiner-container__card__row">

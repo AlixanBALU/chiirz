@@ -56,6 +56,9 @@ function initMap() {
     });
 
     barNameInput.addEventListener('input', function (e) {
+        if (e.target.value === "") {
+            barList.innerHTML = "";
+        }
         handleStateBtnSend();
         googleApiSearch(e.target.value, jsonPos[citySelect.value], barList);
     });
@@ -271,7 +274,7 @@ function initMap() {
 
                 // On ajoute les éléments
                 nameArray.forEach(function (name, i) {
-                    barList.innerHTML += "<li class='new__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__bar-input__prop__list__item__name'>" + name + "</div><div class='new__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
+                    barList.innerHTML += "<li class='new__content__bar-input__prop__list__item' data-rate='" + rateArray[i] +  "' data-price='" + priceArray[i] + "' data-lat='" + latArray[i] +"' data-lng='" + lngArray[i] +"' data-placeid='" + placeIdArray[i] + "'><div class='new__content__bar-input__prop__list__item__name'>" + name + "</div><div class='new__content__bar-input__prop__list__item__address'><img src='" + linkToPosImg + "' alt=''><div></div><div class='new__content__bar-input__prop__list__item__address__add' id='addBarBtn'>+</div></div></li>";
                 });
 
                 // On ajoute la fonctionnalité 'ajouter' aux boutons
@@ -365,7 +368,7 @@ function initMap() {
                 const json = this.responseText;
                 console.log(json);
                 console.log('--------\nJSON loaded\n--------');
-                // window.location.href = '/';
+                window.location.href = '/';
             }
             else {
                 console.log('Status:', xhr.status, xhr.statusText);

@@ -167,35 +167,56 @@ function initMap() {
             map: itineraryMap
         });
 
-        for (let i = 1; i < jsonBar['steps'].length; i++) {
+        let waypoints = [];
+        let start = new google.maps.LatLng(parseFloat(jsonBar['steps'][0]['lat']), parseFloat(jsonBar['steps'][0]['lng']));
+        let end = new google.maps.LatLng(parseFloat(jsonBar['steps'][jsonBar['steps'].length -1]['lat']), parseFloat(jsonBar['steps'][jsonBar['steps'].length -1]['lng']));
+
+        let waypointsName = [];
+        let startName = jsonBar['steps'][0]['name'];
+        let endName = jsonBar['steps'][jsonBar['steps'].length -1]['name'];
+
+        for (let i = 1; i < jsonBar['steps'].length -2; i++) {
 
             let step = jsonBar['steps'][i];
+            waypoints.push(
+                { 
+                location :new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng'])),
+                stopover: true 
+                }
+            );
 
-            pointA = null;
-            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
-            pointA = new google.maps.LatLng(parseFloat(jsonBar['steps'][i-1]['lat']), parseFloat(jsonBar['steps'][i-1]['lng']));
-            pointB = new google.maps.LatLng(parseFloat(jsonBar['steps'][i]['lat']), parseFloat(jsonBar['steps'][i]['lng']));
+            waypointsName.push(step['name']);
+
+                    
             let marker = new google.maps.Marker({
                 position: jsonPos[step['city_id']],
                 map: itineraryMap,
-                title: step['name']
+                title: step['name'],
+                icon: {
+                    url: "/img/beer.png"
+                }
             });
 
-            calculateAndDisplayRoute(directionService, directionsDisplay, pointA, pointB);
+            calculateAndDisplayRoute(directionService, directionsDisplay, start, waypoints, end, startName, waypointsName, endName);
         }
 
-
-
-        function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, start, waypoints, end, starName, waypointsName, endName) {
             directionsService.route({
-                origin: pointA,
-                destination: pointB,
-                avoidTolls: true,
+                origin: start,
+                destination: end,
+                waypoints: waypoints,
                 avoidHighways: false,
-                travelMode: google.maps.TravelMode.WALKING
+                travelMode: google.maps.TravelMode.WALKING,
             }, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
+                    var directions = directionsDisplay.getDirections();
+                    var startDir = encodeURIComponent(starName);
+                    let waypointsDir = encodeURIComponent(waypointsName.join("|"));
+                    var endDir = encodeURIComponent(endName);
+                    var travelMode = directions.request.travelMode.toLowerCase();
+                    var link = 'https://www.google.com/maps/dir/?api=1&origin=' + startDir + '&destination=' + endDir + '&waypoints=' + waypointsDir + '&travelmode=' + travelMode;
+                    document.querySelector('#linkGoogleMap').setAttribute('href', link);
                 } else {
                     window.alert('Directions request failed due to ' + status);
                 }

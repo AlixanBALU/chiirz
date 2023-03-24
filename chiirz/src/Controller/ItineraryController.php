@@ -43,7 +43,7 @@ class ItineraryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_itinerary_show', methods: ['GET'])]
-    public function show(Itinerary $itinerary): Response
+    public function show(Itinerary $itinerary, EntityManagerInterface $entityManager): Response
     {
 
         // $students = $this->getDoctrine() 
@@ -64,6 +64,12 @@ class ItineraryController extends AbstractController
         // } else { 
         // return $this->render('student/ajax.html.twig'); 
         // } 
+
+        $itinerary->setViews($itinerary->getViews() + 1);
+
+        $entityManager->persist($itinerary);
+        $entityManager->flush();
+        
         
         return $this->render('itinerary/show.html.twig', [
             'itinerary' => $itinerary,

@@ -73,10 +73,9 @@
                 }
             }
 
-            &__price {
-                color : $violet;
+            &__views {
                 display : flex;
-                gap : 0.05rem;
+                gap : 0.5rem;
             }
         }
     }
