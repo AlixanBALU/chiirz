@@ -18,10 +18,6 @@
 {% endblock %}
 
 {% block body %}
-    <a href="" id="backButton" class="back-itinerary">
-        <img src="{{ asset('img/svg/back.svg') }}" alt="<">
-        Retour en arrière
-    </a>
     <section class="section-itinerary" {% if app.user %} data-user="{{ itinerary.fkUser.id }}" data-itinerary="{{ itinerary.id }}" id="dataset" {% endif %}>
         <div class="section-itinerary__maps" id="itineraryMap" data-city="{{ itinerary.fkCity.id }}">
             {# Intégration Google Maps #}

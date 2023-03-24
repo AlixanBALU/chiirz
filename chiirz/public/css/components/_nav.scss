@@ -150,6 +150,54 @@
     padding: 4rem;
     transition: all ease-in-out 0.3s;
 
+    & li {
+      padding: 1rem 0;
+
+    }
+
+    & a {
+      font-family: "Chillax", sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: $black;
+      margin-bottom: 1rem;
+      text-decoration: none;
+    }
+
+    &__content-btn {
+      margin-top: 2rem;
+    
+      & a {
+        font-size: 1rem;
+        color: $p-grey;
+      }
+
+    }
+
+    &__content-online {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-family: 'Chillax';
+
+      & p {
+        color: #555555;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      & p:nth-child(2) 
+      {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $black;
+      }
+
+      & img {
+        width: 4rem;
+      }
+    }
+
     &__close {
       cursor: pointer;
     }

@@ -3,17 +3,17 @@
     <img src="{{ asset('img/svg/close.svg') }}" class="nav__sidebar__close" alt="close-menu" id="closeMenu">
 
     {% if app.user %}
-    <div class="nav__sidebar__content-online">
-        <a href="{{ path('user', {'id': app.user.id }) }}">
-            <img src="{{ asset('img/happy-smiley.png') }}">
-            <div>
-                <p> Bonjour à toi !</p>
-                <p> {{ app.user.pseudo }} </p>
-            </div>
-        </a>
-    </div>
+    <a href="{{ path('user', {'id': app.user.id }) }}" class="nav__sidebar__content-online">
+        <img src="{{ asset('img/happy-smiley.png') }}">
+        <div>
+            <p> Bonjour à toi !</p>
+            <p> {{ app.user.pseudo }} </p>
+        </div>
+    </a>
     {% else %}
-    <p> Bien le bonjour ! </p>
+    <a href="{{ path('login') }}" class="nav__sidebar__content-online">
+        <p> Bien le bonjour ! </p>
+    </a>
     {% endif %}
     
     <ul class="p p-20">
@@ -52,7 +52,7 @@
             </li>
             <li> 
                 {% if app.user %}
-                    <a href="{{ path('app_city_show', {id : app.user.id}) }}">Tous les itinéraires </a>
+                    <a href="{{ path('app_city_show', {id : app.user.fkCity.id}) }}">Tous les itinéraires </a>
                 {% else %}
                     <a href="{{ path('app_city_index') }}">Tous les itinéraires </a>
                 {% endif %}
