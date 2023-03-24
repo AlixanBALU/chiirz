@@ -211,6 +211,9 @@ function initMap() {
                     }
                 });
         }
+        else {
+            directionsDisplay.setDirections({routes: []});
+        }
     }
 
     function printSelectedBar() {
