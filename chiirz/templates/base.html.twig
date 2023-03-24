@@ -56,10 +56,10 @@
                             </div>
                             <ul class="p-20">
                                 <li> 
-                                    <a href="#choose"> Je choisis ma ville </a>
+                                    <a href="{{ path('home') }}#choose"> Je choisis ma ville </a>
                                 </li>
                                 <li> 
-                                    <a href="#what"> Chiirz c'est quoi ? </a>
+                                    <a href="{{ path('home') }}#what"> Chiirz c'est quoi ? </a>
                                 </li>
                             </ul>
                         </article>
@@ -71,13 +71,13 @@
                             </div>
                             <ul class="p-20">
                                 <li> 
-                                    <a href="#"> Paris </a>
+                                    <a href="{{ path('app_city_show', {'id': 1}) }}"> Paris </a>
                                 </li>
                                 <li> 
-                                    <a href="#"> Lyon </a>
+                                    <a href="{{ path('app_city_show', {'id': 2}) }}"> Lyon </a>
                                 </li>
                                 <li> 
-                                    <a href="#"> Strasbourg </a>
+                                    <a href="{{ path('app_city_show', {'id': 3}) }}"> Strasbourg </a>
                                 </li>
                             </ul>
                         </article>
@@ -88,14 +88,24 @@
                                 <h4 class="title title--footer"> Utilitaires </h4>
                             </div>
                             <ul class="p-20">
+
+                                {% if app.user %}
                                 <li> 
-                                    <a href="#"> Mon compte </a>
+                                    <a href="{{ path('user', {'id': app.user.id }) }}"> Mon profil </a>
                                 </li>
+                                {% else %}
                                 <li> 
-                                    <a href="#"> Créer une route </a>
+                                    <a href="{{ path('login') }}" >Se connecter </a>
                                 </li>
+                                {% endif %}
+
+
                                 <li> 
-                                    <a href="#"> Découvrir les routes </a>
+                                    <a href="{{ path('app_itinerary_new') }}"> Créer une route </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ path('app_itinerary_index') }}"> Mes routes </a>
                                 </li>
                             </ul>
                         </article>

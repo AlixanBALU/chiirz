@@ -66,8 +66,8 @@
                         <div class="user__favorite__itiner-container__card__row">
                             <div>{{ l.fkItinerary.distance }}</div>
                             <div class="user__favorite__itiner-container__card__row__views">
-                                {% if itinerary.views != null %}
-                                    {{ itinerary.views }}
+                                {% if l.fkItinerary.views != null %}
+                                    {{ l.fkItinerary.views }}
                                 {% else %}
                                     0
                                 {% endif %}
