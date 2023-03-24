@@ -33,7 +33,7 @@
                 <p>Route de la soif imaginé par <a href="{{ path('user', { 'id': itinerary.fkuser.id }) }}" class="section-itinerary__content__creator__link">{{ itinerary.fkuser.pseudo }}</a></p>
             </div>
             <h1 class="title title--h2">{{ itinerary.name }}</h1>
-            {% if is_granted('ROLE_ADMIN') or app.user.id == itinerary.fkUser.id %}
+            {% if app.user and (is_granted('ROLE_ADMIN') or app.user.id == itinerary.fkUser.id) %}
                 <div class="section-itinerary__content__admin">
                     {{ include('itinerary/_delete_form.html.twig') }}
                     <a href="{{ path('app_itinerary_edit', {'id': itinerary.id }) }}" class="btn">Modifier</a>
@@ -72,8 +72,8 @@
                 </a>
             </div>
             {% set haveLiked = false %}
-            {% for like in itinerary.likes and app.user %}
-                {% if like.fkUser == app.user.id %}
+            {% for like in itinerary.likes %}
+                {% if like.fkUser.id == app.user.id %}
                     {% set haveLiked = true %}
                     <div class="section-itinerary__content__like fav--active" data-state="0" data-id="{{ like.id }}" id="favParent">
                         <img src="{{ asset('img/heart.png') }}" alt="♡" id="addTofavorites">

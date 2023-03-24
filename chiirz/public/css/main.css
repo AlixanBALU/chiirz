@@ -80,6 +80,12 @@ Titres
     font-size: 2rem;
   }
 }
+.title--mt {
+  margin-top: 2rem;
+}
+.title--rgpd {
+  margin-top: 12rem;
+}
 
 /*
 Paragraphes
@@ -1138,10 +1144,15 @@ body {
 .user__favorite__itiner-container__card__row__rate img {
   height: 1.2rem;
 }
-.user__favorite__itiner-container__card__row__price {
-  color: #a77fee;
+.user__favorite__itiner-container__card__row__views {
   display: flex;
-  gap: 0.05rem;
+  gap: 1rem;
+}
+.user__favorite--created {
+  width: 100% !important;
+  height: 100%;
+  overflow: visible;
+  margin-top: 12rem;
 }
 
 .section-itinerary {

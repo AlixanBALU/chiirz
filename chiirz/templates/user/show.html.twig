@@ -65,10 +65,12 @@
                         </div>
                         <div class="user__favorite__itiner-container__card__row">
                             <div>{{ l.fkItinerary.distance }}</div>
-                            <div class="user__favorite__itiner-container__card__row__price">
-                                {% for i in 1..l.fkItinerary.price %}
-                                    <span>€</span>
-                                {% endfor %}
+                            <div class="user__favorite__itiner-container__card__row__views">
+                                {% if itinerary.views != null %}
+                                    {{ itinerary.views }}
+                                {% else %}
+                                    0
+                                {% endif %}
                             </div>
                         </div>
                     </div>
