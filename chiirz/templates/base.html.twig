@@ -15,7 +15,7 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             
-            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="{{ asset('js/main.js') }}" defer></script>
 
         {% endblock %}
     </head>
@@ -110,8 +110,8 @@
                 
                 <!-- Mentions légales-->
                 <div class="footer__content__mentions-legales p-20">
-                    <a href="#" > Mentions légales </a>
-                    <a href="#" > Contact </a>
+                    <a href="/mention_legales"> Mentions légales </a>
+                    <a href="mailto: lilidebieve@yahoo.fr"> Contact </a>
                 </div>  
 
             </div>              
