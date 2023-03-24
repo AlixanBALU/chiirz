@@ -135,4 +135,16 @@ class StaticPages extends AbstractController
 
         return new Response('Saved new itinerary with img '.$itinerary->getImg());
     }
+
+    /**
+     * @Route("/mention_legales", name="mention_legales")
+     */
+    public function mentionLegales(): Response
+    {
+        $titre = 'Mentions légales';
+ 
+        return $this->render('mentions.html.twig', [
+            'titre' => $titre
+        ]);
+    }
 }

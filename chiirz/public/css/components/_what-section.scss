@@ -2,15 +2,18 @@
     display : flex;
     flex-direction : column;
     gap : 2rem;
+    margin : 7rem 0;
 
     & strong {
         text-decoration : underline;
     }
     
     & h2 {
-        @media (max-width: 768px) {
-            width : 80%;
-            position : relative;
+        width : 80%;
+        position : relative;
+        @media (min-width: 768px) {
+            width : 100%;
+            position : static;
         }
 
         &:after {
@@ -18,23 +21,22 @@
             background : url(../../img/what-smiley.png);
             background-size : contain;
             display : inline-block;
-            width : 50px;
-            height : 50px;
             background-repeat : no-repeat;
-            position : relative;
-            top : 10px;
+            position : absolute;
+            right : -80px;
+            top : -10px;
+            width : 80px;
+            height : 80px;
 
-            @media (max-width: 768px) {
-                position : absolute;
-                right : -80px;
-                top : -10px;
-                width : 80px;
-                height : 80px;
+            @media (min-width: 768px) {   
+                position : relative;
+                top : 10px;
+                left : 0;
+                width : 50px;
+                height : 50px;
             }
         }
     }
-
-    
 
     & h2+p {
         color : $p-grey;
@@ -56,7 +58,7 @@
         & article {
             background-color : $white-gray;
             border : 2px $white-grayer solid;
-            padding : 1rem 1.5rem;
+            padding : 3rem 1.5rem;
             display : flex;
             flex-direction : column;
             align-items : center;
@@ -64,6 +66,8 @@
             border-radius : 40px;
             width : 100%;
             gap : 1.3rem;
+            justify-content: center;
+            height:fit-content;
         
             @media (min-width: 768px) {
                 width : 47%;
@@ -78,6 +82,26 @@
             & p {
                 font-family : "Chillax", sans-serif;
             }
+
+            &:last-child {
+                background-color : $violet4;
+                border : 2px $violet2 solid;
+                & p {
+                    color : $violet;
+                    width : 140%;
+                }
+                & span {
+                    color : $violet3;
+                }
+            }
+
+            & img {
+                width : 160px;
+                height : 160px;
+                object-fit:cover;
+            }
         }
+
+        
     }
 }

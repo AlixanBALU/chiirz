@@ -68,8 +68,11 @@ Titres
     font-size : 1.5rem;
     font-weight: 700;
     @media (min-width: 1080px) {
-      
       //32px
+      font-size: 1.8rem;
+    }
+
+    @media (min-width: 1440px) {
       font-size: 2rem;
     }
     

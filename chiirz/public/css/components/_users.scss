@@ -1,12 +1,11 @@
 .user {
     display : flex;
     flex-direction : column;
-    margin-top : 7rem;
+    margin-top : 10rem;
     overflow-y : hidden;
     gap : 3rem;
   
-
-    @media (min-width: 1080px) {
+    @media (min-width: 1080px) { //990 si pas d'img dans l'iti
         flex-direction : row;
         justify-content : space-between;
         gap : 0;

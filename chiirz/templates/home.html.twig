@@ -1,4 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/splide.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/splide.min.js') }}" defer></script>
+    <script src="{{asset('js/splide-extension-auto-scroll.min.js')}}"></script>
+    <script src="{{asset('js/home.js')}}" defer > </script>
+{% endblock %}
 
 {% block header %}
     <header class="header header--home header--all">
@@ -27,66 +36,110 @@
 
 {% block body %}
 
-<section class="splide-section"> 
+<section class="splide-section" id="choose"> 
     <h2 class="title title--h2"> Choisis ta ville </h2>
-    <div class="splide full-width" aria-labelledby="carousel-heading">
+    <div id="carousel" class="splide" aria-labelledby="carousel-heading">
+        <img class="splide__ball splide__ball--green" src="{{ asset('img/green-ball.png') }}" alt="">
+        <img class="splide__ball splide__ball--violet" src="{{ asset('img/violet-ball.png') }}" alt="">
         <div class="splide__track">
             <ul class="splide__list">
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
-                <li class="splide__slide"><img src="{{ asset('img/carousel.png') }}"></li>
+                <li class="splide__slide">
+                    <a href="#"> 
+                        <img src="{{ asset('img/lyon.jpg') }}" alt="Voir les tournées de bar de Lyon">
+                        <div>
+                            <h3> Lyon </h3>
+                            <p> La ville des bouchons et des bars animés </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="splide__slide">
+                    <a href="#"> 
+                        <img src="{{ asset('img/paris.jpg') }}" alt="Voir les tournées de bar de Paris">
+                        <div>
+                            <h3> Paris </h3>
+                            <p> Paris regorge de bars chaleureux et branchés </p>
+                        </div>
+                    </a>
+                </li>
+                <li class="splide__slide">
+                    <a href="#"> 
+                        <img src="{{ asset('img/strasbourg.jpg') }}" alt="Voir les tournées de bar de Strasbourg">
+                        <div>
+                            <h3> Strasbourg </h3>
+                            <p> Découvrez ses bars authentiques et conviviaux </p>
+                        </div>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </section>
 
-<section class="what-section">
+<section class="what-section" id="what">
     <h2 class="title title--h2"> <strong> Chiirz </strong> c'est quoi ? </h2>
     <p class="p p--16"> Permettez-moi de vous présenter Skoll, une entreprise qui propose de vous aider à trouver les meilleurs bars dans les villes de Paris, Lyon et Strasbourg. En utilisant notre plateforme, vous pouvez planifier votre itinéraire de soirée, découvrir les dernières tendances de la vie nocturne et trouver des endroits sympas pour sortir avec vos amis. En outre, notre site répertorie également les paris dans ces villes, pour les amateurs de jeux de hasard. Avec Skoll, vous êtes sûr de passer une soirée inoubliable !</p>
     <h3 class="title title--h3"> Autrement dit c'est </h3>
     <div class="what-section__articles-content">
-        <article>
+        <article >
             <img src="{{ asset('img/beers.png') }}">
             <p class="p p--24 "> 57 <br> Etablissaments </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
-            <p class="p p--24 "> 57 <br> Etablissaments </p>
+            <img src="{{ asset('img/monkey.png') }}">
+            <p class="p p--24 "> 500<br> Commentaires </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
-            <p class="p p--24 "> 57 <br> Etablissaments </p>
+            <img src="{{ asset('img/reallyhappy-smiley.png') }}">
+            <p class="p p--24 "> +200 <br> Inscrits </p>
         </article>
 
         <article>
-            <img src="{{ asset('img/beers.png') }}">
-            <p class="p p--24 "> 57 <br> Etablissaments </p>
+            <img src="{{ asset('img/stareyes-smiley.png') }}">
+            <p class="p p--24 "> Bref un site <br> <span> (presque) </span> parfait </p>
         </article>
     </div>
 </section>
 
-
-<script src="path-to-the-script/splide-extension-auto-scroll.min.js"></script>
-<script> new Splide( '.splide' ).mount( window.splide.Extensions ); </script>
-
 <script> 
-const splide = new Splide( '.splide', {
-  type   : 'loop',
-  drag   : 'free',
-  focus  : 'center',
-  arrows : false,
-  pagination : false,
-  autoStart: boolean = true,
-  perPage: 3,
-  gap : '1.3rem',
-  autoScroll: {
-    speed: 2,
-  },
-} );
+    //////////////////Gestion animation png en hover home-page
+    //////
 
-splide.mount();
+    //selection des articles
+    const tabArticle = document.querySelectorAll(".what-section__articles-content article");
+     //selection des img actuelles
+    const tabImg = document.querySelectorAll(".what-section__articles-content article img");
+
+    //Définition des url de non animées
+    const oldUrls = [
+          "{{ asset('img/beers.png') }}",
+          "{{ asset('img/monkey.png') }}",
+            "{{ asset('img/reallyhappy-smiley.png') }}",
+            "{{ asset('img/stareyes-smiley.png') }}"
+            ];
+
+     //définition des url animées
+    const newUrls = [
+          "{{ asset('img/beers-animated.png') }}",
+          "{{ asset('img/monkey-animated.png') }}",
+            "{{ asset('img/reallyhappy-smiley-animated.png') }}",
+            "{{ asset('img/stareyes-smiley-animated.png') }}"
+            ];
+
+    //quand la souris est sur l'article, déclenchement png animé
+    for (let i=0; i<tabArticle.length; i++) {
+        tabArticle[i].addEventListener("mouseover", function(){
+            tabImg[i].setAttribute('src', newUrls[i]);
+            });
+    }
+
+    //quand la souris quitte l'article, arrêt du png animé
+    for (let i=0; i<tabArticle.length; i++) {
+        tabArticle[i].addEventListener("mouseout", function(){
+            tabImg[i].setAttribute('src', oldUrls[i]);
+            });
+    }
 </script>
 
 {% endblock %}

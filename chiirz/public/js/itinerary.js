@@ -136,6 +136,7 @@ function initMap() {
       
         await informationItinerary(json[0]["bar"]);
         await afficheEtape(json);
+        await calculateRouteLength(json[0]["bar"]);
     }
 
     function informationItinerary(jsonBar) {
@@ -226,8 +227,6 @@ function initMap() {
 
     async function afficheEtape(json) {
 
-
-
         const nbEtape = document.querySelectorAll(".stepIndex");
         const tel = document.querySelectorAll(".stepPhone");
         const noteMoyenne = document.querySelectorAll(".stepRateNumber");
@@ -235,6 +234,7 @@ function initMap() {
         const isOpen = document.querySelectorAll(".stepIsOpen");
         const content = document.querySelectorAll(".divContent");
         const openGoogleMap = document.querySelectorAll(".stepName");
+
 
         for (let i = 0; i < nbEtape.length; i++) {
             const request_id = {
@@ -250,79 +250,133 @@ function initMap() {
                     }
                 });
             });
-            console.log('mkjb')
 
             place.then(async (value) => {
-                await (async function() {
-                    // Code à exécuter une fois value chargé
-                    console.log("Place : ");
-                    console.log(value);
-                    
-                    tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
-                    openGoogleMap[i].href = value.url;
+                // Code à exécuter une fois value chargé
+                console.log("Place : ");
+                console.log(value);
+                tel[i].innerHTML += `<p>${value.international_phone_number}</p>`;
+                openGoogleMap[i].href = value.url;
 
-                    if (value.opening_hours) {
-                        const today = new Date().getDay();
-                        const todayHours = value.opening_hours.weekday_text[today];
-                        const closingTime = todayHours.split(': ')[1];
-                        const currentDate = new Date().toLocaleDateString();
-                        const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
-                        const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
-                        const openingHours = 'Heure d\'ouverture : ' + dateTimeString;
-                        isOpen[i].innerHTML = openingHours;
+                if (value.opening_hours) {
+                    const today = new Date().getDay();
+                    const todayHours = value.opening_hours.weekday_text[today];
+                    const closingTime = todayHours.split(': ')[1];
+                    const currentDate = new Date().toLocaleDateString();
+                    const currentDay = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+                    // const dateTimeString = `${currentDate}, ${currentDay} ${closingTime}`;
+                    const dateTimeString = `${currentDay} ${closingTime}`;
+                    let ouverture;
+                    if (value.opening_hours.isOpen()) {
+                        ouverture = "Ouvert";
+                    } else {
+                        ouverture = "Fermée";
                     }
+                    const openingHours = ouverture +' ● ' + dateTimeString;
+                    isOpen[i].innerHTML = openingHours;
+                }
 
 
-                    // Commentaires
-                    
-                    if (value.reviews) {
-                        let section = document.createElement('section');
-                        section.id = 'slide_comment';
-                        section.className = 'splide';
-                        section.setAttribute('aria-label', 'Slide sur les commentaires');
-                        console.log("create comment "+ i)
-                    
-                        let div = document.createElement('div');
-                        div.className = 'splide__track';
-                    
-                        let ul = document.createElement('ul');
-                        ul.className = 'splide__list';
-                    
-                        value.reviews.forEach(function(review){
-                            let li = document.createElement('li');
-                            li.className = 'splide__slide';
-                    
-                            let h4 = document.createElement('h4');
-                            h4.textContent = review.author_name;
-                    
-                            let p1 = document.createElement('p');
-                            p1.textContent = review.text;
-                    
-                            let p2 = document.createElement('p');
-                            p2.textContent = 'Rating : ' + review.rating;
-                    
-                            li.appendChild(h4);
-                            li.appendChild(p1);
-                            li.appendChild(p2);
-                            ul.appendChild(li);
-                        });
-                    
-                        div.appendChild(ul);
-                        section.appendChild(div);
-                        content[i].appendChild(section);
-                    
-                        document.querySelectorAll('#slide_comment').forEach(slide => {
-                            new Splide(slide, {
-                                type : "loop",
-                                padding : "10rem",
-                                pagination : false
-                            }).mount();
-                        });
-                    }
-
-                });
+                // Commentaires
+                
+                if (value.reviews) {
+                    let section = document.createElement('section');
+                    section.id = 'slide_comment';
+                    section.className = 'splide';
+                    section.setAttribute('aria-label', 'Slide sur les commentaires');
+                
+                    let div = document.createElement('div');
+                    div.className = 'splide__track';
+                
+                    let ul = document.createElement('ul');
+                    ul.className = 'splide__list';
+                
+                    value.reviews.forEach(function(review){
+                        let li = document.createElement('li');
+                        li.className = 'splide__slide';
+                
+                        let h4 = document.createElement('h4');
+                        h4.textContent = review.author_name;
+                
+                        let p1 = document.createElement('p');
+                        p1.textContent = review.text;
+                
+                        let p2 = document.createElement('p');
+                        p2.textContent = 'Rating : ' + review.rating;
+                
+                        li.appendChild(h4);
+                        li.appendChild(p1);
+                        li.appendChild(p2);
+                        ul.appendChild(li);
+                    });
+                
+                    div.appendChild(ul);
+                    section.appendChild(div);
+                    content[i].appendChild(section);
+                
+                    document.querySelectorAll('#slide_comment').forEach(slide => {
+                        new Splide(slide, {
+                            type : "loop",
+                            padding : "10rem",
+                            pagination : false
+                        }).mount();
+                    });
+                }
             });
+
         }
+    }
+
+    function calculateRouteLength(array) {
+        const newDistance = document.querySelectorAll('.newDistance');
+
+        // Au cas ou il n'y a qu'un bar
+        if (array.steps.length == 1) return '0.00km';
+
+        let origin = {placeId: array.steps[0].place_id};
+        let destination = {placeId: array.steps[array.steps.length - 1].place_id};
+
+
+        let waypoints = [];
+
+        if (array.steps.length > 2) {
+            for (let i = 1; i <= array.steps.length - 2; i++) {
+                waypoints.push(
+                    {
+                        location: {lat: parseFloat(array.steps[i].lat), lng: parseFloat(array.steps[i].lng)},
+                        stopover: true
+                    }
+                );
+            }
+        }
+
+        var directionsService = new google.maps.DirectionsService();
+
+        var request = {
+            origin: origin,
+            destination: destination,
+            waypoints: waypoints,
+            travelMode: 'WALKING',
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false
+        };
+
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                let route = response.routes[0];
+                let lengthInMeters = 0;
+
+                for (let i = 0; i < route.legs.length; i++) {
+                    lengthInMeters += route.legs[i].distance.value;
+                    
+                    newDistance[i].innerHTML = route.legs[i].distance.text;
+                }
+                // let lengthInKm = lengthInMeters / 1000;
+
+                // newDistance[0].innerHTML = parseFloat(lengthInKm.toFixed(1)) + ' km';
+            }
+        });
     }
     /*
     *
