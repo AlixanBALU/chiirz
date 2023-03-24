@@ -17,11 +17,34 @@ class StaticPages extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home(EntityManagerInterface $entityManager): Response
     {
+
+        $itineraryRepository = $entityManager->getRepository(Itinerary::class);
+        
+        $itineraryCount = $itineraryRepository->createQueryBuilder('i')
+            ->select('COUNT(i.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        
+        $itineraryViews = $itineraryRepository->createQueryBuilder('i')
+            ->select('SUM(i.views)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $userRepository = $entityManager->getRepository(User::class);
+        
+        $userCount = $userRepository->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        
         $titre = 'Bienvenue';
  
         return $this->render('home.html.twig', [
+            'userCount' => $userCount,
+            'itineraryViews' => $itineraryViews,
+            'itineraryCount' => $itineraryCount,
             'titre' => $titre
         ]);
     }
@@ -122,7 +145,6 @@ class StaticPages extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $itinerary = new Itinerary();
-        $itinerary->setImg($img);
         $itinerary->setText($text);
         $itinerary->setName($name);
         $itinerary->setFkCity($city);
