@@ -49,9 +49,6 @@ class CityController extends AbstractController
         $itineraries = $city->getItineraries();
         $order = "views";
 
-        var_dump($_POST);
-
-
 
         if (isset($_POST["order"])) {
             $order = $_POST["order"];
