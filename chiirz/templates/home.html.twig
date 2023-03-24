@@ -38,25 +38,36 @@
 
 <section class="splide-section" id="choose"> 
     <h2 class="title title--h2"> Choisis ta ville </h2>
-    <div id="carousel" class="splide full-width" aria-labelledby="carousel-heading">
+    <div id="carousel" class="splide" aria-labelledby="carousel-heading">
+        <img class="splide__ball splide__ball--green" src="{{ asset('img/green-ball.png') }}" alt="">
+        <img class="splide__ball splide__ball--violet" src="{{ asset('img/violet-ball.png') }}" alt="">
         <div class="splide__track">
             <ul class="splide__list">
                 <li class="splide__slide">
-                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--lyon"> 
-                        <h3> Lyon </h3>
-                        <p> La ville des bouchons et des bars animés </p>
+                    <a href="#"> 
+                        <img src="{{ asset('img/lyon.jpg') }}" alt="Voir les tournées de bar de Lyon">
+                        <div>
+                            <h3> Lyon </h3>
+                            <p> La ville des bouchons et des bars animés </p>
+                        </div>
                     </a>
                 </li>
                 <li class="splide__slide">
-                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--paris"> 
-                        <h3> Paris </h3>
-                        <p> Paris regorge de bars chaleureux et branchés </p>
+                    <a href="#"> 
+                        <img src="{{ asset('img/paris.jpg') }}" alt="Voir les tournées de bar de Paris">
+                        <div>
+                            <h3> Paris </h3>
+                            <p> Paris regorge de bars chaleureux et branchés </p>
+                        </div>
                     </a>
                 </li>
                 <li class="splide__slide">
-                    <a href="#" class="splide__slide__img-bg splide__slide__img-bg--strasbourg"> 
-                        <h3> Strasbourg </h3>
-                        <p> Découvrez ses bars authentiques et conviviaux </p>
+                    <a href="#"> 
+                        <img src="{{ asset('img/strasbourg.jpg') }}" alt="Voir les tournées de bar de Strasbourg">
+                        <div>
+                            <h3> Strasbourg </h3>
+                            <p> Découvrez ses bars authentiques et conviviaux </p>
+                        </div>
                     </a>
                 </li>
             </ul>
