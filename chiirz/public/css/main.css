@@ -1934,6 +1934,47 @@ body {
   content: " )";
 }
 
+.section-parcours__big-splide .splide__arrow--prev {
+  opacity: 1;
+  background-color: #ffffff;
+  border-radius: 40px;
+  width: 6rem;
+  padding: 1.2rem;
+  transform: translateX(-2rem);
+}
+.section-parcours__big-splide .splide__arrow--prev svg {
+  fill: #000000;
+  width: 24px;
+}
+.section-parcours__big-splide .splide__arrow--next {
+  background-color: #a77fee;
+  top: inherit;
+  bottom: 0.5rem !important;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 40px;
+  font-size: 1.2rem;
+  padding: 2rem 3rem;
+  opacity: 1;
+  font-family: "Chillax";
+}
+.section-parcours__big-splide .splide__arrow--next:before {
+  content: "Beuverie suivante";
+  color: #ffffff;
+  font-weight: 500;
+}
+.section-parcours__big-splide .splide__arrow--next:after {
+  content: "";
+  height: 32px;
+  width: 32px;
+  background-image: url("/img/beer.png");
+  background-size: cover;
+  margin-left: 1rem;
+}
+.section-parcours__big-splide .splide__arrow--next svg {
+  display: none;
+}
+
 .parcours-info__opening {
   color: #397e35;
 }
