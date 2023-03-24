@@ -1,10 +1,3 @@
-// back button
-const backButton = document.querySelector('#backButton');
-
-backButton.addEventListener('click', () => {
-    history.back()
-});
-
 // Splide js
 
 const splidesPics = document.querySelectorAll('#splidePics');

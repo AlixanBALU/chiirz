@@ -235,3 +235,14 @@
     }
 }
 
+.comment__stars {
+    display : flex;
+    gap : 0.5rem;
+    align-items : center;
+    & img {
+        width : 20px;
+        height : 20px;
+        object-fit: contain;
+    }
+}
+

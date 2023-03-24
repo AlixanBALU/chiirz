@@ -453,6 +453,43 @@ body {
   padding: 4rem;
   transition: all ease-in-out 0.3s;
 }
+.nav__sidebar li {
+  padding: 1rem 0;
+}
+.nav__sidebar a {
+  font-family: "Chillax", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #000000;
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+.nav__sidebar__content-btn {
+  margin-top: 2rem;
+}
+.nav__sidebar__content-btn a {
+  font-size: 1rem;
+  color: #555555;
+}
+.nav__sidebar__content-online {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-family: "Chillax";
+}
+.nav__sidebar__content-online p {
+  color: #555555;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.nav__sidebar__content-online p:nth-child(2) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000000;
+}
+.nav__sidebar__content-online img {
+  width: 4rem;
+}
 .nav__sidebar__close {
   cursor: pointer;
 }
@@ -2075,4 +2112,16 @@ body {
 }
 .parcours-info__name img {
   fill: #555555;
+}
+
+.comment__stars {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.comment__stars img {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: contain;
+     object-fit: contain;
 }/*# sourceMappingURL=main.css.map */
