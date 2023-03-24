@@ -97,7 +97,7 @@
       height: 700px;
     }
 
-    & a {
+    &__a {
       width: 100%;
       height: 100%;
       display: inline-block;
@@ -105,15 +105,26 @@
       font-family: "Chillax", sans-serif;
       color: $white;
       text-decoration: none;
-      background: linear-gradient(
-        180deg,
-        rgba(52, 39, 77, 0) 41.37%,
-        rgba(52, 39, 77, 0.5) 70.31%
-      );
       position: relative;
 
       &:hover img {
         transform: scale(1.2);
+      }
+
+      &--lyon {
+        background: linear-gradient(
+          180deg,
+          rgba(52, 39, 77, 0) 41.37%,
+          rgba(52, 39, 77, 0.5) 70.31%
+        );
+      }
+
+      &--paris {
+        background: linear-gradient(
+          180deg,
+          rgba(48, 65, 17, 0) 41.37%,
+          rgba(48, 65, 17, 0.5) 70.31%
+        );
       }
 
       & img {
