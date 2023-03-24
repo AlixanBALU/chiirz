@@ -342,7 +342,7 @@ function initMap() {
         let waypoints = [];
 
         if (array.steps.length > 2) {
-            for (let i = 1; i <= array.steps.length - 2; i++) {
+            for (let i = 1; i <= array.steps.length - 1; i++) {
                 waypoints.push(
                     {
                         location: {lat: parseFloat(array.steps[i].lat), lng: parseFloat(array.steps[i].lng)},

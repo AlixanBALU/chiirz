@@ -1,9 +1,9 @@
 Faire que les path soit accessibles ou non en fonction des roles de l'utilisateur
 
-Retirer les marker plus utilisé /new
+Index itinerary represente tous les itinerary crée
 
-Fixer le avg Rating
+fixer le systeme des favoris
 
-Fixer l'affichage des points de passage 'plus particulierement pour les destinations à 2 points'
-
-Refaire les card destination
+EDIT :
+Ajouter les waypoints
+update au lieu de insert
