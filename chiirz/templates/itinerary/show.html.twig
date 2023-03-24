@@ -69,8 +69,8 @@
                 </a>
             </div>
             {% set haveLiked = false %}
-            {% for like in itinerary.likes and app.user %}
-                {% if like.fkUser == app.user.id %}
+            {% for like in itinerary.likes %}
+                {% if like.fkUser.id == app.user.id %}
                     {% set haveLiked = true %}
                     <div class="section-itinerary__content__like fav--active" data-state="0" data-id="{{ like.id }}" id="favParent">
                         <img src="{{ asset('img/heart.png') }}" alt="♡" id="addTofavorites">
