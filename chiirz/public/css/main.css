@@ -1946,6 +1946,12 @@ body {
   width: 150px;
   align-items: center;
 }
+.parcours-info__rate__p--ouvert {
+  color: #397e35;
+}
+.parcours-info__rate__p--fermee {
+  color: #c82f2a;
+}
 .parcours-info__rate__star {
   display: flex;
   gap: 0.5rem;

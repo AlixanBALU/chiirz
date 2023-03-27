@@ -57,6 +57,14 @@
     width : 150px;
     align-items : center;
 
+    &__p {
+        &--ouvert {
+            color : $valid;
+        }
+        &--fermee {
+            color : $error;
+        }
+    }
     &__star {
         display : flex;
         gap : 0.5rem;
