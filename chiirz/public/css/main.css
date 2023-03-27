@@ -2017,10 +2017,6 @@ body {
   display: none;
 }
 
-.parcours-info__opening {
-  color: #397e35;
-}
-
 .section-parcours__content {
   padding: 0.5rem;
   display: flex;
