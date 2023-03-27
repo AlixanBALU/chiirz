@@ -21,6 +21,7 @@
                     Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
                 <div class="hero__text__btn">
                     <a href="{{ path('app_itinerary_new') }}" class="btn btn--primary"> Créer une route de la soif </a>
+                    {# Liens vers Trouver un itinéraire #}
                     {% if app.user %}
                         <a href="{{ path('app_city_show', {id : app.user.fkCity.id}) }}"  class="btn btn--secondary"> Trouver un itinéraire </a>
                     {% else %}
