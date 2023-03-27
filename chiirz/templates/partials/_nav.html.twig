@@ -54,7 +54,7 @@
                 {% if app.user %}
                     <a href="{{ path('app_city_show', {id : app.user.fkCity.id}) }}">Tous les itinéraires </a>
                 {% else %}
-                    <a href="{{ path('app_city_index') }}">Tous les itinéraires </a>
+                    <a href="{{ path('homepage') }}#choose">Tous les itinéraires </a>
                 {% endif %}
             </li>
             {# Version connectée, ajout li deconnexion #}

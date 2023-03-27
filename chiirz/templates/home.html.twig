@@ -20,8 +20,12 @@
                     pour une soirée (un peu trop) arrosée ? 
                     Trouve les  tournées de bars qui feront chavirer ton palais ou construis ton itinéraire de beuverie mémorable avec notre site ! </p>
                 <div class="hero__text__btn">
-                    <a href="#" class="btn btn--primary"> Créer une route de la soif </a>
-                    <a href="#" class="btn btn--secondary"> Trouver un itinéraire </a>
+                    <a href="{{ path('app_itinerary_new') }}" class="btn btn--primary"> Créer une route de la soif </a>
+                    {% if app.user %}
+                        <a href="{{ path('app_city_show', {id : app.user.fkCity.id}) }}"  class="btn btn--secondary"> Trouver un itinéraire </a>
+                    {% else %}
+                        <a href="{{ path('homepage') }}#choose" class="btn btn--secondary"> Trouver un itinéraire </a>
+                    {% endif %}
                 </div>
         
                 <img src="{{ asset('img/happy-smiley.png') }}">
