@@ -202,19 +202,19 @@
     background-color: $green;
     padding: 0 1.3rem;
     border-radius: 40px;
-    font-size: 3rem;
+    font-size: 4rem;
     font-family: "Chillax", sans-serif;
     font-weight: 600;
-    line-height: 3.5rem;
+    line-height: 4.5rem;
     @media (min-width: 1080px) {
-      //110 px
-      font-size: 4rem;
-      line-height: 4.5rem;
-    }
-    @media (min-width: 1280px) {
       //110 px
       font-size: 5rem;
       line-height: 5.5rem;
+    }
+    @media (min-width: 1280px) {
+      //110 px
+      font-size: 6rem;
+      line-height: 6.5rem;
     }
   }
 

@@ -305,7 +305,7 @@ body {
   align-items: center;
   width: 90%;
   position: absolute;
-  top: 65px;
+  top: 40px;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 0;
@@ -632,10 +632,12 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   width: 100%;
+  margin-top: 5rem;
 }
 @media (min-width: 768px) {
   .hero__text {
     width: 50%;
+    margin-top: 0;
   }
 }
 .hero__text span {
@@ -665,9 +667,6 @@ body {
   .hero__text img {
     display: none;
   }
-}
-.hero__text .title--h1 {
-  width: 1000px;
 }
 .hero__img {
   display: none !important;
@@ -849,6 +848,7 @@ body {
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
+  margin-top: 4rem;
 }
 @media (min-width: 768px) {
   .login {
@@ -856,6 +856,7 @@ body {
     justify-content: space-between;
     flex-direction: row;
     gap: 0;
+    margin-top: 0;
   }
 }
 .login__content {
@@ -924,7 +925,7 @@ body {
   gap: 3rem;
   justify-content: center;
   min-height: 100vh;
-  margin-top: 3rem;
+  margin-top: 6rem;
 }
 @media (min-width: 560px) {
   .register {
@@ -958,6 +959,14 @@ body {
 @media (min-width: 768px) {
   .register__content h1 {
     text-align: left;
+  }
+}
+.register__content .btn {
+  align-self: center;
+}
+@media (min-width: 768px) {
+  .register__content .btn {
+    align-self: flex-start;
   }
 }
 .register img {
@@ -1165,6 +1174,7 @@ body {
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
+  width: 100%;
 }
 .user__favorite__itiner-container__card__row {
   display: flex;
@@ -1518,21 +1528,21 @@ body {
   background-color: #b1ef42;
   padding: 0 1.3rem;
   border-radius: 40px;
-  font-size: 3rem;
+  font-size: 4rem;
   font-family: "Chillax", sans-serif;
   font-weight: 600;
-  line-height: 3.5rem;
+  line-height: 4.5rem;
 }
 @media (min-width: 1080px) {
   .header-new select {
-    font-size: 4rem;
-    line-height: 4.5rem;
+    font-size: 5rem;
+    line-height: 5.5rem;
   }
 }
 @media (min-width: 1280px) {
   .header-new select {
-    font-size: 5rem;
-    line-height: 5.5rem;
+    font-size: 6rem;
+    line-height: 6.5rem;
   }
 }
 .header-new__img-container {
